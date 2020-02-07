@@ -62,7 +62,9 @@ export class NavbarComponent implements OnInit{
 
           html.classList.add('nav-open');
           if (window.innerWidth < 991) {
-            mainPanel.style.position = 'fixed';
+            if(mainPanel){
+              mainPanel.style.position = 'fixed';
+            }
           }
           this.sidebarVisible = true;
       };
@@ -71,7 +73,9 @@ export class NavbarComponent implements OnInit{
           const mainPanel =  <HTMLElement>document.getElementsByClassName('main-panel')[0];
           if (window.innerWidth < 991) {
             setTimeout(function(){
-              mainPanel.style.position = '';
+              if(mainPanel){
+                mainPanel.style.position = '';
+              }
             }, 500);
           }
           this.toggleButton.classList.remove('toggled');

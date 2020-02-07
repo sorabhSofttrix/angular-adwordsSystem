@@ -1,0 +1,86 @@
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="card card-user">
+        <div class="card-header">
+          <h5 class="card-title">Register User</h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="userForm" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group" [ngClass]="{'has-error': userRole.invalid && userRole.dirty}">
+                        <label>Role</label>
+                        <select class="form-control" formControlName="role">
+                            <option value="">Select Role</option>
+                            <option *ngFor="let roleItem of allRole" [value]="roleItem.key">{{roleItem.value}}</option>
+                        </select>
+                      </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                  <div class="form-group" [ngClass]="{'has-error': name.invalid && name.dirty}">
+                    <label>Full name</label>
+                    <input type="text" formControlName="name" class="form-control" placeholder="Full Name">
+                  </div>
+                </div>
+              </div>
+            <div class="row">
+              <div class="col-md-7">
+                <div class="form-group" [ngClass]="{'has-error': email.invalid && email.dirty}">
+                  <label>Email address</label>
+                  <input type="email"  formControlName="email" class="form-control" placeholder="Email">
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="form-group" [ngClass]="{'has-error': password.invalid && password.dirty}">
+                    <label>Password</label>
+                    <input type="password"  formControlName="password" class="form-control" placeholder="Password">
+                  </div>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Tag line</label>
+                  <input type="text" formControlName="tag_line" class="form-control" placeholder="Tag Line">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Profile Image</label>
+                  <input #userPhoto type="file" class="form-control" (change)="fileChangeEvent($event)"/>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>About Me</label>
+                  <textarea class="form-control textarea" formControlName="about" placeholder="About me"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="alert alert-danger" *ngIf="errorMessage">
+                  <span><b> Oops!</b> {{errorMessage}}</span>
+                </div>
+                <div class="alert alert-success" *ngIf="successMessage">
+                  <span>{{successMessage}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="update ml-auto mr-auto">
+                <button type="submit" [disabled]="loading" (click)="submit()" class="btn btn-primary btn-round">Register</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>  

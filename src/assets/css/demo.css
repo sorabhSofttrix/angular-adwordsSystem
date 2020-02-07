@@ -1,3 +1,7 @@
 .form-group.has-error .form-control {
     border-color: red;
 }
+.form-group input[type=file]{
+    opacity: unset!important;
+    position: unset!important;
+}

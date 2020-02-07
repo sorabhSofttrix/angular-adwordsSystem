@@ -9,11 +9,13 @@ export interface RouteInfo {
     title: string;
     icon: string;
     class: string;
+    nottoShowInMenu?: boolean;
 }
 
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard',     title: 'Dashboard',         icon:'nc-bank',       class: '' },
     { path: '/user',          title: 'User Profile',      icon:'nc-single-02',  class: '' },
+    { path: '/register-user', title: 'Add Member',      icon:'nc-simple-add',  class: '', nottoShowInMenu: true },
 ];
 
 @Component({
@@ -32,7 +34,7 @@ export class SidebarComponent implements OnInit {
 
     }
     ngOnInit() {
-        this.menuItems = ROUTES.filter(menuItem => menuItem);
+        this.menuItems = ROUTES.filter(menuItem => !menuItem.nottoShowInMenu);
     }
 
     logout(){

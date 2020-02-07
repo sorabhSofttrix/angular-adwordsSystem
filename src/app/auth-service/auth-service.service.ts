@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject} from 'rxjs';
 import { Router } from '@angular/router';
+import { TokenResponse, User } from '../api-services/api-types/api-types.service';
 
 const TOKEN_KEY = 'auth-token';
 @Injectable({
@@ -9,19 +10,25 @@ const TOKEN_KEY = 'auth-token';
 export class AuthServiceService {
 
   authenticationState = new BehaviorSubject(false);
-  token: any;
+  token: TokenResponse;
   constructor(private router: Router,) { 
     this.checkToken();
   }
  
-  alterToken(newValue: any) {
-    newValue.createdAt = new Date();
-    delete newValue.expires_in;
+  alterToken(newValue: TokenResponse) {
+    newValue.createdAt = new Date() + '';
+    newValue.expires_in = '';
     return newValue;
   }
-  updateTokenValue(newValue: any) {
+
+  updateTokenValue(newValue: TokenResponse) {
     localStorage.setItem(TOKEN_KEY, JSON.stringify(this.alterToken(newValue)));
     this.token = newValue;
+  }
+
+  updateTokenUser(user: User) {
+    this.token.user = user;
+    this.updateTokenValue(this.token);
   }
 
   checkToken() {
@@ -32,7 +39,7 @@ export class AuthServiceService {
     }
   }
  
-  login(token: any) {
+  login(token: TokenResponse) {
     localStorage.setItem(TOKEN_KEY, JSON.stringify(this.alterToken(token)));
     this.token = token;
     this.authenticationState.next(true);
