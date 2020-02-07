@@ -18,6 +18,26 @@
                 </div>
             </div>
             <div class="row">
+              <div class="col-6" *ngIf="accountAdmin.status">
+                  <div class="form-group" [ngClass]="{'has-error': parentId.invalid && parentId.dirty && !selectedAdmin.value}">
+                    <label>Account Admin</label>
+                    <select class="form-control" formControlName="selected_admin">
+                        <option value="">Select Admin</option>
+                        <option *ngFor="let admin of accountAdmin.items" [value]="admin.id">{{admin.name}}</option>
+                    </select>
+                  </div>
+              </div>
+              <div class="col-6" *ngIf="accountDirectors.status">
+                <div class="form-group" [ngClass]="{'has-error': parentId.invalid && parentId.dirty && !selectedDirector.value}">
+                  <label>Account Director</label>
+                  <select class="form-control" formControlName="selected_director">
+                    <option value="">Select Director</option>
+                    <option *ngFor="let director of accountDirectors.items" [value]="director.id">{{director.name}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row">
                 <div class="col-12">
                   <div class="form-group" [ngClass]="{'has-error': name.invalid && name.dirty}">
                     <label>Full name</label>
@@ -52,7 +72,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   <label>Profile Image</label>
-                  <input #userPhoto type="file" class="form-control" (change)="fileChangeEvent($event)"/>
+                  <input #userPhoto type="file" accept="image/*" class="form-control" (change)="fileChangeEvent($event)"/>
                 </div>
               </div>
             </div>

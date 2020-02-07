@@ -109,7 +109,7 @@
           </div>
           <div class="row">
             <div class="col-12">
-              <div class="form-group">
+              <div class="form-group" [ngClass]="{'has-error': name.invalid && name.dirty}">
                 <label>Full name</label>
                 <input type="text" formControlName="name" class="form-control" placeholder="Full Name">
               </div>
@@ -127,7 +127,7 @@
             <div class="col-md-12">
               <div class="form-group">
                 <label>Profile Image</label>
-                <input #userPhoto type="file" class="form-control" (change)="fileChangeEvent($event)"/>
+                <input #userPhoto type="file" accept="image/*" class="form-control" (change)="fileChangeEvent($event)"/>
               </div>
             </div>
           </div>

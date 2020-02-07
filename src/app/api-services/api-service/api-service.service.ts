@@ -33,4 +33,8 @@ export class ApiServiceService {
     return this.http.post(`${this.baseUrl}api/auth/register`, data, { headers: headers});
   }
 
+  getUsersTeam(userId: number): Observable <any> {
+    return this.http.get(`${this.baseUrl}api/auth/get-user-team?id=${userId}`,);
+  }
+
 }

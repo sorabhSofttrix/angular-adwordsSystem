@@ -21,10 +21,15 @@ export interface User{
   email?: string;
   about?: string;
   tag_line?: string;
+  parent_id?: number;
+  add_by?: number;
   email_verified_at?: string;
   created_at?: string;
   updated_at?: string;
-  roles?: UserRoles;
+  role?: UserRoles;
+  role_id?: number;
+  children?: User[];
+  parent?: User;
 }
 
 export interface TokenResponse{

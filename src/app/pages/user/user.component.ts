@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiServiceService } from '../../api-services/api-service/api-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { toFormData } from '../../utils/utils';
+import { toFormData, validateFile } from '../../utils/utils';
 import { AuthServiceService } from '../../auth-service/auth-service.service';
 import { User } from 'app/api-services/api-types/api-types.service';
 @Component({
@@ -57,6 +57,8 @@ export class UserComponent implements OnInit{
           }
         });
     }
+
+    get name() { return this.userForm.get('name'); }
     
     submit() {
        if(!this.userForm.invalid) {
@@ -76,14 +78,24 @@ export class UserComponent implements OnInit{
                this.loading = false;
            });
        } else {
-           this.successMessage = '';
-           this.errorMessage = "please fill all required fields correctly";
+            this.successMessage = '';
+            for (const field in this.userForm.controls) {
+                this.userForm.get(field).markAsDirty();
+            }
+            this.errorMessage = "please fill all required fields correctly";
        }
   }
 
   fileChangeEvent(event) {
     if(event && event.target && event.target.files.length) {
-        this.userForm.get('avatar').setValue(event.target.files[0]);
+        let validateFileMsg = validateFile(event.target.files[0], 'image');
+        if(validateFileMsg === true) {
+            this.userForm.get('avatar').setValue(event.target.files[0]);
+        } else {
+            this.userForm.get('avatar').setValue('');
+            this.userPhoto.nativeElement.value = ""
+            this.errorMessage = validateFileMsg;
+        }
     }
   }
 }
