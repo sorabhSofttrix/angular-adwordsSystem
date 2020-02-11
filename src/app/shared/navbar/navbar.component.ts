@@ -41,6 +41,12 @@ export class NavbarComponent implements OnInit{
       for(var item = 0; item < this.listTitles.length; item++){
           if(this.listTitles[item].path === titlee){
               return this.listTitles[item].title;
+          } else {
+            let titl: any = titlee;
+            titl = (titl.charAt(0) == '/') ? titl.slice(1).split('/') : titl.split('/') ;
+            if(titl && '/'+titl[0] == this.listTitles[item].path) {
+              return this.listTitles[item].title;
+            }
           }
       }
       return 'Dashboard';

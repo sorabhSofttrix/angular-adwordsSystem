@@ -9,7 +9,7 @@ export class ApiServiceService {
   baseUrl: string = 'http://localhost:8000/';
 
   constructor(private http: HttpClient) { }
-
+/*    user'a apis        */ 
   login(user: string, pwd: string): Observable <any> {
     let data = { email: user, password: pwd };
     return this.http.post(`${this.baseUrl}api/auth/login`, data);
@@ -37,4 +37,22 @@ export class ApiServiceService {
     return this.http.get(`${this.baseUrl}api/auth/get-user-team?id=${userId}`,);
   }
 
+/* databases adwords'a apis   */
+
+  getAccounts(id?:number): Observable <any> {
+    const param = id ? `?id=${id}` : '';
+    return this.http.get(`${this.baseUrl}api/auth/get-accounts${param}`);
+  }
+
+  addAccounts(data): Observable <any> {
+    return this.http.post(`${this.baseUrl}api/auth/add-account`, data);
+  }
+
+  updateAccounts(data): Observable <any> {
+    return this.http.post(`${this.baseUrl}api/auth/update-account`, data);
+  }
+
+  getAccountInfo(id: number): Observable <any> {
+    return this.http.get(`${this.baseUrl}api/auth/get-account-info?id=${id}`);
+  }
 }

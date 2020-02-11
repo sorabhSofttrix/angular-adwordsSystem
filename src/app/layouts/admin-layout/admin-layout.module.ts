@@ -10,6 +10,9 @@ import { UserComponent }            from '../../pages/user/user.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterUserComponent } from '../../pages/register-user/register-user.component';
+import { AccountsComponent } from '../../pages/accounts/accounts.component';
+import { AddAccountComponent } from '../../pages/add-account/add-account.component';
+import { AccountInfoComponent } from '../../pages/account-info/account-info.component';
 
 @NgModule({
   imports: [
@@ -23,6 +26,9 @@ import { RegisterUserComponent } from '../../pages/register-user/register-user.c
     DashboardComponent,
     UserComponent,
     RegisterUserComponent,
+    AccountsComponent,
+    AddAccountComponent,
+    AccountInfoComponent,
   ]
 })
 

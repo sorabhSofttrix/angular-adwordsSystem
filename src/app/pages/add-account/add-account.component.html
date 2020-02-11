@@ -1,0 +1,100 @@
+<div class="row">
+    <div class="">
+      <div class="card card-user">
+        <div class="card-header">
+          <h5 class="card-title">Adword Account</h5>
+        </div>
+        <div class="card-body" *ngIf="currentAccount">
+          <form [formGroup]="accountForm" >
+            <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group" [ngClass]="{'has-error': acc_name.invalid && acc_name.dirty}">
+                    <label>Account Name</label>
+                    <input type="text" formControlName="acc_name" class="form-control" placeholder="Account Name">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" [ngClass]="{'has-error': g_acc_id.invalid && g_acc_id.dirty}">
+                      <label>Google Account ID</label>
+                      <input type="text" formControlName="g_acc_id" class="form-control" placeholder="Google Account ID" [readonly]="currentAccount && currentAccount.id">
+                    </div>
+                  </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group" [ngClass]="{'has-error': budget.invalid && budget.dirty}">
+                    <label>Budget</label>
+                    <input type="text" formControlName="budget" class="form-control" placeholder="Budget">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group" [ngClass]="{'has-error': cpa.invalid && cpa.dirty}">
+                      <label>CPA</label>
+                      <input type="text" formControlName="cpa" class="form-control" placeholder="CPA">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group" [ngClass]="{'has-error': conversion_rate.invalid && conversion_rate.dirty}">
+                      <label>Conversion Rate</label>
+                      <input type="text" formControlName="conversion_rate" class="form-control" placeholder="Conversion Rate">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group" [ngClass]="{'has-error': account_director.invalid && account_director.dirty}">
+                    <label>Account Director</label>
+                    <select class="form-control" formControlName="account_director">
+                        <option value="">Select Director</option>
+                        <option *ngFor="let director of accountDirectors.items" [value]="director.id">{{director.name}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" [ngClass]="{'has-error': account_manager.invalid && account_manager.dirty}">
+                      <label>Account Manager</label>
+                      <select class="form-control" formControlName="account_manager">
+                        <option value="">Select Manager</option>
+                        <option *ngFor="let manager of accountManagers.items" [value]="manager.id">{{manager.name}}</option>
+                      </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Cron Time</label>
+                    <select class="form-control" formControlName="cron_time" placeholder="Cron Time">
+                        <option *ngFor="let cronTime of cronTimes" [value]="cronTime">{{cronTime}}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Account Priority</label>
+                      <select class="form-control" formControlName="acc_priority" placeholder="Account Priority">
+                            <option *ngFor="let priority of accPriority" [value]="priority">{{priority}}</option>
+                      </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                  <div class="alert alert-danger" *ngIf="errorMessage">
+                    <span><b> Oops!</b> {{errorMessage}}</span>
+                  </div>
+                  <div class="alert alert-success" *ngIf="successMessage">
+                    <span>{{successMessage}}</span>
+                  </div>
+                </div>
+              </div>
+            <div class="row">
+              <div class="update ml-auto mr-auto">
+                <button type="submit" [disabled]="loading" (click)="submit()" class="btn btn-primary btn-round">{{currentAccount && currentAccount.id ? 'Update Account' : 'Add Account' }}</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>  

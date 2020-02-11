@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title"> Google Adword Accounts
+              <button  *ngIf="authService.token.user.role_id != 1" (click)="addCount()" class="btn btn-sm btn-outline-success btn-round btn-icon float-right m-0">
+                  <i class="fa fa-plus"></i>
+              </button>
+          </h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead class=" text-primary">
+                <th> Name</th>
+                <th> Account ID</th>
+                <th> Director</th>
+                <th> Manager</th>
+                <th  *ngIf="authService.token.user.role_id != 1"> </th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let account of allAccounts">
+                    <td>{{account.acc_name}}</td>
+                    <td>{{account.g_acc_id}}</td>
+                    <td>{{account.director_name}}</td>
+                    <td>{{account.manager_name}}</td>
+                    <td *ngIf="authService.token.user.role_id != 1">
+                      <button (click)="addCount(account.id)" class="btn btn-sm btn-outline-info btn-round btn-icon m-0">
+                        <i class="fa fa-pencil"></i>
+                      </button>
+                      <button (click)="infoAccount(account.id)" class="ml-2 btn btn-sm btn-outline-info btn-round btn-icon m-0">
+                        <i class="fa fa-info"></i>
+                      </button> 
+                    </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

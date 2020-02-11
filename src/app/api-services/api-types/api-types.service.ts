@@ -39,3 +39,29 @@ export interface TokenResponse{
   createdAt?: string;
   user?: User,
 }
+
+export enum Priority {
+  'low' = 'low',
+  'normal' = 'normal',
+  'moderate' = 'moderate',
+  'high' = 'high',
+  'urgent' = 'urgent'
+}
+
+export interface AdAccount{
+  id?: number;
+  g_acc_id?: string;
+  acc_name?: string;
+  budget?: string;
+  cpa?: string;
+  conversion_rate?: string;
+  account_director?: number;
+  director_name?: string;
+  account_manager?: number;
+  manager_name?: string;
+  add_by?: number;
+  cron_time?: number;
+  acc_priority?: Priority;
+  created_at?: string;
+  updated_at?: string;
+}
