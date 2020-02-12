@@ -7,6 +7,7 @@ import { RegisterUserComponent } from '../../pages/register-user/register-user.c
 import { AccountsComponent } from '../../pages/accounts/accounts.component';
 import { AddAccountComponent } from '../../pages/add-account/add-account.component';
 import { AccountInfoComponent } from '../../pages/account-info/account-info.component';
+import { UsersComponent } from '../../pages/users/users.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
@@ -16,4 +17,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'ad-account', component: AddAccountComponent, canActivate: [AuthGuardService]},
     { path: 'ad-account/:id', component: AddAccountComponent, canActivate: [AuthGuardService]},
     { path: 'account-info/:id', component: AccountInfoComponent, canActivate: [AuthGuardService]},
+    { path: 'users', component: UsersComponent, canActivate: [AuthGuardService]},
+    { path: 'users/:id', component: UsersComponent, canActivate: [AuthGuardService]},
 ];

@@ -37,6 +37,10 @@ export class ApiServiceService {
     return this.http.get(`${this.baseUrl}api/auth/get-user-team?id=${userId}`,);
   }
 
+  getUsersTeamByRoles(userId: number): Observable <any> {
+    return this.http.get(`${this.baseUrl}api/auth/get-team?id=${userId}`,);
+  }
+
 /* databases adwords'a apis   */
 
   getAccounts(id?:number): Observable <any> {

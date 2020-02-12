@@ -13,6 +13,7 @@ import { RegisterUserComponent } from '../../pages/register-user/register-user.c
 import { AccountsComponent } from '../../pages/accounts/accounts.component';
 import { AddAccountComponent } from '../../pages/add-account/add-account.component';
 import { AccountInfoComponent } from '../../pages/account-info/account-info.component';
+import { UsersComponent } from '../../pages/users/users.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { AccountInfoComponent } from '../../pages/account-info/account-info.comp
     AccountsComponent,
     AddAccountComponent,
     AccountInfoComponent,
+    UsersComponent
   ]
 })
 

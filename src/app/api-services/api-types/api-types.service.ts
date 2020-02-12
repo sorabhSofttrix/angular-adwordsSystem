@@ -30,6 +30,13 @@ export interface User{
   role_id?: number;
   children?: User[];
   parent?: User;
+  members?: Members;
+}
+
+export interface Members {
+  admins?: User[],
+  directors?: User[],
+  managers?: User[],
 }
 
 export interface TokenResponse{
@@ -64,4 +71,23 @@ export interface AdAccount{
   acc_priority?: Priority;
   created_at?: string;
   updated_at?: string;
+  history?: AccountHistory[];
+}
+
+export interface  AccountHistory {
+  id?: number;
+  acc_id?: number;
+  add_by?: number;
+  changes?: HistoryChanges[];
+  created_at?: string;
+  updated_at?: string;
+  user?: User;
+}
+
+export interface HistoryChanges {
+  desc?: string;
+  field?: string;
+  new_value?: string;
+  old_value?: string;
+  filed_name?: string;
 }

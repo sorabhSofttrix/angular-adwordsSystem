@@ -1,0 +1,94 @@
+
+<div class="row" *ngIf="currentUser">
+    <div class="col-md-4">
+      <div class="card card-user">
+        <div class="image">
+          <img src="assets/img/damir-bosnjak.jpg" alt="...">
+        </div>
+        <div class="card-body">
+            <div class="author">
+              <a href="javascript:void(0)">
+                <img class="avatar border-gray" [src]="currentUser.avatar ? currentUser.avatar: 'assets/img/default-avatar.png'" alt="...">
+                <h5 class="title">{{currentUser.name}}</h5>
+              </a>
+              <p class="description">
+                {{currentUser.tag_line}}
+              </p>
+            </div>
+            <p class="description text-center">
+              {{currentUser.about}}
+            </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Team Members</h4>
+            </div>
+            <div class="card-body">
+              <ul class="list-unstyled team-members">
+                <li *ngFor="let admin of currentUser.members.admins">
+                  <div class="row">
+                    <div class="col-md-2 col-2">
+                      <div class="avatar">
+                        <img [src]="admin.avatar ? admin.avatar: 'assets/img/default-avatar.png'" alt="..." class="img-circle img-no-padding img-responsive">
+                      </div>
+                    </div>
+                    <div class="col-md-7 col-7">
+                        {{admin.name}}
+                      <br />
+                      <span class="text-muted">
+                        <small>Admin</small>
+                      </span>
+                    </div>
+                    <div class="col-md-3 col-3 text-right">
+                      <button  (click)="routeTo(admin.id)" class="btn btn-sm btn-outline-success btn-round btn-icon m-0"><i class="fa fa-envelope"></i></button>
+                    </div>
+                  </div>
+                </li>
+                <li *ngFor="let director of currentUser.members.directors">
+                    <div class="row">
+                      <div class="col-md-2 col-2">
+                        <div class="avatar">
+                          <img [src]="director.avatar ? director.avatar: 'assets/img/default-avatar.png'" alt="..." class="img-circle img-no-padding img-responsive">
+                        </div>
+                      </div>
+                      <div class="col-md-7 col-7">
+                          {{director.name}}
+                        <br />
+                        <span class="text-muted">
+                          <small>Account Director</small>
+                        </span>
+                      </div>
+                      <div class="col-md-3 col-3 text-right">
+                        <button  (click)="routeTo(director.id)" class="btn btn-sm btn-outline-success btn-round btn-icon m-0"><i class="fa fa-envelope"></i></button>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li *ngFor="let manager of currentUser.members.managers">
+                    <div class="row">
+                      <div class="col-md-2 col-2">
+                        <div class="avatar">
+                          <img [src]="manager.avatar ? manager.avatar: 'assets/img/default-avatar.png'" alt="..." class="img-circle img-no-padding img-responsive">
+                        </div>
+                      </div>
+                      <div class="col-md-7 col-7">
+                          {{manager.name}}
+                        <br />
+                        <span class="text-muted">
+                          <small>Account Manager</small>
+                        </span>
+                      </div>
+                      <div class="col-md-3 col-3 text-right">
+                        <button  (click)="routeTo(manager.id)" class="btn btn-sm btn-outline-success btn-round btn-icon m-0"><i class="fa fa-envelope"></i></button>
+                      </div>
+                    </div>
+                  </li>
+              </ul>
+            </div>
+          </div> 
+    </div>
+  </div>
+  
