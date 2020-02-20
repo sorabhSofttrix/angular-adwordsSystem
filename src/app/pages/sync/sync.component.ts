@@ -40,18 +40,7 @@ export class SyncComponent implements OnInit {
 
   constructor(private authService: AuthServiceService, private pagerService: PagerService,
     private api: ApiServiceService, private ngxLoader: NgxUiLoaderService) {
-    this.title = "Select all/Deselect all checkbox - Angular 2";
-    this.allAccounts = [
-      { name: 'Prashobh', selected: false },
-      { name: 'Abraham', selected: false },
-      { name: 'Anil', selected: false },
-      { name: 'Sam', selected: false },
-      { name: 'Natasha', selected: false },
-      { name: 'Marry', selected: false },
-      { name: 'Zian', selected: false },
-      { name: 'karan', selected: false },
-    ]
-
+  
 
     switch (this.authService.token.user.role_id) {
       case UserRoles["Super Admin"]:
