@@ -6,57 +6,68 @@ import { InterceptorSkipHeader } from '../interceptor/httpconfig.interceptor';
   providedIn: 'root'
 })
 export class ApiServiceService {
-  baseUrl: string = 'http://localhost:8000/';
+  // baseUrl: string = 'https://6a4db3b3.ngrok.io/';
+  baseUrl: string = 'http://d1ab3d6d.ngrok.io/';
+
 
   constructor(private http: HttpClient) { }
-/*    user'a apis        */ 
-  login(user: string, pwd: string): Observable <any> {
+  /*    user'a apis        */
+  login(user: string, pwd: string): Observable<any> {
     let data = { email: user, password: pwd };
     return this.http.post(`${this.baseUrl}api/auth/login`, data);
   }
 
-  logout(): Observable <any> {
-    return this.http.post(`${this.baseUrl}api/auth/logout`,{});
+  logout(): Observable<any> {
+    return this.http.post(`${this.baseUrl}api/auth/logout`, {});
   }
 
-  getUserDetails(id: number): Observable <any> {
+  getUserDetails(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}api/auth/get-user?id=${id}`);
   }
 
-  updateUserProfile(data: any): Observable <any> {
+  getUnAssiendAccounts(): Observable<any> {
+    return this.http.get(`${this.baseUrl}api/auth/get-unassingned-accounts`);
+  }
+
+  updateUserProfile(data: any): Observable<any> {
     const headers = new HttpHeaders().set(InterceptorSkipHeader, '');
-    return this.http.post(`${this.baseUrl}api/auth/update-user`, data, { headers: headers});
+    return this.http.post(`${this.baseUrl}api/auth/update-user`, data, { headers: headers });
   }
 
-  registerUser(data: any): Observable <any> {
+  registerUser(data: any): Observable<any> {
     const headers = new HttpHeaders().set(InterceptorSkipHeader, '');
-    return this.http.post(`${this.baseUrl}api/auth/register`, data, { headers: headers});
+    return this.http.post(`${this.baseUrl}api/auth/register`, data, { headers: headers });
   }
 
-  getUsersTeam(userId: number): Observable <any> {
-    return this.http.get(`${this.baseUrl}api/auth/get-user-team?id=${userId}`,);
+  getUsersTeam(userId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}api/auth/get-user-team?id=${userId}`);
   }
 
-  getUsersTeamByRoles(userId: number): Observable <any> {
-    return this.http.get(`${this.baseUrl}api/auth/get-team?id=${userId}`,);
+  getUsersTeamByRoles(userId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}api/auth/get-team?id=${userId}`);
   }
 
-/* databases adwords'a apis   */
+  /* databases adwords'a apis   */
 
-  getAccounts(id?:number): Observable <any> {
+  getAccounts(id?: number): Observable<any> {
     const param = id ? `?id=${id}` : '';
     return this.http.get(`${this.baseUrl}api/auth/get-accounts${param}`);
   }
 
-  addAccounts(data): Observable <any> {
+  addAccounts(data): Observable<any> {
     return this.http.post(`${this.baseUrl}api/auth/add-account`, data);
   }
 
-  updateAccounts(data): Observable <any> {
+  updateAccounts(data): Observable<any> {
     return this.http.post(`${this.baseUrl}api/auth/update-account`, data);
   }
 
-  getAccountInfo(id: number): Observable <any> {
+  getAccountInfo(id: number): Observable<any> {
     return this.http.get(`${this.baseUrl}api/auth/get-account-info?id=${id}`);
   }
+  updateUnassigned(unSyncAcc): Observable<any> {
+    return this.http.post(`${this.baseUrl}api/auth/update-unassingned-accounts`, unSyncAcc);
+  }
+  // api/auth/update-unassingned-accounts
+
 }

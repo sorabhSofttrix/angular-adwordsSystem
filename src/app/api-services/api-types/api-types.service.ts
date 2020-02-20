@@ -15,7 +15,7 @@ export enum UserRoles {
   'Account Manager' = 4,
 }
 
-export interface User{
+export interface User {
   id?: number;
   name?: string;
   email?: string;
@@ -39,7 +39,7 @@ export interface Members {
   managers?: User[],
 }
 
-export interface TokenResponse{
+export interface TokenResponse {
   access_token?: string;
   token_type?: string;
   expires_in?: string;
@@ -54,12 +54,25 @@ export enum Priority {
   'high' = 'high',
   'urgent' = 'urgent'
 }
+export enum AccountStatus {
 
-export interface AdAccount{
+  'requiredSetup' = 'requiredSetup',
+  'active' = 'active',
+  'paused' = 'paused',
+  'closed' = 'closed'
+}
+
+export interface AdAccount {
   id?: number;
   g_acc_id?: string;
   acc_name?: string;
   budget?: string;
+  impressions?: string;
+  click?: string;
+  cpc?: string;
+  conversion?: string;
+  cost?: string;
+  totalConversion?: string;
   cpa?: string;
   conversion_rate?: string;
   account_director?: number;
@@ -69,12 +82,13 @@ export interface AdAccount{
   add_by?: number;
   cron_time?: number;
   acc_priority?: Priority;
+  acc_status?: AccountStatus;
   created_at?: string;
   updated_at?: string;
   history?: AccountHistory[];
 }
 
-export interface  AccountHistory {
+export interface AccountHistory {
   id?: number;
   acc_id?: number;
   add_by?: number;
@@ -90,4 +104,30 @@ export interface HistoryChanges {
   new_value?: string;
   old_value?: string;
   filed_name?: string;
+}
+
+export interface UnassignedAccounts {
+  id: number
+  g_acc_id: string
+  acc_name: string
+  budget: string
+  cpa: string
+  conversion_rate: string
+  cron_time: string
+  account_director: string
+  account_manager: string
+  created_at: string
+  updated_at: string
+  add_by: number
+  acc_priority: string
+  cost: string
+  impressions: string
+  click: string
+  acc_status: string
+  conversoin: string
+  cpc: string
+  totalConversion: string
+  director_name: string
+  manager_name: string
+  selected: boolean
 }

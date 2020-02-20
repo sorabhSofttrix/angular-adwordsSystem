@@ -14,9 +14,9 @@ export class AccountsComponent implements OnInit {
   allAccounts: AdAccount[];
   constructor(
     private api: ApiServiceService,
-    private authService: AuthServiceService,
+    public authService: AuthServiceService,
     private router: Router,
-  ) { 
+  ) {
     this.api.getAccounts().subscribe(
       res => {
         this.allAccounts = res.data;
@@ -33,7 +33,7 @@ export class AccountsComponent implements OnInit {
     this.router.navigate([`account-info/${id}`]);
   }
 
-  ngOnInit(){
+  ngOnInit() {
   }
 
   initForm() {

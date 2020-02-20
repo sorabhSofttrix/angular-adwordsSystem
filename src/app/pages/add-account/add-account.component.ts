@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiServiceService } from '../../api-services/api-service/api-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthServiceService } from '../../auth-service/auth-service.service';
-import { User, UserRoles, Priority, AdAccount } from '../../api-services/api-types/api-types.service';
+import { User, UserRoles, Priority, AdAccount, AccountStatus } from '../../api-services/api-types/api-types.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -16,10 +16,11 @@ export class AddAccountComponent implements OnInit {
   successMessage: string = '';
   accountForm: FormGroup;
   cronTimes = [6, 12, 24];
-  accPriority = [ Priority.low, Priority.normal, Priority.moderate, Priority.high, Priority.urgent];
-  accountDirectors: { status: boolean, items?: User[]} = { status : false};
-  accountManagers: { status: boolean, items?: User[]} = { status : false};
-  membersDownOptions: { loading: boolean, item?: User} = { loading: true};
+  accPriority = [Priority.low, Priority.normal, Priority.moderate, Priority.high, Priority.urgent];
+  accStatus = [AccountStatus.active, AccountStatus.closed, AccountStatus.paused, AccountStatus.requiredSetup];
+  accountDirectors: { status: boolean, items?: User[] } = { status: false };
+  accountManagers: { status: boolean, items?: User[] } = { status: false };
+  membersDownOptions: { loading: boolean, item?: User } = { loading: true };
   currentAccount: AdAccount;
   routeData: any;
   constructor(
@@ -34,8 +35,8 @@ export class AddAccountComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.routeData && this.routeData.id) {
-      this.api.getAccounts(this.routeData.id).subscribe( res =>{
+    if (this.routeData && this.routeData.id) {
+      this.api.getAccounts(this.routeData.id).subscribe(res => {
         this.currentAccount = res.data;
         this.initForm();
       });
@@ -46,18 +47,19 @@ export class AddAccountComponent implements OnInit {
     this.loadTeamMembers();
   }
 
-  getNewAcc () {
+  getNewAcc() {
     const adAcc: AdAccount = {
       id: null,
       g_acc_id: '',
       acc_name: '',
-      budget: '',
+      impressions: '',
       cpa: '',
       conversion_rate: '',
       account_director: null,
       account_manager: null,
       cron_time: null,
       acc_priority: Priority.normal,
+      acc_status: AccountStatus.requiredSetup
     };
     return adAcc;
   }
@@ -68,21 +70,21 @@ export class AddAccountComponent implements OnInit {
       switch (this.authService.token.user.role_id) {
         case UserRoles.Admin:
           this.accountDirectors.items = this.membersDownOptions.item.children;
-          if(this.currentAccount && this.currentAccount.account_director) {
+          if (this.currentAccount && this.currentAccount.account_director) {
             let items = this.accountDirectors.items.filter(item => item.id == this.currentAccount.account_director);
             this.accountManagers.items = (items.length && items[0].children.length) ? items[0].children : [];
           }
           break;
         case UserRoles["Account Director"]:
           this.accountDirectors.items = [this.membersDownOptions.item];
-          if(this.currentAccount && this.currentAccount.account_director) {
+          if (this.currentAccount && this.currentAccount.account_director) {
             let items = this.accountDirectors.items.filter(item => item.id == this.currentAccount.account_director);
             this.accountManagers.items = (items.length && items[0].children.length) ? items[0].children : [];
           }
           break;
         case UserRoles["Account Manager"]:
           this.accountDirectors.items = [this.membersDownOptions.item.parent];
-          if(this.currentAccount && this.currentAccount.account_director) {
+          if (this.currentAccount && this.currentAccount.account_director) {
             this.accountManagers.items = [this.authService.token.user];
           }
           break;
@@ -104,12 +106,28 @@ export class AddAccountComponent implements OnInit {
       cpa: [
         this.currentAccount.cpa ? this.currentAccount.cpa : '',
         Validators.compose([Validators.required])],
-      budget: [
-        this.currentAccount.budget ? this.currentAccount.budget : '',
+      impressions: [
+        this.currentAccount.impressions ? this.currentAccount.impressions : '',
         Validators.compose([Validators.required])],
-      conversion_rate: [
-        this.currentAccount.conversion_rate ? this.currentAccount.conversion_rate : '',
+      click: [
+        this.currentAccount.click ? this.currentAccount.click : '',
         Validators.compose([Validators.required])],
+      conversion: [
+        this.currentAccount.conversion ? this.currentAccount.conversion : '',
+        Validators.compose([Validators.required])
+      ],
+      cpc: [
+        this.currentAccount.cpc ? this.currentAccount.cpc : '',
+        Validators.compose([Validators.required])
+      ],
+      cost: [
+        this.currentAccount.cost ? this.currentAccount.cost : '',
+        Validators.compose([Validators.required])
+      ],
+      totalConversion: [
+        this.currentAccount.totalConversion ? this.currentAccount.totalConversion : '',
+        Validators.compose([Validators.required])
+      ],
       account_director: [
         this.currentAccount.account_director ? this.currentAccount.account_director : '',
         Validators.compose([Validators.required])],
@@ -121,19 +139,22 @@ export class AddAccountComponent implements OnInit {
         Validators.compose([Validators.required])],
       acc_priority: [
         this.currentAccount.acc_priority ? this.currentAccount.acc_priority : 'normal',
+        Validators.compose([Validators.required])],
+      acc_status: [
+        this.currentAccount.acc_status ? this.currentAccount.acc_status : 'requiredSetup',
         Validators.compose([Validators.required])]
     });
 
     this.accountForm.get('account_director').valueChanges.subscribe(value => {
-      if(value) {
-        if(this.authService.token.user.role_id == UserRoles["Account Manager"]) {
+      if (value) {
+        if (this.authService.token.user.role_id == UserRoles["Account Manager"]) {
           this.accountManagers.items = [this.authService.token.user];
         } else {
           let items = this.accountDirectors.items.filter(item => item.id == value);
           this.accountManagers.items = (items.length && items[0].children.length) ? items[0].children : [];
         }
       }
-      if(!value) {
+      if (!value) {
         this.accountForm.get('account_manager').setValue('');
         this.accountManagers.items = [];
       }
@@ -143,43 +164,43 @@ export class AddAccountComponent implements OnInit {
   get acc_name() { return this.accountForm.get('acc_name'); }
   get g_acc_id() { return this.accountForm.get('g_acc_id'); }
   get cpa() { return this.accountForm.get('cpa'); }
-  get budget() { return this.accountForm.get('budget'); }
-  get conversion_rate() { return this.accountForm.get('conversion_rate'); }
+  get impressions() { return this.accountForm.get('impressions'); }
+  get click() { return this.accountForm.get('click'); }
   get account_director() { return this.accountForm.get('account_director'); }
   get account_manager() { return this.accountForm.get('account_manager'); }
 
   submit() {
-    if(!this.accountForm.invalid) {
-        this.loading = true;
-        if(!this.currentAccount.id) {
-          this.api.addAccounts(this.accountForm.value).subscribe(res => {
-            this.errorMessage = '';
-            this.successMessage = 'Account has been added.'
-            this.loading = false;
-            this.currentAccount = res.data;
-            this.initForm();
-          }, err => {
-              this.errorMessage = err.error.error;
-              this.loading = false;
-          });
-        } else {
-          this.api.updateAccounts(this.accountForm.value).subscribe(res => {
-            this.errorMessage = '';
-            this.successMessage = 'Account has been added.'
-            this.loading = false;
-            this.currentAccount = res.data;
-            this.initForm();
-          }, err => {
-              this.errorMessage = err.error.error;
-              this.loading = false;
-          });
-        }
+    if (!this.accountForm.invalid) {
+      this.loading = true;
+      if (!this.currentAccount.id) {
+        this.api.addAccounts(this.accountForm.value).subscribe(res => {
+          this.errorMessage = '';
+          this.successMessage = 'Account has been added.'
+          this.loading = false;
+          this.currentAccount = res.data;
+          this.initForm();
+        }, err => {
+          this.errorMessage = err.error.error;
+          this.loading = false;
+        });
+      } else {
+        this.api.updateAccounts(this.accountForm.value).subscribe(res => {
+          this.errorMessage = '';
+          this.successMessage = 'Account has been added.'
+          this.loading = false;
+          this.currentAccount = res.data;
+          this.initForm();
+        }, err => {
+          this.errorMessage = err.error.error;
+          this.loading = false;
+        });
+      }
     } else {
-        this.successMessage = '';
-        for (const field in this.accountForm.controls) {
-          this.accountForm.get(field).markAsDirty();
-        }
-        this.errorMessage = "please fill all required fields correctly";
+      this.successMessage = '';
+      for (const field in this.accountForm.controls) {
+        this.accountForm.get(field).markAsDirty();
+      }
+      this.errorMessage = "please fill all required fields correctly";
     }
   }
 }

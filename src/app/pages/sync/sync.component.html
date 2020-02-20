@@ -1,0 +1,152 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"> Assign Accounts
+                </h4>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="">
+                            <label>Account Admin</label>
+                            <select class="form-control" (change)="getAdChild(id)" [(ngModel)]="id" id="id" name="id">
+                                <option [ngValue]="undefined" selected>Select Admin</option>
+                                <option *ngFor="let admin of accountAdmin.items" [ngValue]="admin.id">{{admin.name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-3" *ngIf="accountDirectors.items.length>0">
+                        <div class="">
+                            <label>Account Director</label>
+                            <select class="form-control" (change)="getDirChild(account_director)"
+                                [(ngModel)]="account_director" id="account_director" name="account_director">
+                                <option [ngValue]="undefined" selected>Select Director</option>
+                                <option *ngFor="let director of accountDirectors.items" [value]="director.id">
+                                    {{director.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-3" *ngIf="accountManager.items.length>0 && accountDirectors.items.length>0">
+                        <div class="">
+                            <label>Account Manager</label>
+                            <select class="form-control" [(ngModel)]="account_manager" id="account_manager"
+                                name="account_manager">
+                                <option [ngValue]="undefined" selected>Select manager</option>
+                                <option *ngFor="let manager of accountManager.items" [value]="manager.id">
+                                    {{manager.name}}</option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="alert alert-danger" *ngIf="errorMessage">
+                            <span><b> Oops!</b> {{errorMessage}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="text-center">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(1)">
+                                <i class="fa fa-angle-left"></i> <i class="fa fa-angle-left"></i></a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="setPage(page)">{{page}}
+                                <!-- <span class="sr-only">(current)</span> -->
+                            </a>
+                        </li>
+                        <!-- <li>
+                        <a href="#">2</a>
+                      </li>
+                      <li>
+                        <a href="#">3</a>
+                      </li> -->
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.totalPages)">
+                                <i class="fa fa-angle-right"></i>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                            <th><input type="checkbox" [(ngModel)]="selectedAll" (change)="selectAll();" /></th>
+                            <th>Account id</th>
+                            <th>Account name</th>
+                            <th>CPA</th>
+                            <th>CPC</th>
+                            <th>Clicks</th>
+                            <th>Cost</th>
+                            <th>Impression</th>
+                            <th>Conversion</th>
+                            <th>Active status</th>
+                            <th>Total conversion</th>
+
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let acc of pagedItems">
+                                <td>
+                                    <input type="checkbox" [(ngModel)]="acc.selected" (change)="checkIfAllSelected();">
+                                </td>
+                                <td>{{acc.g_acc_id}}</td>
+                                <td>{{acc.acc_name ? acc.acc_name : acc.g_acc_id}}</td>
+                                <td>{{acc.cpa}}</td>
+                                <td>{{acc.cpc }}</td>
+                                <td>{{acc.click }}</td>
+                                <td>{{acc.cost }}</td>
+                                <td>{{acc.impressions }}</td>
+                                <td>{{acc.conversion }}</td>
+                                <td>{{acc.acc_status }}</td>
+                                <td>{{acc.totalConversion }}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="text-center">
+                <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(1)">
+                            <i class="fa fa-angle-left"></i>
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                    </li>
+                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                        <a (click)="setPage(page)">{{page}}
+                            <!-- <span class="sr-only">(current)</span> -->
+                        </a>
+                    </li>
+                    <!-- <li>
+                    <a href="#">2</a>
+                  </li>
+                  <li>
+                    <a href="#">3</a>
+                  </li> -->
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.totalPages)">
+                            <i class="fa fa-angle-right"></i>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="row">
+                <div class="update ml-auto mr-auto">
+                    <button type="submit" (click)="send()" [disabled]="btnDisable"
+                        class="btn btn-primary btn-round">Save</button>
+                </div>
+                <div class="col-md-12">
+                    <div class="alert alert-success" *ngIf="successMessage">
+                        <span><b> hurray!</b> {{successMessage}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

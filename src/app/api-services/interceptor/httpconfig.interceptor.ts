@@ -7,20 +7,21 @@ export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
 @Injectable()
 export class HttpConfigInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthServiceService,) {
+  constructor(private authService: AuthServiceService, ) {
   }
-  
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const userToken = (this.authService.token) ? this.authService.token.access_token : null;
     if (userToken) {
-        request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + userToken) });
+      request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + userToken) });
     }
     if (request.headers.has(InterceptorSkipHeader)) {
-      request = request.clone({ headers: request.headers.delete(InterceptorSkipHeader)});
+      request = request.clone({ headers: request.headers.delete(InterceptorSkipHeader) });
     } else {
       request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
     }
     request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
+    // console.log('check->>>>', request);
     return next.handle(request);
   }
 }

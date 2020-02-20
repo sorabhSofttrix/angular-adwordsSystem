@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { TokenResponse, User } from '../api-services/api-types/api-types.service';
 
@@ -11,10 +11,10 @@ export class AuthServiceService {
 
   authenticationState = new BehaviorSubject(false);
   token: TokenResponse;
-  constructor(private router: Router,) { 
+  constructor(private router: Router, ) {
     this.checkToken();
   }
- 
+
   alterToken(newValue: TokenResponse) {
     newValue.createdAt = new Date() + '';
     newValue.expires_in = '';
@@ -33,18 +33,19 @@ export class AuthServiceService {
 
   checkToken() {
     let locToken = localStorage.getItem(TOKEN_KEY);
-    if(locToken) {
+    // let locToken = localStorage.getItem('1321321321asdsa');
+    if (locToken) {
       this.token = JSON.parse(locToken);
       this.authenticationState.next(true);
     }
   }
- 
+
   login(token: TokenResponse) {
     localStorage.setItem(TOKEN_KEY, JSON.stringify(this.alterToken(token)));
     this.token = token;
     this.authenticationState.next(true);
   }
- 
+
   logout() {
     localStorage.removeItem(TOKEN_KEY);
     this.token = null;
@@ -52,7 +53,7 @@ export class AuthServiceService {
     this.router.navigate(['/login']);
     return this.authenticationState;
   }
- 
+
   isAuthenticated() {
     return this.authenticationState.value;
   }
