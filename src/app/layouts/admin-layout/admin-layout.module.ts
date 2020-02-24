@@ -16,14 +16,42 @@ import { AccountInfoComponent } from '../../pages/account-info/account-info.comp
 import { UsersComponent } from '../../pages/users/users.component';
 import { SyncComponent } from 'app/pages/sync/sync.component';
 import { AccountAlertComponent } from 'app/pages/account-alert/account-alert.component';
+ 
+import {
+  MatButtonModule,
+  MatInputModule,
+  MatRippleModule,
+  MatFormFieldModule,
+  MatTooltipModule,
+  MatSelectModule,
+  MatIconModule,
+  MatButtonToggleGroup,
+  MatButtonToggle,
+  MatButtonToggleModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatTreeModule
 
+} from '@angular/material';
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    MatButtonModule,
+    MatRippleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatButtonToggleModule,
+    MatDatepickerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatTreeModule,
   ],
   declarations: [
     DashboardComponent,
@@ -35,7 +63,7 @@ import { AccountAlertComponent } from 'app/pages/account-alert/account-alert.com
     UsersComponent,
     SyncComponent,
     AccountAlertComponent
-    
+
   ]
 })
 

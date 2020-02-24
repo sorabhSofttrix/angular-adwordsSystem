@@ -20,8 +20,24 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { AccountAlertComponent } from './pages/account-alert/account-alert.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ResolveComponent } from './pages/resolve/resolve.component';
+import {
+  MatButtonModule,
+  MatInputModule,
+  MatRippleModule,
+  MatFormFieldModule,
+  MatTooltipModule,
+  MatSelectModule,
+  MatIconModule,
+  MatButtonToggleGroup,
+  MatButtonToggle,
+  MatButtonToggleModule,
+  MatDatepickerModule,
+  MatNativeDateModule
+
+} from '@angular/material';
 
 
+import { MatTreeModule } from '@angular/material/tree';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +61,19 @@ import { ResolveComponent } from './pages/resolve/resolve.component';
     FooterModule,
     FixedPluginModule,
     NgxUiLoaderModule,
-    NgbModule
+    NgbModule,
+    MatButtonModule,
+    MatRippleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatTooltipModule,
+    MatIconModule,
+    MatButtonToggleModule,
+    MatDatepickerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatTreeModule
 
   ],
   providers: [

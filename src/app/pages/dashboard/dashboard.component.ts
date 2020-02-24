@@ -17,17 +17,45 @@ export class DashboardComponent implements OnInit {
   public chartEmail;
   public chartHours;
   allAlert: any[] = []
+  alertCount: any;
   constructor(private api: ApiServiceService) {
 
   }
   ngOnInit() {
+    this.getAllAlert();
+    this.getAlertCount();
+    this.dashboardGraphFunction();
 
+
+  }
+
+
+  getAllAlert() {
     this.api.getALlAlerts().subscribe((res) => {
       if (res['status']) {
         this.allAlert = res.data
       }
     })
+  }
 
+  //Alert Count API
+  getAlertCount() {
+    this.api.getAllAlertCount().subscribe((res) => {
+      if (res['status']) {
+        this.alertCount = res['data']
+
+      }
+
+    }, ((errot) => {
+      this.alertCount = 0
+    }))
+
+  }
+
+
+
+
+  dashboardGraphFunction() {
 
     this.chartColor = "#FFFFFF";
 

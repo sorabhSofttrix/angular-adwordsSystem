@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { observable, Observable } from 'rxjs';
+import { observable, Observable, BehaviorSubject } from 'rxjs';
 import { InterceptorSkipHeader } from '../interceptor/httpconfig.interceptor';
+
+import { timer, of } from 'rxjs';
+import { switchMap, catchError } from 'rxjs/operators';
+
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class ApiServiceService {
   // baseUrl: string = 'https://6a4db3b3.ngrok.io/';
-  baseUrl: string = 'http://438d2d6f.ngrok.io/';
+  baseUrl: string = 'http://11fe9285.ngrok.io/';
 
 
   constructor(private http: HttpClient) { }
@@ -77,5 +83,18 @@ export class ApiServiceService {
   getALlAlerts(): Observable<any> {
     return this.http.get(`${this.baseUrl}api/auth/get-dashboard-alerts`)
   }
+  getAllAlertCount() {
+
+    return this.http.get(this.baseUrl + '/api/auth/get-alerts-count')
+  }
+
+
+  // checkData() {
+  //   return timer(0, 10000)
+  //     .pipe(
+  //       switchMap(_ => this.http.get(this.baseUrl + '/api/auth/get-alerts-count')),
+  //       // catchError(error => of(`Bad request: ${error.error}`))
+  //     );
+  // }
 
 }
