@@ -1,0 +1,15 @@
+// .text-center .row .col-md-1.col-sm-3.col-xs-6 {
+//     padding: 0;
+// }
+
+h4.card-title {
+    font-size  : 18px;
+    font-weight: 500;
+}
+
+.btn-collape{
+    background-color: #3091b2;
+    &:hover{
+        background-color: #3091b2!important;
+    }
+}

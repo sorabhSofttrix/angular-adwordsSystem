@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-user">
+            <div class="card-header">
+                <h5 class="card-title">Add your comment</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Comments</label>
+                            <textarea [(ngModel)]="comments" name="comments" id="comments" class="form-control"
+                                placeholder="Comments">
+                                </textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="alert alert-danger" *ngIf="errorMessage">
+                            <span><b> Oops!</b> {{errorMessage}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <div class="update ml-auto mr-auto">
+                        <button type="submit" (click)="activeModal.dismiss('Cross click')"
+                            class="btn  btn-round">Close</button>
+                    </div>
+
+                    <div class="update ml-auto mr-auto">
+                        <button type="submit" (click)="resolve()" class="btn btn-primary btn-round">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

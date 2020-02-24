@@ -15,6 +15,7 @@ import { AddAccountComponent } from '../../pages/add-account/add-account.compone
 import { AccountInfoComponent } from '../../pages/account-info/account-info.component';
 import { UsersComponent } from '../../pages/users/users.component';
 import { SyncComponent } from 'app/pages/sync/sync.component';
+import { AccountAlertComponent } from 'app/pages/account-alert/account-alert.component';
 
 @NgModule({
   imports: [
@@ -32,7 +33,9 @@ import { SyncComponent } from 'app/pages/sync/sync.component';
     AddAccountComponent,
     AccountInfoComponent,
     UsersComponent,
-    SyncComponent
+    SyncComponent,
+    AccountAlertComponent
+    
   ]
 })
 

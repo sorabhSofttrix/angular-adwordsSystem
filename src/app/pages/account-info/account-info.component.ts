@@ -8,7 +8,8 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-account-info',
   templateUrl: './account-info.component.html',
-  styles: []
+  styleUrls: ['./account-info.component.scss']
+
 })
 export class AccountInfoComponent implements OnInit {
   routeData: any;
@@ -18,14 +19,14 @@ export class AccountInfoComponent implements OnInit {
     private authService: AuthServiceService,
     private api: ApiServiceService,
     private activatedRoute: ActivatedRoute,
-  ) { 
+  ) {
     this.activatedRoute.params.subscribe(params => {
       this.routeData = params;
     });
   }
 
   ngOnInit() {
-    this.api.getAccountInfo(this.routeData.id).subscribe( res => {
+    this.api.getAccountInfo(this.routeData.id).subscribe(res => {
       this.account = res.data;
       this.loading = false;
       console.log(this.account);

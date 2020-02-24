@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="row" *ngFor="let al of allAlert">
+            <div class="col-md-12">
+                <div class="card ">
+                    <div class="card-header ">
+                        <h5 class="card-title">{{al.g_id}}</h5>
+                        <p class="card-category">{{al.acc_name}}</p>
+                    </div>
+                    <div class="card-body ">
+                        <div class="row" style="margin: 0px auto;">
+                            <div class="col-lg-3 col-md-6 col-sm-6" *ngFor="let alert of al.alerts ">
+                                <div class="card card-stats">
+                                    <div class="card-body ">
+                                        <div class="row">
+                                            <div class="">
+                                                <div class="numbers">
+                                                    <p class="card-title alert-title">{{alert.title}} <p></p>
+                                                        <p class="card-category">New Value :
+                                                            {{alert.new_value | number }}</p>
+                                                        <p class="card-category">Old Value :
+                                                            {{alert.old_value | number}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer ">
+                                        <hr>
+                                        <div class="stats" routerLink="/accAlerts">
+                                            <i class="fa fa-refresh"></i>Diff : {{alert.difference | number}} </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer ">
+                            <hr>
+
+                            <div class="col-md-4">
+                                <div class="update ml-auto mr-auto">
+                                    <button type="submit" (click)="resolve(al.id)"
+                                        class="btn btn-primary btn-round">Mark
+                                        Resolved</button>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-4">
+                                    <div class="form-group"
+                                        [ngClass]="{'has-error': accountForm.get('totalConversion').invalid && accountForm.get('totalConversion').dirty}">
+                                        <label>Total conversion</label>
+                                        <input type="text" formControlName="totalConversion" class="form-control"
+                                            placeholder="Total conversion"
+                                            [readonly]="currentAccount && currentAccount.id">
+                                    </div>
+                                </div> -->
+
+                            <!-- <div class="stats mark-stats">
+                                <i class="fa fa-history"></i> 
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

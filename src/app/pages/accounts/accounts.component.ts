@@ -7,7 +7,8 @@ import { AuthServiceService } from 'app/auth-service/auth-service.service';
 @Component({
   selector: 'app-accounts',
   templateUrl: './accounts.component.html',
-  styles: []
+  styleUrls: ['./account.component.scss']
+
 })
 export class AccountsComponent implements OnInit {
   loading: boolean = true;

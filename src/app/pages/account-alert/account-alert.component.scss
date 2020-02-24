@@ -1,0 +1,28 @@
+.alert-title {
+    font-size: large;
+}
+
+.card {
+    border: 1px solid #00000061;
+}
+
+.card-stats .card-body .numbers {
+    text-align  : left;
+    // font-size: 2em;
+}
+
+.card-stats .card-body {
+    padding: 15px 24px 0px;
+}
+
+p.card-title.alert-title {
+    font-size: 16px;
+}
+
+.card-stats .card-body .numbers .card-category {
+    font-size: 12px;
+}
+
+.card-footer .mark-stats {
+    cursor: pointer;
+}

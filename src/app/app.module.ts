@@ -17,6 +17,9 @@ import { AppRoutes } from './app.routing';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { AccountAlertComponent } from './pages/account-alert/account-alert.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ResolveComponent } from './pages/resolve/resolve.component';
 
 
 @NgModule({
@@ -24,7 +27,8 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
-    
+    ResolveComponent,
+
 
   ],
   imports: [
@@ -40,13 +44,16 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
     ToastrModule.forRoot(),
     FooterModule,
     FixedPluginModule,
-    NgxUiLoaderModule
+    NgxUiLoaderModule,
+    NgbModule
 
   ],
   providers: [
     HttpClientModule,
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }
   ],
+  entryComponents: [ResolveComponent],
+  exports: [ResolveComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

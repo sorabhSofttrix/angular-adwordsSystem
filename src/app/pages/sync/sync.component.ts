@@ -4,6 +4,7 @@ import { ApiServiceService } from 'app/api-services/api-service/api-service.serv
 import { User, UserRoles, UnassignedAccounts } from '../../api-services/api-types/api-types.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { PagerService } from 'app/api-services/pager.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sync',
@@ -39,8 +40,8 @@ export class SyncComponent implements OnInit {
   btnDisable: boolean = false;
 
   constructor(private authService: AuthServiceService, private pagerService: PagerService,
-    private api: ApiServiceService, private ngxLoader: NgxUiLoaderService) {
-  
+    private api: ApiServiceService, private ngxLoader: NgxUiLoaderService, private toastr: ToastrService) {
+
 
     switch (this.authService.token.user.role_id) {
       case UserRoles["Super Admin"]:
@@ -127,16 +128,16 @@ export class SyncComponent implements OnInit {
   // this.syncObj = ['dsfds'];
   // this.syncObj1 = 'dsfdsfds';
   send() {
+    this.account_ids = []
     this.ngxLoader.startLoader('loader-01');
     if (!this.account_director && !this.account_manager) {
       // alert('Please select director and manager')
+      this.toastr.error('Please select director and manager!');
       this.errorMessage = 'please select director and manager.';
       this.ngxLoader.stopLoader('loader-01');
       return true
     }
 
-
-    this.account_ids = []
     for (let i = 0; i < this.pagedItems.length; i++) {
       if (this.pagedItems[i].selected == true)
         this.account_ids.push(this.pagedItems[i]['id'])
@@ -147,7 +148,8 @@ export class SyncComponent implements OnInit {
       'account_ids': this.account_ids.join(',')
     }
     if (!this.account_ids.length) {
-      this.errorMessage = 'please select alteast one account to assign.';
+      this.errorMessage = 'Please select alteast one account to assign!';
+      this.toastr.error('Please select alteast one account to assign!');
       this.ngxLoader.stopLoader('loader-01');
       return true
     }
@@ -155,7 +157,8 @@ export class SyncComponent implements OnInit {
       if (res['status']) {
         this.ngxLoader.stopLoader('loader-01');
         console.log(res);
-        this.successMessage = 'Selected accounts assigned successfully.';
+        this.successMessage = 'Selected accounts assigned successfully!!';
+        this.toastr.success('Selected accounts assigned successfully!!')
         this.ngOnInit();
       }
     })
@@ -170,5 +173,28 @@ export class SyncComponent implements OnInit {
     this.pagedItems = this.unAssignedAcc.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 
+
+
+
+//   $(document).ready(function() {
+//     var $chkboxes = $('.chkbox');
+//     var lastChecked = null;
+
+//     $chkboxes.click(function(e) {
+//         if (!lastChecked) {
+//             lastChecked = this;
+//             return;
+//         }
+
+//         if (e.shiftKey) {
+//             var start = $chkboxes.index(this);
+//             var end = $chkboxes.index(lastChecked);
+
+//             $chkboxes.slice(Math.min(start,end), Math.max(start,end)+ 1).prop('checked', lastChecked.checked);
+//         }
+
+//         lastChecked = this;
+//     });
+// });
 
 }

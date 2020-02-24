@@ -1,62 +1,146 @@
 <div class="row">
     <div class="col-md-12" *ngIf="!loading">
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title"> Account Details
-          </h4>
-        </div>
-        <div class="card-body">
-            <div>
-                <p>{{account.acc_name}} - {{account.g_acc_id}}</p>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"> Account Details
+                </h4>
             </div>
-            <hr>
-            <div class="text-center">
-                <div class="row">
-                    <div class="col-md-2 col-sm-4 col-xs-6">
-                        <h6>{{account.budget}}<br><small>Budget</small></h6>
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-6">
-                        <h6>{{account.cpa}}<br><small>CPA</small></h6>
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-6">
-                        <h6>{{account.conversion_rate}}<br><small>Conversion</small></h6>
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-6">
-                        <h6>{{account.cron_time}}<br><small>Cron Time(hours)</small></h6>
-                    </div>
-                    <div class="col-md-2 col-sm-4 col-xs-6">
-                        <h6>{{account.acc_priority}}<br><small>Priority</small></h6>
-                    </div>
-                </div>
-            </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <h4 class="card-title"> Account History
-          </h4>
-        </div>
-        <div class="card-body">
-            <ng-container *ngFor="let history of account.history">
-                <div class="mt-2">
-                    <p><strong>{{history.created_at | date:'medium'}}</strong></p>
+            <div class="card-body">
+                <div>
+                    <p>{{account.acc_name}} - {{account.g_acc_id}}</p>
                 </div>
                 <hr>
-                <div class="text-left">
-                    <div class="row" *ngFor="let change of history.changes">
-                        <div class="col-12">
-                            <p>{{change.desc}}</p>
+                <div class="text-center">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <h6>{{account.impressions}}<br><small>Impressions</small></h6>
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <h6>{{account.cpa}}<br><small>CPA</small></h6>
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <h6>{{account.cpc}}<br><small>CPC</small></h6>
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <h6>{{account.conversion}}<br><small>Conversions</small></h6>
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <h6>{{account.cost}}<br><small>Costs</small></h6>
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <h6>{{account.click}}<br><small>Click</small></h6>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <a href="javascript:void(0)"><small class="float-right">- {{history.user.name}}</small></a>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <h6>{{account.acc_priority}}<br><small>Priority</small></h6>
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <h6>{{account.acc_status}}<br><small>Acc. Status</small></h6>
+                        </div>
+
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <h6>{{account.totalConversion}}<br><small>Total conversion</small></h6>
+                        </div>
+
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <h6><a routerLink="/users/{{account.account_director}}"><span class="float-right">
+                                        {{account.director_name}}</span></a><br><small>Dir. name</small></h6>
+                        </div>
+
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <h6><a routerLink="/users/{{account.account_manager}}"><span class="float-right">
+                                        {{account.manager_name}}</span></a><br><small>Mgr. name</small></h6>
+                        </div>
+
+
+
                     </div>
                 </div>
-            </ng-container>
+            </div>
         </div>
-      </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"> Account Alerts
+                </h4>
+            </div>
+            <div class="card-body">
+                <ng-container *ngFor="let alert of account.alerts">
+
+
+                    <div class="col-md-12 btn btn-dark btn-collape" data-toggle="collapse" data-target="#demo">
+                        <div class="float-left">{{alert.created_at | date: 'medium'}}</div>
+                        <div class="float-right">{{alert.status}}</div>
+                    </div>
+                    <div id="demo" class="collapse">
+                        <div class="text-left">
+                            <div class="card" *ngFor="let al of alert.alerts">
+                                <div class="card-header">
+                                    <h4 class="card-title"> {{al.title}}
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2 col-sm-4 col-xs-6">
+                                            <h6>{{al.new_value}}<br><small>New Value</small></h6>
+                                        </div>
+                                        <div class="col-md-2 col-sm-4 col-xs-6">
+                                            <h6>{{al.old_value}}<br><small>Old Value</small></h6>
+                                        </div>
+                                        <div class="col-md-2 col-sm-4 col-xs-6">
+                                            <h6>{{al.difference}}<br><small>Difference</small></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="mt-2">
+                                <p class="float-left" *ngIf="alert.comments">Comments <strong> -
+                                        {{alert.comments}}</strong></p>
+                                <a routerLink="/users/{{alert.resolved_by}}" *ngIf="alert.resolver_name"><span
+                                        class="float-right">-
+                                        {{alert.resolver_name}}</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </ng-container>
+            </div>
+        </div>
+
+        <!-- <div   class="btn" data-toggle="collapse" data-target="#demo">Simple collapsible</div>
+        <div id="demo" class="collapse">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </div> -->
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"> Account History
+                </h4>
+            </div>
+            <div class="card-body">
+                <ng-container *ngFor="let history of account.history">
+                    <div class="mt-2">
+                        <p><strong>{{history.created_at | date:'medium'}}</strong></p>
+                    </div>
+                    <hr>
+                    <div class="text-left">
+                        <div class="row" *ngFor="let change of history.changes">
+                            <div class="col-12">
+                                <p>{{change.desc}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="javascript:void(0)"><small class="float-right">- {{history.user.name}}</small></a>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
     </div>
-  </div>
-  
+</div>

@@ -75,22 +75,23 @@
                     <table class="table">
                         <thead class=" text-primary">
                             <th><input type="checkbox" [(ngModel)]="selectedAll" (change)="selectAll();" /></th>
-                            <th>Account id</th>
-                            <th>Account name</th>
+                            <th>Acc. id</th>
+                            <th>Acc. name</th>
                             <th>CPA</th>
                             <th>CPC</th>
                             <th>Clicks</th>
                             <th>Cost</th>
                             <th>Impression</th>
                             <th>Conversion</th>
-                            <th>Active status</th>
+                            <th>Status</th>
                             <th>Total conversion</th>
 
                         </thead>
                         <tbody>
                             <tr *ngFor="let acc of pagedItems">
                                 <td>
-                                    <input type="checkbox" [(ngModel)]="acc.selected" (change)="checkIfAllSelected();">
+                                    <input type="checkbox" class="checkbox" [(ngModel)]="acc.selected"
+                                        (change)="checkIfAllSelected();">
                                 </td>
                                 <td>{{acc.g_acc_id}}</td>
                                 <td>{{acc.acc_name ? acc.acc_name : acc.g_acc_id}}</td>

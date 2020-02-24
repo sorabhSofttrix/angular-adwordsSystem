@@ -9,6 +9,7 @@ import { AddAccountComponent } from '../../pages/add-account/add-account.compone
 import { AccountInfoComponent } from '../../pages/account-info/account-info.component';
 import { UsersComponent } from '../../pages/users/users.component';
 import { SyncComponent } from 'app/pages/sync/sync.component';
+import { AccountAlertComponent } from 'app/pages/account-alert/account-alert.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
@@ -22,6 +23,8 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'users/:id', component: UsersComponent, canActivate: [AuthGuardService] },
 
     { path: 'sync', component: SyncComponent, canActivate: [AuthGuardService] },
+    { path: 'accAlerts', component: AccountAlertComponent, canActivate: [AuthGuardService] },
+
 
 
 ];

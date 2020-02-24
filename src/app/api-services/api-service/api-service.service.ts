@@ -7,7 +7,7 @@ import { InterceptorSkipHeader } from '../interceptor/httpconfig.interceptor';
 })
 export class ApiServiceService {
   // baseUrl: string = 'https://6a4db3b3.ngrok.io/';
-  baseUrl: string = 'http://d1ab3d6d.ngrok.io/';
+  baseUrl: string = 'http://438d2d6f.ngrok.io/';
 
 
   constructor(private http: HttpClient) { }
@@ -29,6 +29,10 @@ export class ApiServiceService {
     return this.http.get(`${this.baseUrl}api/auth/get-unassingned-accounts`);
   }
 
+  updateComment(id, comments): Observable<any> {
+    const data = { 'id': id, 'comments': comments }
+    return this.http.post(this.baseUrl + 'api/auth/update-alert', data)
+  }
   updateUserProfile(data: any): Observable<any> {
     const headers = new HttpHeaders().set(InterceptorSkipHeader, '');
     return this.http.post(`${this.baseUrl}api/auth/update-user`, data, { headers: headers });
@@ -68,6 +72,10 @@ export class ApiServiceService {
   updateUnassigned(unSyncAcc): Observable<any> {
     return this.http.post(`${this.baseUrl}api/auth/update-unassingned-accounts`, unSyncAcc);
   }
-  // api/auth/update-unassingned-accounts
+
+
+  getALlAlerts(): Observable<any> {
+    return this.http.get(`${this.baseUrl}api/auth/get-dashboard-alerts`)
+  }
 
 }
