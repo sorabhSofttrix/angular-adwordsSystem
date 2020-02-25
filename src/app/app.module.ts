@@ -38,12 +38,16 @@ import {
 
 
 import { MatTreeModule } from '@angular/material/tree';
+import { CategoryPipe } from './api-services/api-service/category.pipe';
+// import { DebounceDirective } from './api-services/api-service/debounce.directive';
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
     ResolveComponent,
+    // DebounceDirective
+    
 
 
   ],
@@ -78,7 +82,8 @@ import { MatTreeModule } from '@angular/material/tree';
   ],
   providers: [
     HttpClientModule,
-    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
+    CategoryPipe
   ],
   entryComponents: [ResolveComponent],
   exports: [ResolveComponent],

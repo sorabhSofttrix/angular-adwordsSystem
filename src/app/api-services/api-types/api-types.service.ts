@@ -50,7 +50,6 @@ export interface TokenResponse {
 export enum Priority {
   'low' = 'low',
   'normal' = 'normal',
-  'moderate' = 'moderate',
   'high' = 'high',
   'urgent' = 'urgent'
 }

@@ -37,6 +37,7 @@ export class SyncComponent implements OnInit {
 
   pager: any = {};
   pagedItems: any[];
+  
   btnDisable: boolean = false;
 
   constructor(private authService: AuthServiceService, private pagerService: PagerService,

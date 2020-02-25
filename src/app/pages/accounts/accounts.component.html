@@ -3,13 +3,44 @@
     <div class="card">
       <div class="card-header">
         <h4 class="card-title"> Google Adword Accounts
-          <button disabled *ngIf="authService.token.user.role_id != 1" (click)="addCount()"
+          <!-- <button disabled *ngIf="authService.token.user.role_id != 1" (click)="addCount()"
             class="btn btn-sm btn-outline-success btn-round btn-icon float-right m-0">
             <i class="fa fa-plus"></i>
-          </button>
+          </button> -->
+          <div class="col-md-3 pull-right">
+            <input type="text" class="form-control" (keyup)="search($event.target.value)" placeholder="Search" />
+            <!-- [debounce]="2000" -->
+          </div>
         </h4>
       </div>
       <div class="card-body">
+        <div class="text-center">
+          <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+              <a (click)="setPage(1)">
+                <i class="fa fa-angle-left"></i>
+                <i class="fa fa-angle-left"></i>
+              </a>
+            </li>
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+              <a (click)="setPage(page)">{{page}}
+                <!-- <span class="sr-only">(current)</span> -->
+              </a>
+            </li>
+            <!-- <li>
+              <a href="#">2</a>
+            </li>
+            <li>
+              <a href="#">3</a>
+            </li> -->
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+              <a (click)="setPage(pager.totalPages)">
+                <i class="fa fa-angle-right"></i>
+                <i class="fa fa-angle-right"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
         <div class="table-responsive">
           <table class="table">
             <thead class=" text-primary">
@@ -28,7 +59,7 @@
               <th> </th>
             </thead>
             <tbody>
-              <tr *ngFor="let account of allAccounts">
+              <tr *ngFor="let account of pagedItems">
                 <td>{{account.acc_name}}</td>
                 <td>{{account.g_acc_id}}</td>
                 <td>{{account.director_name}}</td>
@@ -54,6 +85,33 @@
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="text-center">
+          <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+              <a (click)="setPage(1)">
+                <i class="fa fa-angle-left"></i>
+                <i class="fa fa-angle-left"></i>
+              </a>
+            </li>
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+              <a (click)="setPage(page)">{{page}}
+                <!-- <span class="sr-only">(current)</span> -->
+              </a>
+            </li>
+            <!-- <li>
+              <a href="#">2</a>
+            </li>
+            <li>
+              <a href="#">3</a>
+            </li> -->
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+              <a (click)="setPage(pager.totalPages)">
+                <i class="fa fa-angle-right"></i>
+                <i class="fa fa-angle-right"></i>
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

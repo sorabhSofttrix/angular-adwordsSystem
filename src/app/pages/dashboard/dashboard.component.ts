@@ -6,6 +6,7 @@ import { ApiServiceService } from 'app/api-services/api-service/api-service.serv
 @Component({
   selector: 'dashboard-cmp',
   moduleId: module.id,
+  styles: ['.stats { cursor: pointer; }'],
   templateUrl: 'dashboard.component.html'
 })
 

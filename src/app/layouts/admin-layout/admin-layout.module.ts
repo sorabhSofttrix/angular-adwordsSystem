@@ -16,7 +16,7 @@ import { AccountInfoComponent } from '../../pages/account-info/account-info.comp
 import { UsersComponent } from '../../pages/users/users.component';
 import { SyncComponent } from 'app/pages/sync/sync.component';
 import { AccountAlertComponent } from 'app/pages/account-alert/account-alert.component';
- 
+
 import {
   MatButtonModule,
   MatInputModule,
@@ -33,6 +33,10 @@ import {
   MatTreeModule
 
 } from '@angular/material';
+import { CategoryPipe } from 'app/api-services/api-service/category.pipe';
+// import { DebounceDirective } from 'app/api-services/api-service/debounce.directive';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -52,6 +56,7 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
     MatTreeModule,
+
   ],
   declarations: [
     DashboardComponent,
@@ -62,9 +67,13 @@ import {
     AccountInfoComponent,
     UsersComponent,
     SyncComponent,
-    AccountAlertComponent
+    AccountAlertComponent,
+    CategoryPipe,
+    // DebounceDirective
 
-  ]
+
+  ],
+  providers: []
 })
 
 export class AdminLayoutModule { }

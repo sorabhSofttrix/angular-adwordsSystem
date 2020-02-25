@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { toFormData, validateFile, } from '../../utils/utils';
 import { AuthServiceService } from '../../auth-service/auth-service.service';
 import { User, UserRoles } from '../../api-services/api-types/api-types.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-user',
@@ -25,8 +26,12 @@ export class RegisterUserComponent implements OnInit {
   constructor(
     private authService: AuthServiceService,
     private api: ApiServiceService,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder, private ruter: Router
   ) {
+    if (this.authService.token.user.role_id == UserRoles["Account Manager"]) {
+      this.ruter.navigate(['/dashboard'])
+      return
+    }
     switch (this.authService.token.user.role_id) {
       case UserRoles["Super Admin"]:
         this.allRole = this.availableRole;
