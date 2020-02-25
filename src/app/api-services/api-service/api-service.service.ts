@@ -13,7 +13,7 @@ import { switchMap, catchError } from 'rxjs/operators';
 })
 export class ApiServiceService {
   // baseUrl: string = 'https://6a4db3b3.ngrok.io/';
-  baseUrl: string = 'http://11fe9285.ngrok.io/';
+  baseUrl: string = 'http://0c561d5b.ngrok.io/';
 
 
   constructor(private http: HttpClient) { }
