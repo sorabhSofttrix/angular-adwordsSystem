@@ -18,6 +18,25 @@
         <p class="description text-center">
           {{currentUser.about}}
         </p>
+        <hr>
+        <div class="text-center">
+          <div class="row">
+
+            <div class="col-md-3 col-sm-4 col-xs-6">
+              <strong>{{currentUser.dashboard.accounts.all}}</strong><br><small>All</small>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6">
+              <strong>{{currentUser.dashboard.accounts.closed}}</strong><br><small>Closed</small>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6">
+              <strong>{{currentUser.dashboard.accounts.active}}</strong><br><small>Active</small>
+            </div>
+            <div class="col-md-3 col-sm-4 col-xs-6">
+              <strong> {{currentUser.dashboard.accounts.paused}}</strong><br><small>Paused</small>
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -128,5 +147,76 @@
     </div>
   </div>
 
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title"> Users
+        </h4>
+      </div>
+      <div class="card-body">
+        <ng-container>
+          <div class="col-md-12 btn btn-primary btn-collape" data-toggle="collapse"
+            [attr.data-target]="'#demo' + currentUser.id">
+            <div class="float-left">{{currentUser.name}}</div>
+          </div>
+          <div [id]="'demo' + currentUser.id" class="collapse">
+            <div class="text-left">
+              <div class="card-body" *ngFor="let ch of currentUser.children">
+                <div class="col-md-12 btn btn-success btn-collape " [attr.data-target]="'#demo' + ch.id"
+                  data-toggle="collapse">
+                  <div class="float-left">{{ch.name}}</div>
+                  <!-- <div class="">{{ch.dashboard.accounts.all}}</div>
+                  <div class="">{{ch.dashboard.accounts.closed}}</div>
+                  <div class="">{{ch.dashboard.accounts.active}}</div>
+                  <div class="">{{ch.dashboard.accounts.paused}}</div> -->
 
-</div>
+                  <div class="row">
+
+                    <div class="col-md-3 col-sm-4 col-xs-6">
+                      <strong>{{ch.dashboard.accounts.all}}</strong><br><small>All</small>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-6">
+                      <strong>{{ch.dashboard.accounts.closed}}</strong><br><small>Closed</small>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-6">
+                      <strong>{{ch.dashboard.accounts.active}}</strong><br><small>Active</small>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-6">
+                      <strong> {{ch.dashboard.accounts.paused}}</strong><br><small>Paused</small>
+                    </div>
+
+                  </div>
+                </div>
+                <div class=" collapse" [id]="'demo' + ch.id">
+                  <div class="card-body">
+                    <div class="col-md-12 col-sm-4 col-xs-6 btn btn-warning " *ngFor="let chTree of ch.children">
+                      <!-- <h6>{{chTree.name}}</h6> -->
+                      <div class="float-left">{{chTree.name}}</div>
+
+                      <div class="row">
+
+                        <div class="col-md-3 col-sm-4 col-xs-6">
+                          <strong>{{chTree.dashboard.accounts.all}}</strong><br><small>All</small>
+                        </div>
+                        <div class="col-md-3 col-sm-4 col-xs-6">
+                          <strong>{{chTree.dashboard.accounts.closed}}</strong><br><small>Closed</small>
+                        </div>
+                        <div class="col-md-3 col-sm-4 col-xs-6">
+                          <strong>{{chTree.dashboard.accounts.active}}</strong><br><small>Active</small>
+                        </div>
+                        <div class="col-md-3 col-sm-4 col-xs-6">
+                          <strong> {{chTree.dashboard.accounts.paused}}</strong><br><small>Paused</small>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>

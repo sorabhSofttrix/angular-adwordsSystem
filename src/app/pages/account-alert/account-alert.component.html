@@ -5,7 +5,9 @@
                 <div class="card ">
                     <div class="card-header ">
                         <h5 class="card-title">{{al.g_id}}</h5>
-                        <p class="card-category">{{al.acc_name}}</p>
+                        <p class="card-category"><b>{{al.acc_name}} - </b><a
+                                routerLink="/users/{{al.account_director}}"><b>{{al.director_name}}</b></a> / <a
+                                routerLink="/users/{{al.account_manager}}"><b>{{al.manager_name}}</b></a></p>
                     </div>
                     <div class="card-body ">
                         <div class="row" style="margin: 0px auto;">

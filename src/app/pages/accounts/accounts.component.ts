@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiServiceService } from 'app/api-services/api-service/api-service.service';
-import { AdAccount } from 'app/api-services/api-types/api-types.service';
+import { AdAccount, AccountStatus } from 'app/api-services/api-types/api-types.service';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'app/auth-service/auth-service.service';
 import { PagerService } from 'app/api-services/pager.service';
@@ -18,6 +18,11 @@ export class AccountsComponent implements OnInit {
 
   pager: any = {};
   pagedItems: any[];
+  searchText: string;
+  status_filter: string;
+
+  accStatus = ['All', AccountStatus.active, AccountStatus.closed, AccountStatus.paused];
+
 
   constructor(
     private api: ApiServiceService,
@@ -29,6 +34,8 @@ export class AccountsComponent implements OnInit {
       this.setPage(1);
     }
     );
+
+    this.status_filter = this.accStatus[1]
   }
 
   addCount(id?: number) {
@@ -47,31 +54,42 @@ export class AccountsComponent implements OnInit {
 
   }
 
-  search(ev) {
-    if (ev) {
+  search() {
+    // console.log(this.status_filter)
+    if (!this.searchText && this.status_filter == 'All') {
+      this.setPage(1);
+    } else {
       let filteredItems = this.allAccounts.filter(
-        item =>
-          (!item.acc_name) ? false :
-            (item.acc_name.toLowerCase().indexOf(ev.toLowerCase()) > -1
-              || item.g_acc_id.indexOf(ev) > -1
-              || item.director_name.toLowerCase().indexOf(ev.toLowerCase()) > -1
-              || item.manager_name.toLowerCase().indexOf(ev.toLowerCase()) > -1
-            )
+        item => {
+          if (!this.searchText && this.status_filter != 'All') {
+            return item.acc_status == this.status_filter
+          }
+          if (this.searchText && this.status_filter != 'All') {
+            return (!item.acc_name) ? false :
+              (item.acc_name.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1
+                || item.g_acc_id.indexOf(this.searchText) > -1
+                || item.director_name.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1
+                || item.manager_name.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1
+              ) && (
+                item.acc_status == this.status_filter
+              )
+          }
+
+          if (this.searchText && this.status_filter == 'All') {
+            return (!item.acc_name) ? false :
+              (item.acc_name.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1
+                || item.g_acc_id.indexOf(this.searchText) > -1
+                || item.director_name.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1
+                || item.manager_name.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1
+              )
+          }
+        }
       );
-
-      // console.log(ev)
-      // console.log(filteredItems)
-
       // get pager object from service
       this.pager = this.pagerService.getPager(filteredItems.length, 1);
-
       // get current page of items
       this.pagedItems = filteredItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
-    } else {
-      this.setPage(1);
     }
-
-
   }
 
   setPage(page: number) {

@@ -16,7 +16,6 @@ export class AccountAlertComponent implements OnInit, OnResolveResponseListener 
 
   }
   ngOnInit() {
-
     this.api.getALlAlerts().subscribe((res) => {
       if (res['status']) {
         this.allAlert = res.data
@@ -26,7 +25,6 @@ export class AccountAlertComponent implements OnInit, OnResolveResponseListener 
 
 
   resolve(id) {
-
     const modalRef = this.modalService.open(ResolveComponent, {
       size: 'sm',
       backdrop: 'static',

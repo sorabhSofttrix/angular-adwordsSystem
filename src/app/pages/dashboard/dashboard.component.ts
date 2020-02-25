@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js';
 import { ApiServiceService } from 'app/api-services/api-service/api-service.service';
+import { User } from 'app/api-services/api-types/api-types.service';
+import { AuthServiceService } from 'app/auth-service/auth-service.service';
 
 
 @Component({
   selector: 'dashboard-cmp',
   moduleId: module.id,
-  styles: ['.stats { cursor: pointer; }'],
+  styles: ['.stats a { cursor: pointer; }'],
   templateUrl: 'dashboard.component.html'
 })
 
@@ -19,15 +21,16 @@ export class DashboardComponent implements OnInit {
   public chartHours;
   allAlert: any[] = []
   alertCount: any;
-  constructor(private api: ApiServiceService) {
+  currentUser: User;
+  constructor(private api: ApiServiceService, public auth: AuthServiceService) {
 
   }
   ngOnInit() {
     this.getAllAlert();
     this.getAlertCount();
+    this.currentUser = this.auth.token.user;
     this.dashboardGraphFunction();
-
-
+    // console.log(this.currentUser)
   }
 
 
@@ -140,6 +143,9 @@ export class DashboardComponent implements OnInit {
 
     this.canvas = document.getElementById("chartEmail");
     this.ctx = this.canvas.getContext("2d");
+    let values = [this.currentUser.dashboard.accounts.all, this.currentUser.dashboard.accounts.active,
+    this.currentUser.dashboard.accounts.paused,
+    this.currentUser.dashboard.accounts.closed];
     this.chartEmail = new Chart(this.ctx, {
       type: 'pie',
       data: {
@@ -155,7 +161,8 @@ export class DashboardComponent implements OnInit {
             '#ef8157'
           ],
           borderWidth: 0,
-          data: [342, 480, 530, 120]
+          // data: [342, 480, 530, 120]
+          data: values
         }]
       },
 

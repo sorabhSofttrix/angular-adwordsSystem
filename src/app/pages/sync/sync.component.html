@@ -38,6 +38,18 @@
 
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="update ml-auto mr-auto">
+                            <button type="submit" (click)="send()" [disabled]="btnDisable"
+                                class="btn btn-primary btn-round">Save</button>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="alert alert-success" *ngIf="successMessage">
+                                <span><b> hurray!</b> {{successMessage}}</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-12">
                         <div class="alert alert-danger" *ngIf="errorMessage">
                             <span><b> Oops!</b> {{errorMessage}}</span>

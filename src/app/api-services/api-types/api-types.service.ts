@@ -31,8 +31,12 @@ export interface User {
   children?: User[];
   parent?: User;
   members?: Members;
+  dashboard?: DashboardData;
 }
 
+export interface DashboardData {
+  accounts?: { all: number, closed: number, active: number ,paused:number}
+}
 export interface Members {
   admins?: User[],
   directors?: User[],

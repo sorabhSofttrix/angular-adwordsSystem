@@ -19,8 +19,8 @@
       </div>
       <div class="card-footer ">
         <hr>
-        <div class="stats" routerLink="/accAlerts">
-          <i class="fa fa-refresh"></i> View all alerts
+        <div class="stats">
+          <a routerLink="/accAlerts">View all alerts <i class="fa fa-arrow-right"></i> </a>
         </div>
       </div>
     </div>
@@ -104,41 +104,23 @@
     </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-12">
-    <div class="card ">
-      <div class="card-header ">
-        <h5 class="card-title">Users Behavior</h5>
-        <p class="card-category">24 Hours performance</p>
-      </div>
-      <div class="card-body ">
-        <canvas id=chartHours width="400" height="100"></canvas>
-      </div>
-      <div class="card-footer ">
-        <hr>
-        <div class="stats">
-          <i class="fa fa-history"></i> Updated 3 minutes ago
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
 <div class="row">
   <div class="col-md-4">
     <div class="card ">
       <div class="card-header ">
-        <h5 class="card-title">Email Statistics</h5>
-        <p class="card-category">Last Campaign Performance</p>
+        <h5 class="card-title">Accounts Statistics</h5>
+        <p class="card-category">Based on Account status</p>
       </div>
       <div class="card-body ">
         <canvas id="chartEmail"></canvas>
       </div>
       <div class="card-footer ">
         <div class="legend">
-          <i class="fa fa-circle text-primary"></i> Opened
-          <i class="fa fa-circle text-warning"></i> Read
-          <i class="fa fa-circle text-danger"></i> Deleted
-          <i class="fa fa-circle text-gray"></i> Unopened
+          <i class="fa fa-circle text-primary"></i> Active
+          <i class="fa fa-circle text-warning"></i> Paused
+          <i class="fa fa-circle text-danger"></i> Closed
+          <!-- <i class="fa fa-circle text-gray"></i> Unopened -->
         </div>
         <hr>
         <div class="stats">
@@ -164,6 +146,26 @@
         <hr />
         <div class="card-stats">
           <i class="fa fa-check"></i> Data information certified
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card ">
+      <div class="card-header ">
+        <h5 class="card-title">Users Behavior</h5>
+        <p class="card-category">24 Hours performance</p>
+      </div>
+      <div class="card-body ">
+        <canvas id=chartHours width="400" height="100"></canvas>
+      </div>
+      <div class="card-footer ">
+        <hr>
+        <div class="stats">
+          <i class="fa fa-history"></i> Updated 3 minutes ago
         </div>
       </div>
     </div>
