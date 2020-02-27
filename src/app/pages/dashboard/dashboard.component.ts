@@ -26,6 +26,10 @@ export class DashboardComponent implements OnInit {
   sourceActive = []
   sourcePaused = []
   sourceClosed = []
+
+  active;
+  paused;
+  closed;
   constructor(private api: ApiServiceService, public auth: AuthServiceService) {
 
   }
@@ -36,6 +40,10 @@ export class DashboardComponent implements OnInit {
     this.currentUser = this.auth.token.user;
     this.dashboardGraphFunction();
     // console.log(this.currentUser)
+
+    this.active = this.currentUser.dashboard.accounts.active,
+      this.paused = this.currentUser.dashboard.accounts.paused,
+      this.closed = this.currentUser.dashboard.accounts.closed
   }
 
   getAccSummary() {
