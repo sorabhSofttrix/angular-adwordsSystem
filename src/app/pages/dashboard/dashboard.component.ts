@@ -22,18 +22,76 @@ export class DashboardComponent implements OnInit {
   allAlert: any[] = []
   alertCount: number = 0;
   currentUser: User;
+  acc_status: any[] = [];
+  sourceActive = []
+  sourcePaused = []
+  sourceClosed = []
   constructor(private api: ApiServiceService, public auth: AuthServiceService) {
 
   }
   ngOnInit() {
     this.getAllAlert();
     this.getAlertCount();
+    this.getAccSummary();
     this.currentUser = this.auth.token.user;
     this.dashboardGraphFunction();
     // console.log(this.currentUser)
   }
 
+  getAccSummary() {
+    this.api.getAccountSummary().subscribe((res) => {
+      if (res['status']) {
+        this.acc_status = res['data'];
+        this.sourceActive = [0,
+          this.acc_status['02']['active'],
+          this.acc_status['03']['active'],
+          this.acc_status['04']['active'],
+          this.acc_status['05']['active'],
+          this.acc_status['06']['active'],
+          this.acc_status['07']['active'],
+          this.acc_status['08']['active'],
+          this.acc_status['09']['active'],
+          this.acc_status['10']['active'],
+          this.acc_status['11']['active'],
+          this.acc_status['12']['active'],
+        ]
 
+        this.sourcePaused = [0,
+          this.acc_status['02']['paused'],
+          this.acc_status['03']['paused'],
+          this.acc_status['04']['paused'],
+          this.acc_status['05']['paused'],
+          this.acc_status['06']['paused'],
+          this.acc_status['07']['paused'],
+          this.acc_status['08']['paused'],
+          this.acc_status['09']['paused'],
+          this.acc_status['10']['paused'],
+          this.acc_status['11']['paused'],
+          this.acc_status['12']['paused'],
+        ]
+
+        this.sourceClosed = [0,
+          this.acc_status['02']['closed'],
+          this.acc_status['03']['closed'],
+          this.acc_status['04']['closed'],
+          this.acc_status['05']['closed'],
+          this.acc_status['06']['closed'],
+          this.acc_status['07']['closed'],
+          this.acc_status['08']['closed'],
+          this.acc_status['09']['closed'],
+          this.acc_status['10']['closed'],
+          this.acc_status['11']['closed'],
+          this.acc_status['12']['closed'],
+        ]
+
+        console.log('sourceClosed--->>>', this.sourceClosed)
+        console.log('sourcePaused--->>>', this.sourcePaused)
+        console.log('sourceActive--->>>', this.sourceActive)
+        this.dashboardGraphFunction();
+
+      }
+    })
+  }
   getAllAlert() {
     this.api.getALlAlerts().subscribe((res) => {
       if (res['status']) {
@@ -161,7 +219,7 @@ export class DashboardComponent implements OnInit {
           pointRadius: 0,
           pointHoverRadius: 0,
           backgroundColor: [
-          
+
             '#4acccd',
             '#fcc468',
             '#ef8157',
@@ -218,9 +276,9 @@ export class DashboardComponent implements OnInit {
     });
 
     var speedCanvas = document.getElementById("speedChart");
-
     var dataFirst = {
-      data: [0, 19, 15, 20, 30, 40, 40, 50, 25, 30, 50, 70],
+      data: this.sourcePaused,
+      // data: [0, 19, 15, 20, 30, 40, 40, 50, 25, 30, 50, 70],
       fill: false,
       borderColor: '#fbc658',
       backgroundColor: 'transparent',
@@ -231,7 +289,8 @@ export class DashboardComponent implements OnInit {
     };
 
     var dataSecond = {
-      data: [0, 5, 10, 12, 20, 27, 30, 34, 42, 45, 55, 63],
+      data: this.sourceActive,
+      // data: [0, 5, 10, 12, 20, 27, 30, 34, 42, 45, 55, 63],
       fill: false,
       borderColor: '#51CACF',
       backgroundColor: 'transparent',
@@ -241,10 +300,23 @@ export class DashboardComponent implements OnInit {
       pointBorderWidth: 8
     };
 
+    var dataThird = {
+      data: this.sourceClosed,
+      // data: [0, 17, 11, 25, 25, 27, 32, 38, 41, 43, 54, 63],
+      fill: false,
+      borderColor: '#ef8157',
+      backgroundColor: 'transparent',
+      pointBorderColor: '#ef8157',
+      pointRadius: 4,
+      pointHoverRadius: 4,
+      pointBorderWidth: 8
+    };
+
     var speedData = {
       labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-      datasets: [dataFirst, dataSecond]
+      datasets: [dataFirst, dataSecond, dataThird]
     };
+    console.log(speedData)
 
     var chartOptions = {
       legend: {
@@ -260,4 +332,6 @@ export class DashboardComponent implements OnInit {
       options: chartOptions
     });
   }
+
+
 }

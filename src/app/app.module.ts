@@ -39,6 +39,8 @@ import {
 
 import { MatTreeModule } from '@angular/material/tree';
 import { CategoryPipe } from './api-services/api-service/category.pipe';
+import { AccSpecificComponent } from './pages/users/acc-specific/acc-specific.component';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -47,6 +49,8 @@ import { CategoryPipe } from './api-services/api-service/category.pipe';
     AdminLayoutComponent,
     LoginComponent,
     ResolveComponent,
+    AccSpecificComponent
+
 
 
 
@@ -83,10 +87,10 @@ import { CategoryPipe } from './api-services/api-service/category.pipe';
   providers: [
     HttpClientModule,
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
-    CategoryPipe
+    CategoryPipe,DatePipe
   ],
-  entryComponents: [ResolveComponent],
-  exports: [ResolveComponent],
+  entryComponents: [ResolveComponent, AccSpecificComponent],
+  exports: [ResolveComponent, AccSpecificComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

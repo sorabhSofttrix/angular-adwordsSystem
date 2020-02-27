@@ -148,7 +148,10 @@
                     <div style="width:20%">
                       <strong> {{ch.dashboard.accounts.paused}}</strong><br><small>Paused</small>
                     </div>
-                    <div style="width:20%" routerLink="/users/{{ch.id}}"><i class="fa fa-arrow-right"></i></div>
+                    <div style="width:10%" (click)="getAccInfo(ch.id)" title="Show accounts">
+                      <i class="fa fa-eye"></i>
+                    </div>
+                    <div style="width:10%" routerLink="/users/{{ch.id}}"><i class="fa fa-arrow-right"></i></div>
 
                   </div>
                   <div class=" collapse" [id]="'demo' + ch.id">
@@ -172,7 +175,11 @@
                           <div style="width:20%">
                             <strong> {{chTree.dashboard.accounts.paused}}</strong><br><small>Paused</small>
                           </div>
-                          <div style="width:20%" routerLink="/users/{{chTree.id}}"><i class="fa fa-arrow-right"></i>
+
+                          <div style="width:10%" (click)="getAccInfo(chTree.id)" title="Show accounts">
+                            <i class="fa fa-eye"></i>
+                          </div>
+                          <div style="width:10%" routerLink="/users/{{chTree.id}}"><i class="fa fa-arrow-right"></i>
                           </div>
 
                         </div>
@@ -197,7 +204,10 @@
                                 <div style="width:20%">
                                   <strong> {{chTreeTree.dashboard.accounts.paused}}</strong><br><small>Paused</small>
                                 </div>
-                                <div style="width:20%" routerLink="/users/{{chTreeTree.id}}"><i
+                                <div style="width:10%" (click)="getAccInfo(chTreeTree.id)" title="Show accounts">
+                                  <i class="fa fa-eye"></i>
+                                </div>
+                                <div style="width:10%" routerLink="/users/{{chTreeTree.id}}"><i
                                     class="fa fa-arrow-right"></i>
                                 </div>
 

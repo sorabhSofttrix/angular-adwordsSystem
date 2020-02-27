@@ -59,8 +59,8 @@ export class ApiServiceService {
 
   /* databases adwords'a apis   */
 
-  getAccounts(id?: number): Observable<any> {
-    const param = id ? `?id=${id}` : '';
+  getAccounts(id?: number, userid?: number): Observable<any> {
+    const param = id ? `?id=${id}` : userid ? `?userid=${userid}` : '';
     return this.http.get(`${this.baseUrl}api/auth/get-accounts${param}`);
   }
 
@@ -83,9 +83,18 @@ export class ApiServiceService {
   getALlAlerts(): Observable<any> {
     return this.http.get(`${this.baseUrl}api/auth/get-dashboard-alerts`)
   }
-  getAllAlertCount() {
+  getAllAlertCount(): Observable<any> {
 
-    return this.http.get(this.baseUrl + '/api/auth/get-alerts-count')
+    return this.http.get(this.baseUrl + 'api/auth/get-alerts-count')
+  }
+
+  getAccountSummary(): Observable<any> {
+    return this.http.get(this.baseUrl + 'api/auth/account-status-summary')
+  }
+
+
+  getDteWiseData(reqBody): Observable<any> {
+    return this.http.post(this.baseUrl + 'api/auth/account-dated-status', reqBody)
   }
 
 

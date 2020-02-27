@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="card">
+        <!-- <div class="card-title">Accounts</div> -->
+        <div class="card-header">Accounts <i class="fa fa-times float-right"
+                (click)="activeModal.dismiss('Cross click')" title="Close" aria-hidden="true"></i>
+        </div>
+        <div class="card-body">
+            <div class="text-center">
+                <ul *ngIf="pager.pages && pager.pages.length" class="pagination float-left">
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a (click)="setPage(1)">
+                            <i class="fa fa-angle-left"></i> <i class="fa fa-angle-left"></i></a>
+                    </li>
+                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                        <a (click)="setPage(page)">{{page}}
+                            <!-- <span class="sr-only">(current)</span> -->
+                        </a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a (click)="setPage(pager.totalPages)">
+                            <i class="fa fa-angle-right"></i>
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                    <li><span class="pagitaion-count">{{count}} of {{specificAcc.length}}</span></li>
+                </ul>
+            </div>
+            <div class="table-responsive" *ngIf="pagedItems.length>0">
+                <table class="table">
+                    <thead class=" text-primary">
+                        <th>Acc. id</th>
+                        <th>Acc. name</th>
+                        <th>Total conversion</th>
+                        <th>Status</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let acc of pagedItems">
+                            <td>{{acc.g_acc_id}}</td>
+                            <td>{{acc.acc_name ? acc.acc_name : acc.g_acc_id}}</td>
+                            <td>{{acc.totalConversion }}</td>
+                            <td>{{acc.acc_status }}</td>
+                            <td>
+                                <button *ngIf="authService.token.user.role_id != 1" (click)="addCount(acc.id)"
+                                    class="btn btn-sm btn-outline-info btn-round btn-icon m-0">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                                <button (click)="infoAccount(acc.id)"
+                                    class="ml-2 btn btn-sm btn-outline-info btn-round btn-icon m-0">
+                                    <i class="fa fa-info"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" (click)="activeModal.dismiss('Cross click')"
+                class="btn  btn-round pull-right">Close</button>
+        </div>
+    </div>
+</div>

@@ -5,6 +5,8 @@ import { ApiServiceService } from 'app/api-services/api-service/api-service.serv
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AccSpecificComponent } from './acc-specific/acc-specific.component';
 
 const TREE_DATA: User[] = [];
 
@@ -50,7 +52,7 @@ export class UsersComponent implements OnInit {
   constructor(private authService: AuthServiceService,
     private api: ApiServiceService,
     private activatedRoute: ActivatedRoute,
-    private router: Router,
+    private router: Router, private modalService: NgbModal,
   ) {
     this.activatedRoute.params.subscribe(params => {
       this.routeData = params;
@@ -81,5 +83,18 @@ export class UsersComponent implements OnInit {
   }
 
   hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+
+
+
+  getAccInfo(id) {
+    const modalRef = this.modalService.open(AccSpecificComponent, {
+      size: 'lg',
+      backdrop: 'static',
+      keyboard: false,
+      windowClass: 'windowsize'
+    });
+    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.listener = this;
+  }
 
 }

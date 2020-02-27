@@ -37,15 +37,13 @@ export class SyncComponent implements OnInit {
 
   pager: any = {};
   pagedItems: any[];
+  count: any;
 
   btnDisable: boolean = false;
 
-  count: any;
-  firstCount: any;
 
   constructor(private authService: AuthServiceService, private pagerService: PagerService,
     private api: ApiServiceService, private ngxLoader: NgxUiLoaderService, private toastr: ToastrService) {
-
 
     switch (this.authService.token.user.role_id) {
       case UserRoles["Super Admin"]:
@@ -175,7 +173,6 @@ export class SyncComponent implements OnInit {
     // get current page of items
     this.pagedItems = this.unAssignedAcc.slice(this.pager.startIndex, this.pager.endIndex + 1);
     if (this.pager.currentPage == 1) {
-      this.firstCount = this.pager.currentPage * 50
       this.count = 1 + '-' + this.pager.currentPage * 50
     }
     else if (this.pagedItems.length < 50) {

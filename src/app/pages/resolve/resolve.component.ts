@@ -16,6 +16,7 @@ export class ResolveComponent implements OnInit {
   comments: any;
   @Input() listener: OnResolveResponseListener;
   @Input() id: number;
+  
   constructor(private api: ApiServiceService, private toastr: ToastrService, public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
