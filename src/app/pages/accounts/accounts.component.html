@@ -2,14 +2,13 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
-        <h4 class="card-title"> Google Adword Accounts
+        <h4 class="card-title"> Adword Accounts
           <!-- <button disabled *ngIf="authService.token.user.role_id != 1" (click)="addCount()"
             class="btn btn-sm btn-outline-success btn-round btn-icon float-right m-0">
             <i class="fa fa-plus"></i>
           </button> -->
           <div class="col-md-3 pull-right">
             <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="search()" placeholder="Search" />
-            <!-- [debounce]="2000" -->
           </div>
           <!-- <div class="form-group">
             <label>Status</label>
@@ -57,6 +56,8 @@
                 <i class="fa fa-angle-right"></i>
               </a>
             </li>
+            <li><span class="pagitaion-count">{{count}} of {{allAccounts.length}}</span></li>
+
           </ul>
         </div>
         <div class="table-responsive">
@@ -66,12 +67,12 @@
               <th> Account ID</th>
               <th> Director</th>
               <th> Manager</th>
-              <th>CPA</th>
+              <!-- <th>CPA</th>
               <th>CPC</th>
               <th>Clicks</th>
               <th>Cost</th>
               <th>Impression</th>
-              <th>Conversion</th>
+              <th>Conversion</th> -->
               <th>Active status</th>
               <th>Total conversion</th>
               <th> </th>
@@ -82,12 +83,12 @@
                 <td>{{account.g_acc_id}}</td>
                 <td>{{account.director_name}}</td>
                 <td>{{account.manager_name}}</td>
-                <td>{{account.cpa}}</td>
+                <!-- <td>{{account.cpa}}</td>
                 <td>{{account.cpc }}</td>
                 <td>{{account.click }}</td>
                 <td>{{account.cost }}</td>
                 <td>{{account.impressions }}</td>
-                <td>{{account.conversion }}</td>
+                <td>{{account.conversion }}</td> -->
                 <td>{{account.acc_status }}</td>
                 <td>{{account.totalConversion }}</td>
                 <td>

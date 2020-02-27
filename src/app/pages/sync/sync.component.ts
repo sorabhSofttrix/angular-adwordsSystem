@@ -37,8 +37,11 @@ export class SyncComponent implements OnInit {
 
   pager: any = {};
   pagedItems: any[];
-  
+
   btnDisable: boolean = false;
+
+  count: any;
+  firstCount: any;
 
   constructor(private authService: AuthServiceService, private pagerService: PagerService,
     private api: ApiServiceService, private ngxLoader: NgxUiLoaderService, private toastr: ToastrService) {
@@ -169,33 +172,43 @@ export class SyncComponent implements OnInit {
   setPage(page: number) {
     // get pager object from service
     this.pager = this.pagerService.getPager(this.unAssignedAcc.length, page);
-
     // get current page of items
     this.pagedItems = this.unAssignedAcc.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    if (this.pager.currentPage == 1) {
+      this.firstCount = this.pager.currentPage * 50
+      this.count = 1 + '-' + this.pager.currentPage * 50
+    }
+    else if (this.pagedItems.length < 50) {
+      this.count = (this.pager.currentPage - 1) * 50 + 1 + '-' + this.unAssignedAcc.length;
+    }
+    else {
+      this.count = (this.pager.currentPage - 1) * 50 + 1 + '-' + this.pager.currentPage * 50
+
+    }
   }
 
 
 
 
-//   $(document).ready(function() {
-//     var $chkboxes = $('.chkbox');
-//     var lastChecked = null;
+  //   $(document).ready(function() {
+  //     var $chkboxes = $('.chkbox');
+  //     var lastChecked = null;
 
-//     $chkboxes.click(function(e) {
-//         if (!lastChecked) {
-//             lastChecked = this;
-//             return;
-//         }
+  //     $chkboxes.click(function(e) {
+  //         if (!lastChecked) {
+  //             lastChecked = this;
+  //             return;
+  //         }
 
-//         if (e.shiftKey) {
-//             var start = $chkboxes.index(this);
-//             var end = $chkboxes.index(lastChecked);
+  //         if (e.shiftKey) {
+  //             var start = $chkboxes.index(this);
+  //             var end = $chkboxes.index(lastChecked);
 
-//             $chkboxes.slice(Math.min(start,end), Math.max(start,end)+ 1).prop('checked', lastChecked.checked);
-//         }
+  //             $chkboxes.slice(Math.min(start,end), Math.max(start,end)+ 1).prop('checked', lastChecked.checked);
+  //         }
 
-//         lastChecked = this;
-//     });
-// });
+  //         lastChecked = this;
+  //     });
+  // });
 
 }

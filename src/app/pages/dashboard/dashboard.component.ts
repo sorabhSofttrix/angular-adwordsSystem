@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
   public chartEmail;
   public chartHours;
   allAlert: any[] = []
-  alertCount: any;
+  alertCount: number = 0;
   currentUser: User;
   constructor(private api: ApiServiceService, public auth: AuthServiceService) {
 
@@ -47,6 +47,10 @@ export class DashboardComponent implements OnInit {
     this.api.getAllAlertCount().subscribe((res) => {
       if (res['status']) {
         this.alertCount = res['data']
+
+      }
+      else {
+        this.alertCount = 0;
 
       }
 
@@ -87,14 +91,14 @@ export class DashboardComponent implements OnInit {
           borderWidth: 3,
           data: [320, 340, 365, 360, 370, 385, 390, 384, 408, 420]
         },
-        {
-          borderColor: "#fcc468",
-          backgroundColor: "#fcc468",
-          pointRadius: 0,
-          pointHoverRadius: 0,
-          borderWidth: 3,
-          data: [370, 394, 415, 409, 425, 445, 460, 450, 478, 484]
-        }
+          // {
+          //   borderColor: "#fcc468",
+          //   backgroundColor: "#fcc468",
+          //   pointRadius: 0,
+          //   pointHoverRadius: 0,
+          //   borderWidth: 3,
+          //   data: [370, 394, 415, 409, 425, 445, 460, 450, 478, 484]
+          // }
         ]
       },
       options: {
@@ -143,9 +147,11 @@ export class DashboardComponent implements OnInit {
 
     this.canvas = document.getElementById("chartEmail");
     this.ctx = this.canvas.getContext("2d");
-    let values = [this.currentUser.dashboard.accounts.all, this.currentUser.dashboard.accounts.active,
-    this.currentUser.dashboard.accounts.paused,
-    this.currentUser.dashboard.accounts.closed];
+    let values = [
+      this.currentUser.dashboard.accounts.active,
+      this.currentUser.dashboard.accounts.paused,
+      this.currentUser.dashboard.accounts.closed
+    ];
     this.chartEmail = new Chart(this.ctx, {
       type: 'pie',
       data: {
@@ -155,13 +161,13 @@ export class DashboardComponent implements OnInit {
           pointRadius: 0,
           pointHoverRadius: 0,
           backgroundColor: [
-            '#e3e3e3',
+          
             '#4acccd',
             '#fcc468',
-            '#ef8157'
+            '#ef8157',
           ],
           borderWidth: 0,
-          // data: [342, 480, 530, 120]
+          // data: [100, 200, 300]
           data: values
         }]
       },

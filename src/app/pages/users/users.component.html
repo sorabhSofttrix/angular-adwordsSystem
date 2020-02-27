@@ -123,35 +123,6 @@
         <h5 class="float-left"> Team</h5>
         <a routerLink="/register-user" *ngIf="currentUser.role_id != 4" class="btn btn-primary  float-right">Register
           user</a>
-
-      </div>
-      <div class="card-body">
-        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-          <!-- This is the tree node template for leaf nodes -->
-          <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-            <!-- use a disabled button to provide padding for tree leaf -->
-            <button mat-icon-button disabled></button>
-            {{node.name}}
-          </mat-tree-node>
-          <!-- This is the tree node template for expandable nodes -->
-          <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-            <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.name">
-              <mat-icon class="mat-icon-rtl-mirror">
-                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-              </mat-icon>
-            </button>
-            {{node.name}}
-          </mat-tree-node>
-        </mat-tree>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-8">
-    <div class="card">
-      <div class="card-header">
-        <h4 class="card-title"> Users
-        </h4>
       </div>
       <div class="card-body">
         <ng-container>
@@ -162,56 +133,83 @@
           <div [id]="'demo' + currentUser.id" class="collapse">
             <div class="text-left">
               <div class="card-body" *ngFor="let ch of currentUser.children">
-                <div class="col-md-12 btn btn-success btn-collape " [attr.data-target]="'#demo' + ch.id"
-                  data-toggle="collapse">
-                  <div class="float-left">{{ch.name}}</div>
-                  <!-- <div class="">{{ch.dashboard.accounts.all}}</div>
-                  <div class="">{{ch.dashboard.accounts.closed}}</div>
-                  <div class="">{{ch.dashboard.accounts.active}}</div>
-                  <div class="">{{ch.dashboard.accounts.paused}}</div> -->
-
+                <div class="col-md-12 btn  btn-collape ">
+                  <div class="float-left" [attr.data-target]="'#demo' + ch.id" data-toggle="collapse">{{ch.name}}</div>
                   <div class="row">
-
-                    <div class="col-md-3 col-sm-4 col-xs-6">
+                    <div style="width:20%">
                       <strong>{{ch.dashboard.accounts.all}}</strong><br><small>All</small>
                     </div>
-                    <div class="col-md-3 col-sm-4 col-xs-6">
+                    <div style="width:20%">
                       <strong>{{ch.dashboard.accounts.closed}}</strong><br><small>Closed</small>
                     </div>
-                    <div class="col-md-3 col-sm-4 col-xs-6">
+                    <div style="width:20%">
                       <strong>{{ch.dashboard.accounts.active}}</strong><br><small>Active</small>
                     </div>
-                    <div class="col-md-3 col-sm-4 col-xs-6">
+                    <div style="width:20%">
                       <strong> {{ch.dashboard.accounts.paused}}</strong><br><small>Paused</small>
                     </div>
+                    <div style="width:20%" routerLink="/users/{{ch.id}}"><i class="fa fa-arrow-right"></i></div>
 
                   </div>
-                </div>
-                <div class=" collapse" [id]="'demo' + ch.id">
-                  <div class="card-body">
-                    <div class="col-md-12 col-sm-4 col-xs-6 btn btn-warning " *ngFor="let chTree of ch.children">
-                      <!-- <h6>{{chTree.name}}</h6> -->
-                      <div class="float-left">{{chTree.name}}</div>
+                  <div class=" collapse" [id]="'demo' + ch.id">
+                    <div class="card-body">
+                      <div class="col-md-12 col-sm-4 col-xs-6 btn btn-default " *ngFor="let chTree of ch.children">
+                        <!-- <h6>{{chTree.name}}</h6> -->
+                        <div class="float-left" [attr.data-target]="'#demo' + chTree.id" data-toggle="collapse">
+                          {{chTree.name}}</div>
 
-                      <div class="row">
+                        <div class="row">
 
-                        <div class="col-md-3 col-sm-4 col-xs-6">
-                          <strong>{{chTree.dashboard.accounts.all}}</strong><br><small>All</small>
-                        </div>
-                        <div class="col-md-3 col-sm-4 col-xs-6">
-                          <strong>{{chTree.dashboard.accounts.closed}}</strong><br><small>Closed</small>
-                        </div>
-                        <div class="col-md-3 col-sm-4 col-xs-6">
-                          <strong>{{chTree.dashboard.accounts.active}}</strong><br><small>Active</small>
-                        </div>
-                        <div class="col-md-3 col-sm-4 col-xs-6">
-                          <strong> {{chTree.dashboard.accounts.paused}}</strong><br><small>Paused</small>
-                        </div>
+                          <div style="width:20%">
+                            <strong>{{chTree.dashboard.accounts.all}}</strong><br><small>All</small>
+                          </div>
+                          <div style="width:20%">
+                            <strong>{{chTree.dashboard.accounts.closed}}</strong><br><small>Closed</small>
+                          </div>
+                          <div style="width:20%">
+                            <strong>{{chTree.dashboard.accounts.active}}</strong><br><small>Active</small>
+                          </div>
+                          <div style="width:20%">
+                            <strong> {{chTree.dashboard.accounts.paused}}</strong><br><small>Paused</small>
+                          </div>
+                          <div style="width:20%" routerLink="/users/{{chTree.id}}"><i class="fa fa-arrow-right"></i>
+                          </div>
 
+                        </div>
+                        <div class=" collapse" [id]="'demo' + chTree.id">
+                          <div class="card-body">
+                            <div class="col-md-12 col-sm-4 col-xs-6 btn btn-default "
+                              *ngFor="let chTreeTree of chTree.children">
+                              <!-- <h6>{{chTree.name}}</h6> -->
+                              <div class="float-left">{{chTreeTree.name}}</div>
+
+                              <div class="row">
+
+                                <div style="width:20%">
+                                  <strong>{{chTreeTree.dashboard.accounts.all}}</strong><br><small>All</small>
+                                </div>
+                                <div style="width:20%">
+                                  <strong>{{chTreeTree.dashboard.accounts.closed}}</strong><br><small>Closed</small>
+                                </div>
+                                <div style="width:20%">
+                                  <strong>{{chTreeTree.dashboard.accounts.active}}</strong><br><small>Active</small>
+                                </div>
+                                <div style="width:20%">
+                                  <strong> {{chTreeTree.dashboard.accounts.paused}}</strong><br><small>Paused</small>
+                                </div>
+                                <div style="width:20%" routerLink="/users/{{chTreeTree.id}}"><i
+                                    class="fa fa-arrow-right"></i>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
               </div>
               <hr>
             </div>

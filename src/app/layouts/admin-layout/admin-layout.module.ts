@@ -34,7 +34,6 @@ import {
 
 } from '@angular/material';
 import { CategoryPipe } from 'app/api-services/api-service/category.pipe';
-// import { DebounceDirective } from 'app/api-services/api-service/debounce.directive';
 
 
 @NgModule({
@@ -56,6 +55,7 @@ import { CategoryPipe } from 'app/api-services/api-service/category.pipe';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTreeModule,
+    // DebounceDirective
 
   ],
   declarations: [
@@ -69,7 +69,7 @@ import { CategoryPipe } from 'app/api-services/api-service/category.pipe';
     SyncComponent,
     AccountAlertComponent,
     CategoryPipe,
-    // DebounceDirective
+     
 
 
   ],

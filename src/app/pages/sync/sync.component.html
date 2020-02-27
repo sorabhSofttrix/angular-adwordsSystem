@@ -2,8 +2,10 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title"> Assign Accounts
-                </h4>
+                <div class="card-title">
+                    <h4 class="float-left">Assign Accounts</h4>
+                </div>
+                <div class="clearfix"></div>
                 <div class="row">
                     <div class="col-3">
                         <div class="">
@@ -38,16 +40,12 @@
 
                         </div>
                     </div>
+                </div>
 
-                    <div class="row">
-                        <div class="update ml-auto mr-auto">
-                            <button type="submit" (click)="send()" [disabled]="btnDisable"
-                                class="btn btn-primary btn-round">Save</button>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="alert alert-success" *ngIf="successMessage">
-                                <span><b> hurray!</b> {{successMessage}}</span>
-                            </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-success" *ngIf="successMessage">
+                            <span><b> hurray!</b> {{successMessage}}</span>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -56,10 +54,12 @@
                         </div>
                     </div>
                 </div>
+
+
             </div>
             <div class="card-body">
                 <div class="text-center">
-                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination float-left">
                         <li [ngClass]="{disabled:pager.currentPage === 1}">
                             <a (click)="setPage(1)">
                                 <i class="fa fa-angle-left"></i> <i class="fa fa-angle-left"></i></a>
@@ -81,7 +81,12 @@
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </li>
+                        <li><span class="pagitaion-count">{{count}} of {{unAssignedAcc.length}}</span></li>
                     </ul>
+                    <div class=" update ml-auto mr-auto float-right">
+                        <button type="submit" (click)="send()" [disabled]="btnDisable"
+                            class="btn btn-primary btn-round">Save</button>
+                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table">
@@ -150,9 +155,9 @@
             </div>
 
             <div class="row">
-                <div class="update ml-auto mr-auto">
+                <div class="col-md-12 update ml-auto mr-auto">
                     <button type="submit" (click)="send()" [disabled]="btnDisable"
-                        class="btn btn-primary btn-round">Save</button>
+                        class="btn btn-primary btn-round pull-right">Save</button>
                 </div>
                 <div class="col-md-12">
                     <div class="alert alert-success" *ngIf="successMessage">

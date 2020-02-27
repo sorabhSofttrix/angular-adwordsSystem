@@ -4,6 +4,8 @@ import { AdAccount, AccountStatus } from 'app/api-services/api-types/api-types.s
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'app/auth-service/auth-service.service';
 import { PagerService } from 'app/api-services/pager.service';
+import { Subject } from 'rxjs/index';
+import { debounceTime } from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-accounts',
@@ -23,6 +25,10 @@ export class AccountsComponent implements OnInit {
 
   accStatus = ['All', AccountStatus.active, AccountStatus.closed, AccountStatus.paused];
 
+  modelChanged: Subject<string> = new Subject<string>();
+
+  count: any;
+
 
   constructor(
     private api: ApiServiceService,
@@ -36,6 +42,12 @@ export class AccountsComponent implements OnInit {
     );
 
     this.status_filter = this.accStatus[1]
+
+    this.modelChanged.pipe(debounceTime(500))
+      .subscribe(model => {
+        // this.page.pageNumber = 0;
+        this.searchFilter();
+      });
   }
 
   addCount(id?: number) {
@@ -54,8 +66,8 @@ export class AccountsComponent implements OnInit {
 
   }
 
-  search() {
-    // console.log(this.status_filter)
+  searchFilter() {
+    console.log(this.searchText)
     if (!this.searchText && this.status_filter == 'All') {
       this.setPage(1);
     } else {
@@ -98,7 +110,21 @@ export class AccountsComponent implements OnInit {
 
     // get current page of items
     this.pagedItems = this.allAccounts.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    if (this.pager.currentPage == 1) {
+      this.count = 1 + '-' + this.pager.currentPage * 50
+    }
+    else if (this.pagedItems.length < 50) {
+      this.count = (this.pager.currentPage - 1) * 50 + 1 + '-' + this.allAccounts.length
+    }
+    else {
+      this.count = (this.pager.currentPage - 1) * 50 + 1 + '-' + this.pager.currentPage * 50
+
+    }
   }
 
+
+  search() {
+    this.modelChanged.next();
+  }
 
 }

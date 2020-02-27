@@ -17,7 +17,7 @@ export class AddAccountComponent implements OnInit {
   accountForm: FormGroup;
   cronTimes = [6, 12, 24];
   accPriority = [Priority.low, Priority.normal, Priority.high, Priority.urgent];
-  accStatus = [AccountStatus.active, AccountStatus.closed, AccountStatus.paused, AccountStatus.requiredSetup];
+  accStatus = [AccountStatus.active, AccountStatus.closed, AccountStatus.paused];
   accountDirectors: { status: boolean, items?: User[] } = { status: false };
   accountManagers: { status: boolean, items?: User[] } = { status: false };
   membersDownOptions: { loading: boolean, item?: User } = { loading: true };

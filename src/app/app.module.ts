@@ -39,15 +39,15 @@ import {
 
 import { MatTreeModule } from '@angular/material/tree';
 import { CategoryPipe } from './api-services/api-service/category.pipe';
-// import { DebounceDirective } from './api-services/api-service/debounce.directive';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     LoginComponent,
     ResolveComponent,
-    // DebounceDirective
-    
+
 
 
   ],
