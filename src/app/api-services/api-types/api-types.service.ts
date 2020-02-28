@@ -35,7 +35,7 @@ export interface User {
 }
 
 export interface DashboardData {
-  accounts?: { all: number, closed: number, active: number ,paused:number}
+  accounts?: { all: number, closed: number, active: number, paused: number }
 }
 export interface Members {
   admins?: User[],
@@ -133,4 +133,11 @@ export interface UnassignedAccounts {
   director_name: string
   manager_name: string
   selected: boolean
+}
+
+export interface Reasons {
+  id?: number;
+  title: string;
+  rank: number;
+  sortOrder: number;
 }

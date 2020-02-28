@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-user">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="float-left"> Add reason</div>
+                    <div class="update ml-auto mr-auto">
+                        <button type="submit" (click)="submit()"
+                            class="btn btn-primary btn-round pull-right">{{btnTxt}}</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body" *ngIf="reasonForm">
+                <form [formGroup]="reasonForm" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group" [ngClass]="{'has-error': title.invalid && title.dirty}">
+                                <label>Title</label>
+                                <input type="text" formControlName="title" class="form-control" placeholder="Title">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Impression points</label>
+                                <input type="number" formControlName="rank" class="form-control" placeholder="Rank"
+                                    onKeyPress="if(this.value.length==2) return false;" />
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Sort order</label>
+                                <input type="number" formControlName="sortOrder" class="form-control"
+                                    placeholder="Sort order" onKeyPress="if(this.value.length==2) return false;" />
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger" *ngIf="errorMessage">
+                                <span><b> Oops!</b> {{errorMessage}}</span>
+                            </div>
+                            <div class="alert alert-success" *ngIf="successMessage">
+                                <span>{{successMessage}}</span>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="row">
+
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer" *ngIf="reasons.length>0">
+                <div class="card-title"> Reasons</div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                            <th>Title</th>
+                            <th>Rank</th>
+                            <th>Sort order</th>
+                            <th>Action</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let rs of reasons">
+                                <td>{{rs.title}}</td>
+                                <td>{{rs.rank }}</td>
+                                <td>{{rs.sortOrder }}</td>
+                                <td>
+                                    <button (click)="edit(rs.id)"
+                                        class="btn btn-sm btn-outline-info btn-round btn-icon m-0">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button (click)="delete(rs.id)"
+                                        class="ml-2 btn btn-sm btn-outline-danger btn-round btn-icon m-0">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 
 
 })
-export class AccountsComponent{
+export class AccountsComponent {
   loading: boolean = true;
   allAccounts: AdAccount[];
 
@@ -32,7 +32,7 @@ export class AccountsComponent{
   btnDisable: boolean = false
   dataRes: any = [];
   queryParam: string = '';
-
+  toList: any = [];
   constructor(
     private api: ApiServiceService, private _sharedService: SharedService,
     public authService: AuthServiceService, private toastr: ToastrService,
@@ -45,10 +45,10 @@ export class AccountsComponent{
     this.status_filter = (this.queryParam && this.accStatus.includes(this.queryParam)) ? this.queryParam : this.accStatus[1];
     this.queryParam = '';
     this.api.getAccounts().subscribe(res => {
-        this.allAccounts = res.data;
-        this.setPage(1);
-        this.searchFilter();
-      }
+      this.allAccounts = res.data;
+      this.setPage(1);
+      this.searchFilter();
+    }
     );
     this.modelChanged.pipe(debounceTime(500))
       .subscribe(model => {
@@ -57,8 +57,8 @@ export class AccountsComponent{
   }
 
   addCount(id?: number) {
-    const param = id ? `/${id}` : '';
-    this.router.navigate([`ad-account${param}`]);
+    const param = id ? '/' + id : '';
+    this.router.navigate(['ad-account' + param]);
   };
 
   infoAccount(id: number) {
@@ -96,24 +96,29 @@ export class AccountsComponent{
           }
         }
       );
-      // get pager object from service
-      this.pager = this.pagerService.getPager(filteredItems.length, 1);
-      // get current page of items
-      this.pagedItems = filteredItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
+      this.setPage(1, filteredItems);
+      // // get pager object from service
+      // this.pager = this.pagerService.getPager(filteredItems.length, 1);
+      // // get current page of items
+      // this.pagedItems = filteredItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
     }
   }
 
-  setPage(page: number) {
+  setPage(page: number, items?: any) {
+    this.toList = items ? items : this.allAccounts;
     // get pager object from service
-    this.pager = this.pagerService.getPager(this.allAccounts.length, page);
+    this.pager = this.pagerService.getPager(this.toList.length, page);
 
     // get current page of items
-    this.pagedItems = this.allAccounts.slice(this.pager.startIndex, this.pager.endIndex + 1);
-    if (this.pager.currentPage == 1) {
+    this.pagedItems = this.toList.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    if (this.pager.currentPage == 1 && this.toList.length == 50) {
       this.count = 1 + '-' + this.pager.currentPage * 50
     }
+    else if (this.pager.currentPage == 1 && this.toList.length < 50) {
+      this.count = 1 + '-' + this.toList.length
+    }
     else if (this.pagedItems.length < 50) {
-      this.count = (this.pager.currentPage - 1) * 50 + 1 + '-' + this.allAccounts.length
+      this.count = (this.pager.currentPage - 1) * 50 + 1 + '-' + this.toList.length
     }
     else {
       this.count = (this.pager.currentPage - 1) * 50 + 1 + '-' + this.pager.currentPage * 50

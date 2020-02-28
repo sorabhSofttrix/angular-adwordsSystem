@@ -34,6 +34,7 @@ import {
 
 } from '@angular/material';
 import { CategoryPipe } from 'app/api-services/api-service/category.pipe';
+import { ReasonComponent } from 'app/pages/reason/reason.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { CategoryPipe } from 'app/api-services/api-service/category.pipe';
     SyncComponent,
     AccountAlertComponent,
     CategoryPipe,
-     
+    ReasonComponent
+
 
 
   ],

@@ -13,7 +13,7 @@ import { switchMap, catchError } from 'rxjs/operators';
 })
 export class ApiServiceService {
   // baseUrl: string = 'https://6a4db3b3.ngrok.io/';
-  baseUrl: string = 'http://localhost:8000/';
+  baseUrl: string = 'http://c1d686aa.ngrok.io/';
 
 
   constructor(private http: HttpClient) { }
@@ -98,6 +98,28 @@ export class ApiServiceService {
   }
 
 
+
+  createReason(reasonBody): Observable<any> {
+    return this.http.post(this.baseUrl + '/api/auth/add-reason', reasonBody)
+  }
+
+  getAllReasons(): Observable<any> {
+    return this.http.get(this.baseUrl + '/api/auth/get-reasons')
+  }
+
+  getReasonById(id): Observable<any> {
+    return this.http.get(this.baseUrl + 'api/auth/get-reasons?id=' + id)
+  }
+
+  updateReason(data): Observable<any> {
+    return this.http.post(this.baseUrl + 'api/auth/add-reason', data)
+  }
+
+
+
+  deleteReason(id): Observable<any> {
+    return this.http.get(this.baseUrl + 'api/auth/delete-reason?id=' + id)
+  }
   // checkData() {
   //   return timer(0, 10000)
   //     .pipe(

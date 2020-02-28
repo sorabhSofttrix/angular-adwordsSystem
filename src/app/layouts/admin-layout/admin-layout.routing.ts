@@ -10,6 +10,7 @@ import { AccountInfoComponent } from '../../pages/account-info/account-info.comp
 import { UsersComponent } from '../../pages/users/users.component';
 import { SyncComponent } from 'app/pages/sync/sync.component';
 import { AccountAlertComponent } from 'app/pages/account-alert/account-alert.component';
+import { ReasonComponent } from 'app/pages/reason/reason.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
@@ -21,10 +22,19 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'account-info/:id', component: AccountInfoComponent, canActivate: [AuthGuardService] },
     { path: 'users', component: UsersComponent, canActivate: [AuthGuardService] },
     { path: 'users/:id', component: UsersComponent, canActivate: [AuthGuardService] },
-
     { path: 'sync', component: SyncComponent, canActivate: [AuthGuardService] },
     { path: 'accAlerts', component: AccountAlertComponent, canActivate: [AuthGuardService] },
+    {
+        path: '',
+        canActivate: [AuthGuardService],
+        children: [
+            {
+                path: 'reasons',
+                component: ReasonComponent,
+            },
 
+        ]
+    },
 
 
 ];

@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="card">
+        <!-- <div class="card-title">Accounts</div> -->
+        <div class="card-header">
+            <b>Delete</b> <i class="fa fa-times float-right" (click)="activeModal.dismiss('Cross click')" title="Close"
+                aria-hidden="true"></i>
+        </div>
+        <div class="card-body text-center">
+            Are you sure you want to delete <b>Reason</b>
+        </div>
+        <div class="card-footer">
+
+            <button type="submit" (click)="activeModal.dismiss('Cross click')"
+                class="btn  btn-round pull-right">Close</button>
+            <div class="update ml-auto mr-auto">
+                <button type="submit" (click)="delete()" class="btn btn-primary btn-round">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

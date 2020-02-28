@@ -39,8 +39,7 @@ export class DashboardComponent implements OnInit {
     this.getAccSummary();
     this.currentUser = this.auth.token.user;
     this.dashboardGraphFunction();
-    // console.log(this.currentUser)
-
+  
     this.active = this.currentUser.dashboard.accounts.active,
       this.paused = this.currentUser.dashboard.accounts.paused,
       this.closed = this.currentUser.dashboard.accounts.closed
@@ -92,11 +91,7 @@ export class DashboardComponent implements OnInit {
           this.acc_status['12']['closed'],
         ]
 
-        console.log('sourceClosed--->>>', this.sourceClosed)
-        console.log('sourcePaused--->>>', this.sourcePaused)
-        console.log('sourceActive--->>>', this.sourceActive)
         this.dashboardGraphFunction();
-
       }
     })
   }
@@ -324,7 +319,6 @@ export class DashboardComponent implements OnInit {
       labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
       datasets: [dataFirst, dataSecond, dataThird]
     };
-    console.log(speedData)
 
     var chartOptions = {
       legend: {

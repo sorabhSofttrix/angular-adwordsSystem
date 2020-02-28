@@ -21,6 +21,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/ad-account', title: 'Add Ad-Account', icon: 'nc-simple-add', class: '', nottoShowInMenu: true },
     { path: '/account-info', title: 'Ad-Account Details', icon: 'nc-simple-add', class: '', nottoShowInMenu: true },
     { path: '/users', title: 'Users', icon: 'nc-single-02', class: '' },
+    { path: '/reasons', title: 'Reasons', icon: 'nc-single-02', class: '' },
 ];
 
 @Component({
