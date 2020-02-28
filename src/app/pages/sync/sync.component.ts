@@ -6,6 +6,7 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { PagerService } from 'app/api-services/pager.service';
 import { ToastrService } from 'ngx-toastr';
 
+declare  var $;
 @Component({
   selector: 'app-sync',
   templateUrl: './sync.component.html',
@@ -118,14 +119,6 @@ export class SyncComponent implements OnInit {
       this.pagedItems[i]['selected'] = this.selectedAll;
     }
   }
-
-  checkIfAllSelected() {
-    this.selectedAll = this.pagedItems.every(function (item: any) {
-      return item.selected == true;
-    })
-  }
-
-
   // syncObj1: any = []
   // this.syncObj = ['dsfds'];
   // this.syncObj1 = 'dsfdsfds';
@@ -207,5 +200,32 @@ export class SyncComponent implements OnInit {
   //         lastChecked = this;
   //     });
   // });
-
+  
+  lastChecked = null;
+  checkIfAllSelected(ev?:any) {
+    let checkBoxes = [].slice.call(document.querySelectorAll('.workwit'));
+    if (!this.lastChecked && !ev.shiftKey) {
+        this.lastChecked = ev.target;
+        return;
+    }
+    let start = null;
+    let end = null;
+    if (ev.shiftKey) {
+      for(let i = 0; i < checkBoxes.length; i++) {
+        if(checkBoxes[i] == ev.target) { start = i; }
+        if(checkBoxes[i] == this.lastChecked) { end = i; }
+      }
+      let ff = checkBoxes.slice( Math.min(start,end), Math.max(start,end)+ 1);
+        ff.forEach(element => {
+          this.pagedItems.forEach(item => {
+            if(item.id == element.getAttribute('id')) {
+              item.selected = this.lastChecked.checked;
+            }
+          });
+        });
+    }
+    this.selectedAll = this.pagedItems.every(function (item: any) {
+      return item.selected == true;
+    });
+  }
 }

@@ -101,8 +101,8 @@
                         <tbody>
                             <tr *ngFor="let acc of pagedItems">
                                 <td>
-                                    <input type="checkbox" class="checkbox" [(ngModel)]="acc.selected"
-                                        (change)="checkIfAllSelected();">
+                                    <input type="checkbox" class="checkbox workwit" id="{{acc.id}}" [(ngModel)]="acc.selected"
+                                        (click)="checkIfAllSelected($event);">
                                 </td>
                                 <td>{{acc.g_acc_id}}</td>
                                 <td>{{acc.acc_name ? acc.acc_name : acc.g_acc_id}}</td>
