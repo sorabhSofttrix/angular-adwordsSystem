@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiServiceService } from 'app/api-services/api-service/api-service.service';
 import { AdAccount, AccountStatus } from 'app/api-services/api-types/api-types.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthServiceService } from 'app/auth-service/auth-service.service';
 import { PagerService } from 'app/api-services/pager.service';
 import { Subject } from 'rxjs/index';
@@ -35,19 +35,19 @@ export class AccountsComponent implements OnInit {
 
   dataRes: any = [];
 
-  constructor(
+  constructor(private activatedRoute: ActivatedRoute,
     private api: ApiServiceService, private _sharedService: SharedService,
     public authService: AuthServiceService, private toastr: ToastrService,
     private router: Router, private pagerService: PagerService,
   ) {
+
+
     this.api.getAccounts().subscribe(res => {
       this.allAccounts = res.data;
       this.setPage(1);
     }
+
     );
-
-    this.status_filter = this.accStatus[1]
-
     this.modelChanged.pipe(debounceTime(500))
       .subscribe(model => {
         // this.page.pageNumber = 0;
@@ -65,7 +65,19 @@ export class AccountsComponent implements OnInit {
   };
 
   ngOnInit() {
-    console.log(this.startDate)
+    // console.log(this.startDate)
+    this.activatedRoute.queryParams.subscribe(params => {
+      let value = params['q'];
+      if (value) {
+        this.status_filter = value
+        console.log('if--->>', this.status_filter);
+        this.searchFilter();
+      }
+      else {
+        this.status_filter = this.accStatus[1]
+      }
+    });
+
 
   }
 

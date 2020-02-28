@@ -119,9 +119,7 @@ export class SyncComponent implements OnInit {
       this.pagedItems[i]['selected'] = this.selectedAll;
     }
   }
-  // syncObj1: any = []
-  // this.syncObj = ['dsfds'];
-  // this.syncObj1 = 'dsfdsfds';
+ 
   send() {
     this.account_ids = []
     this.ngxLoader.startLoader('loader-01');
@@ -177,30 +175,7 @@ export class SyncComponent implements OnInit {
     }
   }
 
-
-
-
-  //   $(document).ready(function() {
-  //     var $chkboxes = $('.chkbox');
-  //     var lastChecked = null;
-
-  //     $chkboxes.click(function(e) {
-  //         if (!lastChecked) {
-  //             lastChecked = this;
-  //             return;
-  //         }
-
-  //         if (e.shiftKey) {
-  //             var start = $chkboxes.index(this);
-  //             var end = $chkboxes.index(lastChecked);
-
-  //             $chkboxes.slice(Math.min(start,end), Math.max(start,end)+ 1).prop('checked', lastChecked.checked);
-  //         }
-
-  //         lastChecked = this;
-  //     });
-  // });
-  
+ 
   lastChecked = null;
   checkIfAllSelected(ev?:any) {
     let checkBoxes = [].slice.call(document.querySelectorAll('.workwit'));
