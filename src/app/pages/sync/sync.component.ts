@@ -92,6 +92,7 @@ export class SyncComponent implements OnInit {
         if (!this.unAssignedAcc.length) {
           this.errorMessage = 'There is no account to assign.';
           this.btnDisable = true
+          this.selectedAll = false;
           return true
         }
         this.setPage(1);

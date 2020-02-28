@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { ApiServiceService } from 'app/api-services/api-service/api-service.service';
 import { timer } from 'rxjs';
 import { AuthServiceService } from 'app/auth-service/auth-service.service';
+import { User } from 'app/api-services/api-types/api-types.service';
 @Component({
   moduleId: module.id,
   selector: 'navbar-cmp',
@@ -25,6 +26,7 @@ export class NavbarComponent implements OnInit {
   sub: any;
   unAuth: any;
 
+  currentUser: User;
   @ViewChild("navbar-cmp", { static: false }) button;
 
 
@@ -34,6 +36,7 @@ export class NavbarComponent implements OnInit {
     this.nativeElement = element.nativeElement;
     this.sidebarVisible = false;
     this.getAllAlertCounts();
+
     this.sub = this.auth.authenticationState.subscribe(res => {
       if (!res) {
         clearInterval(this.unAuth)
@@ -43,6 +46,7 @@ export class NavbarComponent implements OnInit {
         }, 60000);
       }
     });
+    this.currentUser = this.auth.token.user;
   }
 
   ngOnInit() {

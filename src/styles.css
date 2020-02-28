@@ -8,3 +8,9 @@
 
 
 
+.sidebar .logo, .off-canvas-sidebar .logo {
+    position: relative;
+    padding: 7px 0.7rem;
+    z-index: 4;
+    background: #8080809e;
+}
