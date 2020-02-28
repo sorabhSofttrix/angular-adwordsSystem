@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ApiServiceService } from 'app/api-services/api-service/api-service.service';
 import { AdAccount, AccountStatus } from 'app/api-services/api-types/api-types.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,7 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 
 
 })
-export class AccountsComponent implements OnInit {
+export class AccountsComponent{
   loading: boolean = true;
   allAccounts: AdAccount[];
 
@@ -26,31 +26,32 @@ export class AccountsComponent implements OnInit {
   status_filter: string;
   accStatus = ['All', AccountStatus.active, AccountStatus.closed, AccountStatus.paused];
   modelChanged: Subject<string> = new Subject<string>();
-
   count: any;
   startDate;
   endDate
-
   btnDisable: boolean = false
-
   dataRes: any = [];
+  queryParam: string = '';
 
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(
     private api: ApiServiceService, private _sharedService: SharedService,
     public authService: AuthServiceService, private toastr: ToastrService,
     private router: Router, private pagerService: PagerService,
+    private activatedRoutes: ActivatedRoute
   ) {
-
-
+    this.activatedRoutes.queryParams.subscribe(value => {
+      this.queryParam = value['q'];
+    })
+    this.status_filter = (this.queryParam && this.accStatus.includes(this.queryParam)) ? this.queryParam : this.accStatus[1];
+    this.queryParam = '';
     this.api.getAccounts().subscribe(res => {
-      this.allAccounts = res.data;
-      this.setPage(1);
-    }
-
+        this.allAccounts = res.data;
+        this.setPage(1);
+        this.searchFilter();
+      }
     );
     this.modelChanged.pipe(debounceTime(500))
       .subscribe(model => {
-        // this.page.pageNumber = 0;
         this.searchFilter();
       });
   }
@@ -64,22 +65,6 @@ export class AccountsComponent implements OnInit {
     this.router.navigate([`account-info/${id}`]);
   };
 
-  ngOnInit() {
-    // console.log(this.startDate)
-    this.activatedRoute.queryParams.subscribe(params => {
-      let value = params['q'];
-      if (value) {
-        this.status_filter = value
-        console.log('if--->>', this.status_filter);
-        this.searchFilter();
-      }
-      else {
-        this.status_filter = this.accStatus[1]
-      }
-    });
-
-
-  }
 
   searchFilter() {
     if (!this.searchText && this.status_filter == 'All') {

@@ -46,7 +46,7 @@
       <div class="card-footer ">
         <hr>
         <div class="stats">
-          <i class="fa fa-calendar-o"></i>
+          <a routerLink="/accounts" [queryParams]="{q:'active'}">View all Active <i class="fa fa-arrow-right"></i> </a>
         </div>
       </div>
     </div>
@@ -73,7 +73,7 @@
       <div class="card-footer ">
         <hr>
         <div class="stats">
-          <i class="fa fa-refresh"></i>
+          <a routerLink="/accounts" [queryParams]="{q:'paused'}">View all paused <i class="fa fa-arrow-right"></i> </a>
         </div>
       </div>
     </div>
@@ -100,7 +100,7 @@
       <div class="card-footer ">
         <hr>
         <div class="stats">
-          <i class="fa fa-clock-o"></i> In the last hour
+          <a routerLink="/accounts" [queryParams]="{q:'closed'}">View all closed <i class="fa fa-arrow-right"></i> </a>
         </div>
       </div>
     </div>
