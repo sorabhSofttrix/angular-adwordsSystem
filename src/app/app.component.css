@@ -1,1 +1,24 @@
- 
+.preloader-backdrop {
+    /* background-color: transparent; */
+    background         : #00000061;
+}
+
+.page-preloader {
+    background-color: #fff;
+    box-shadow      : 0 5px 20px #d6dee4;
+    border-radius   : 7px;
+}
+
+.preloader-backdrop .page-preloader::before {
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

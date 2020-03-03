@@ -21,6 +21,7 @@ export class AccSpecificComponent implements OnInit {
   pager: any = {};
   pagedItems: any[];
   count: any;
+  isLoaded: boolean = false;
 
   constructor(public activeModal: NgbActiveModal, private router: Router, public authService: AuthServiceService,
     private api: ApiServiceService, private pagerService: PagerService) { }
@@ -30,6 +31,7 @@ export class AccSpecificComponent implements OnInit {
       this.api.getAccounts(null, this.id).subscribe(res => {
         this.specificAcc = res['data']
         this.setPage(1);
+        this.isLoaded = true
       }
       );
     }

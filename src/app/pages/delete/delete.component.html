@@ -8,13 +8,9 @@
         <div class="card-body text-center">
             Are you sure you want to delete <b>Reason</b>
         </div>
-        <div class="card-footer">
-
-            <button type="submit" (click)="activeModal.dismiss('Cross click')"
-                class="btn  btn-round pull-right">Close</button>
-            <div class="update ml-auto mr-auto">
-                <button type="submit" (click)="delete()" class="btn btn-primary btn-round">Yes</button>
-            </div>
+        <div class="card-footer text-right">
+            <button type="submit" (click)="activeModal.dismiss('Cross click')" class="btn  btn-round  ">Close</button>
+            <button type="submit" (click)="delete()" class="btn btn-primary btn-round">Yes</button>
         </div>
     </div>
 </div>

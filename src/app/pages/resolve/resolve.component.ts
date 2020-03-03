@@ -1,6 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IncomingHttpStatusHeader } from 'http2';
-import { cpus } from 'os';
 import { ApiServiceService } from 'app/api-services/api-service/api-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';

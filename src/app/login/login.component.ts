@@ -3,7 +3,7 @@ import { AuthServiceService } from '../auth-service/auth-service.service';
 import { ApiServiceService } from '../api-services/api-service/api-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { Helpers } from 'app/helpers';
 
 
 @Component({
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     private api: ApiServiceService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private ngxLoader: NgxUiLoaderService
+
   ) { }
 
   ngOnInit() {
@@ -45,23 +45,21 @@ export class LoginComponent implements OnInit {
   login() {
     if (!this.loginForm.invalid) {
       this.errorMessage = '';
-      this.ngxLoader.startLoader('loader-01');
+      Helpers.setLoading(true)
       this.api.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(res => {
         if (res.status) {
-          this.ngxLoader.stopLoader('loader-01');
-
+          Helpers.setLoading(false)
           this.authService.login(res.data);
           this.router.navigate(['dashboard']);
           this.initForm();
         } else {
-          this.ngxLoader.stopLoader('loader-01');
-
+          Helpers.setLoading(false)
           this.errorMessage = 'please use valid credentials';
         }
       },
         err => {
           if (err.error && err.error.error) {
-            this.ngxLoader.stopLoader('loader-01');
+            Helpers.setLoading(false)
             this.errorMessage = err.error.error;
           }
         });
@@ -70,7 +68,7 @@ export class LoginComponent implements OnInit {
       for (const field in this.loginForm.controls) {
         this.loginForm.get(field).markAsDirty();
       }
-      this.ngxLoader.stopLoader('loader-01');
+      Helpers.setLoading(false)
       this.errorMessage = 'please fill all required fields correctly.';
     }
   }

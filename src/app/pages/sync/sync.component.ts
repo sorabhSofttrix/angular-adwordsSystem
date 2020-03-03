@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from 'app/auth-service/auth-service.service';
 import { ApiServiceService } from 'app/api-services/api-service/api-service.service';
 import { User, UserRoles, UnassignedAccounts } from '../../api-services/api-types/api-types.service';
-import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { PagerService } from 'app/api-services/pager.service';
 import { ToastrService } from 'ngx-toastr';
+import { Helpers } from 'app/helpers';
 
-declare  var $;
+declare var $;
 @Component({
   selector: 'app-sync',
   templateUrl: './sync.component.html',
@@ -44,7 +44,7 @@ export class SyncComponent implements OnInit {
 
 
   constructor(private authService: AuthServiceService, private pagerService: PagerService,
-    private api: ApiServiceService, private ngxLoader: NgxUiLoaderService, private toastr: ToastrService) {
+    private api: ApiServiceService, private toastr: ToastrService) {
 
     switch (this.authService.token.user.role_id) {
       case UserRoles["Super Admin"]:
@@ -85,10 +85,10 @@ export class SyncComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.ngxLoader.startLoader('loader-01');
+    // this.ngxLoader.startLoader('loader-01');
     this.api.getUnAssiendAccounts().subscribe((res) => {
       if (res['status']) {
-        this.ngxLoader.stopLoader('loader-01');
+        // this.ngxLoader.stopLoader('loader-01');
         this.unAssignedAcc = res['data'];
         if (!this.unAssignedAcc.length) {
           this.errorMessage = 'There is no account to assign.';
@@ -119,15 +119,15 @@ export class SyncComponent implements OnInit {
       this.pagedItems[i]['selected'] = this.selectedAll;
     }
   }
- 
+
   send() {
     this.account_ids = []
-    this.ngxLoader.startLoader('loader-01');
+    Helpers.setLoading(true);
     if (!this.account_director && !this.account_manager) {
       // alert('Please select director and manager')
       this.toastr.error('Please select director and manager!');
       this.errorMessage = 'please select director and manager.';
-      this.ngxLoader.stopLoader('loader-01');
+      Helpers.setLoading(false)
       return true
     }
 
@@ -143,12 +143,12 @@ export class SyncComponent implements OnInit {
     if (!this.account_ids.length) {
       this.errorMessage = 'Please select alteast one account to assign!';
       this.toastr.error('Please select alteast one account to assign!');
-      this.ngxLoader.stopLoader('loader-01');
+      Helpers.setLoading(false)
       return true
     }
     this.api.updateUnassigned(unSyncAcc).subscribe((res) => {
       if (res['status']) {
-        this.ngxLoader.stopLoader('loader-01');
+        Helpers.setLoading(false)
         console.log(res);
         this.successMessage = 'Selected accounts assigned successfully!!';
         this.toastr.success('Selected accounts assigned successfully!!')
@@ -175,29 +175,29 @@ export class SyncComponent implements OnInit {
     }
   }
 
- 
+
   lastChecked = null;
-  checkIfAllSelected(ev?:any) {
+  checkIfAllSelected(ev?: any) {
     let checkBoxes = [].slice.call(document.querySelectorAll('.workwit'));
     if (!this.lastChecked && !ev.shiftKey) {
-        this.lastChecked = ev.target;
-        return;
+      this.lastChecked = ev.target;
+      return;
     }
     let start = null;
     let end = null;
     if (ev.shiftKey) {
-      for(let i = 0; i < checkBoxes.length; i++) {
-        if(checkBoxes[i] == ev.target) { start = i; }
-        if(checkBoxes[i] == this.lastChecked) { end = i; }
+      for (let i = 0; i < checkBoxes.length; i++) {
+        if (checkBoxes[i] == ev.target) { start = i; }
+        if (checkBoxes[i] == this.lastChecked) { end = i; }
       }
-      let ff = checkBoxes.slice( Math.min(start,end), Math.max(start,end)+ 1);
-        ff.forEach(element => {
-          this.pagedItems.forEach(item => {
-            if(item.id == element.getAttribute('id')) {
-              item.selected = this.lastChecked.checked;
-            }
-          });
+      let ff = checkBoxes.slice(Math.min(start, end), Math.max(start, end) + 1);
+      ff.forEach(element => {
+        this.pagedItems.forEach(item => {
+          if (item.id == element.getAttribute('id')) {
+            item.selected = this.lastChecked.checked;
+          }
         });
+      });
     }
     this.selectedAll = this.pagedItems.every(function (item: any) {
       return item.selected == true;

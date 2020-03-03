@@ -3,10 +3,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiServiceService } from 'app/api-services/api-service/api-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { Reasons } from '../../api-services/api-types/api-types.service'
-import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteComponent } from '../delete/delete.component';
 import { OnResolveResponseListener } from 'app/api-services/api-service/on-resolve-resolve.listner';
+import { Helpers } from 'app/helpers';
 @Component({
   selector: 'app-reason',
   templateUrl: './reason.component.html',
@@ -21,7 +21,7 @@ export class ReasonComponent implements OnInit, OnResolveResponseListener {
   updateId: any;
 
   constructor(private formBuilder: FormBuilder, private api: ApiServiceService, private modalService: NgbModal,
-    private toastr: ToastrService, private ngxLoader: NgxUiLoaderService) { }
+    private toastr: ToastrService, ) { }
 
   ngOnInit() {
     this.api.getAllReasons().subscribe((res) => {
@@ -52,14 +52,13 @@ export class ReasonComponent implements OnInit, OnResolveResponseListener {
     if (this.reasonForm.invalid) {
       return;
     }
-    this.ngxLoader.startLoader('loader-01');
-
+    Helpers.setLoading(true)
 
     if (this.updateId > 0) {
       this.reasonForm.value.id = this.updateId
       this.api.updateReason(this.reasonForm.value).subscribe((res) => {
         if (res['status']) {
-          this.ngxLoader.stopLoader('loader-01');
+          Helpers.setLoading(false)
           this.toastr.success('Reason updated successfully');
           this.ngOnInit();
           this.reasonForm.reset();
@@ -72,7 +71,7 @@ export class ReasonComponent implements OnInit, OnResolveResponseListener {
     else {
       this.api.createReason(this.reasonForm.value).subscribe((res) => {
         if (res['status']) {
-          this.ngxLoader.stopLoader('loader-01');
+          Helpers.setLoading(false)
           this.toastr.success('Reason saved successfully');
           this.ngOnInit();
           this.reasonForm.reset();
@@ -83,10 +82,10 @@ export class ReasonComponent implements OnInit, OnResolveResponseListener {
 
   edit(id) {
     this.updateId = id
-    this.ngxLoader.startLoader('loader-01');
+    Helpers.setLoading(true)
     this.api.getReasonById(id).subscribe((res) => {
       if (res['status']) {
-        this.ngxLoader.stopLoader('loader-01');
+        Helpers.setLoading(false)
         this.reason = res['data'][0]
         this.initForm()
         this.btnTxt = 'update'

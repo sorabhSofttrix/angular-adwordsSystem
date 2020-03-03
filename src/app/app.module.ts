@@ -16,8 +16,6 @@ import { AppRoutes } from './app.routing';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { LoginComponent } from './login/login.component';
-import { NgxUiLoaderModule, NgxUiLoaderConfig, PB_DIRECTION, SPINNER, POSITION } from 'ngx-ui-loader';
-import { AccountAlertComponent } from './pages/account-alert/account-alert.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ResolveComponent } from './pages/resolve/resolve.component';
 import {
@@ -43,16 +41,9 @@ import { AccSpecificComponent } from './pages/users/acc-specific/acc-specific.co
 import { DatePipe } from '@angular/common';
 import { DeleteComponent } from './pages/delete/delete.component';
 import { NgxStarsModule } from 'ngx-stars';
-import { RatingComponent } from './pages/rating/rating.component'
-const ngxUiLoaderConfig: NgxUiLoaderConfig = {
-  bgsColor: 'red',
-  bgsPosition: POSITION.bottomCenter,
-  bgsSize: 40,
-  bgsType: SPINNER.rectangleBounce, // background spinner type
-  fgsType: SPINNER.chasingDots, // foreground spinner type
-  pbDirection: PB_DIRECTION.leftToRight, // progress bar direction
-  pbThickness: 5, // progress bar thickness
-};
+
+ 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,7 +71,6 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     ToastrModule.forRoot(),
     FooterModule,
     FixedPluginModule,
-    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
     NgbModule,
     MatButtonModule,
     MatRippleModule,
