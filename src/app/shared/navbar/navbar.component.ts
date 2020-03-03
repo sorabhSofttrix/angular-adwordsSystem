@@ -89,6 +89,7 @@ export class NavbarComponent implements OnInit {
     }
     return 'Dashboard';
   }
+
   sidebarToggle() {
     if (this.sidebarVisible === false) {
       this.sidebarOpen();

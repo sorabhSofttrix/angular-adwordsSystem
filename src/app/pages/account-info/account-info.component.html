@@ -68,7 +68,7 @@
             </div>
             <div class="card-body">
                 <ng-container *ngFor="let alert of account.alerts">
-                    <div class="col-md-12 btn btn-dark btn-collape" data-toggle="collapse"
+                    <div class="col-md-12 btn btn-dark btn-collape collapsed" data-toggle="collapse"
                         [attr.data-target]="'#demo' + alert.id">
                         <div class="float-left">{{alert.created_at | date: 'medium'}}</div>
                         <div class="float-right">{{alert.status}}</div>
@@ -120,23 +120,25 @@
                 </h4>
             </div>
             <div class="card-body">
-                <ng-container *ngFor="let history of account.history">
-                    <div class="mt-2">
-                        <p><strong>{{history.created_at | date:'medium'}}</strong></p>
+                <ng-container *ngFor="let history of account.history.data">
+                    <div class="mt-2 col-md-12 btn btn-dark btn-collape collapsed" data-toggle="collapse"
+                        [attr.data-target]="'#demo' + history.id">
+                        <div class="float-left"> {{history.created_at | date:'medium'}}</div>
+                        <div class="float-right">{{history.addByName}}</div>
                     </div>
                     <hr>
-                    <div class="text-left">
+                    <div class="text-left" [id]="'demo' + history.id" class="collapse">
                         <div class="row" *ngFor="let change of history.changes">
                             <div class="col-12">
-                                <p>{{change.desc}}</p>
+                                <p [innerHtml]="change.desc"></p>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <div class="col-12">
-                            <a href="javascript:void(0)"><small class="float-right">- {{history.user.name}}</small></a>
+                            <a href="javascript:void(0)"><small class="float-right">- {{history.addByName}}</small></a>
                         </div>
-                    </div>
+                    </div> -->
                 </ng-container>
             </div>
         </div>

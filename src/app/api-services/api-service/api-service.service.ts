@@ -13,7 +13,7 @@ import { switchMap, catchError } from 'rxjs/operators';
 })
 export class ApiServiceService {
   // baseUrl: string = 'https://6a4db3b3.ngrok.io/';
-  baseUrl: string = 'http://c1d686aa.ngrok.io/';
+  baseUrl: string = 'http://eb3dc973.ngrok.io/';
 
 
   constructor(private http: HttpClient) { }
@@ -118,7 +118,7 @@ export class ApiServiceService {
 
 
   deleteReason(id): Observable<any> {
-    return this.http.get(this.baseUrl + 'api/auth/delete-reason?id=' + id)
+    return this.http.get(this.baseUrl + 'api/auth/delete-reason?id=' +  id)
   }
   // checkData() {
   //   return timer(0, 10000)

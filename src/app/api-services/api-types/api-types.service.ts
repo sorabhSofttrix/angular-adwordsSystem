@@ -88,7 +88,12 @@ export interface AdAccount {
   acc_status?: AccountStatus;
   created_at?: string;
   updated_at?: string;
-  history?: AccountHistory[];
+  history?: { data: AccountHistory[], users: User[] };
+  reason_id?: number;
+  comment?: string;
+  up_comments?: string,
+  rating?: number,
+  ascs_id?: number,
 }
 
 export interface AccountHistory {
@@ -99,14 +104,18 @@ export interface AccountHistory {
   created_at?: string;
   updated_at?: string;
   user?: User;
+  addByName?: string;
 }
 
 export interface HistoryChanges {
   desc?: string;
   field?: string;
-  new_value?: string;
-  old_value?: string;
+  new_value?: any;
+  old_value?: any;
   filed_name?: string;
+  newValueName?: string;
+  oldValueName?: string;
+
 }
 
 export interface UnassignedAccounts {

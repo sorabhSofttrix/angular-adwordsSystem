@@ -7,9 +7,24 @@ h4.card-title {
     font-weight: 500;
 }
 
-.btn-collape{
+.btn-collape {
     background-color: #3091b2;
-    &:hover{
-        background-color: #3091b2!important;
+
+    &:hover {
+        background-color: #3091b2 !important;
     }
+}
+
+
+.btn.btn-dark.btn-collape.collapsed::after {
+    content: '\f0d7';
+}
+
+.btn.btn-dark.btn-collape:after {
+    content    : '\f0d8';
+    position   : absolute;
+    top        : 10px;
+    right      : 10px;
+    font-family: "FontAwesome";
+    // transition : all 3s ease 1s;
 }

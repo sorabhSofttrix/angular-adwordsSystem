@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ApiServiceService } from '../../api-services/api-service/api-service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthServiceService } from '../../auth-service/auth-service.service';
-import { User, UserRoles, Priority, AdAccount, AccountStatus } from '../../api-services/api-types/api-types.service';
-import { ActivatedRoute } from '@angular/router';
+import { User, UserRoles, Priority, AdAccount, AccountStatus, Reasons } from '../../api-services/api-types/api-types.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-account',
   moduleId: module.id,
   templateUrl: './add-account.component.html',
+  styleUrls: ['./add-account.component.scss']
 })
 export class AddAccountComponent implements OnInit {
   loading: boolean = false;
@@ -23,11 +24,15 @@ export class AddAccountComponent implements OnInit {
   membersDownOptions: { loading: boolean, item?: User } = { loading: true };
   currentAccount: AdAccount;
   routeData: any;
+  reasons: Reasons[] = [];
+
+
   constructor(
     private authService: AuthServiceService,
     private api: ApiServiceService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {
     this.activatedRoute.params.subscribe(params => {
       this.routeData = params;
@@ -41,10 +46,24 @@ export class AddAccountComponent implements OnInit {
         this.initForm();
       });
     } else {
+      this.router.navigate(['accounts']);
       this.currentAccount = this.getNewAcc();
       this.initForm();
     }
     this.loadTeamMembers();
+    this.getAllReason();
+
+  }
+
+
+
+
+  getAllReason() {
+    this.api.getAllReasons().subscribe((res) => {
+      if (res['status']) {
+        this.reasons = res['data']
+      }
+    })
   }
 
   getNewAcc() {
@@ -59,7 +78,12 @@ export class AddAccountComponent implements OnInit {
       account_manager: null,
       cron_time: null,
       acc_priority: Priority.normal,
-      acc_status: AccountStatus.requiredSetup
+      acc_status: AccountStatus.requiredSetup,
+      reason_id: null,
+      up_comments: '',
+      comment: '',
+      rating: null,
+      ascs_id: null
     };
     return adAcc;
   }
@@ -97,6 +121,7 @@ export class AddAccountComponent implements OnInit {
   initForm() {
     this.accountForm = this.formBuilder.group({
       id: [this.currentAccount.id ? this.currentAccount.id : ''],
+      ascs_id: [this.currentAccount.ascs_id ? this.currentAccount.ascs_id : ''],
       g_acc_id: [
         this.currentAccount.g_acc_id ? this.currentAccount.g_acc_id : '',
         Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10)])],
@@ -124,6 +149,19 @@ export class AddAccountComponent implements OnInit {
         this.currentAccount.cost ? this.currentAccount.cost : '',
         Validators.compose([Validators.required])
       ],
+      reason_id: [
+        this.currentAccount.reason_id ? this.currentAccount.reason_id : '',
+        Validators.compose([Validators.required])
+      ],
+      comment: [
+        this.currentAccount.comment ? this.currentAccount.comment : '',
+        Validators.compose([Validators.required])
+      ],
+      up_comments: [
+        this.currentAccount.up_comments ? this.currentAccount.up_comments : '',],
+      rating: [
+        this.currentAccount.rating ? this.currentAccount.rating : '',],
+
       totalConversion: [
         this.currentAccount.totalConversion ? this.currentAccount.totalConversion : '',
         Validators.compose([Validators.required])
@@ -142,7 +180,8 @@ export class AddAccountComponent implements OnInit {
         Validators.compose([Validators.required])],
       acc_status: [
         this.currentAccount.acc_status ? this.currentAccount.acc_status : 'requiredSetup',
-        Validators.compose([Validators.required])]
+        Validators.compose([Validators.required])],
+
     });
 
     this.accountForm.get('account_director').valueChanges.subscribe(value => {
@@ -159,6 +198,29 @@ export class AddAccountComponent implements OnInit {
         this.accountManagers.items = [];
       }
     });
+
+    this.accountForm.get('acc_status').valueChanges.subscribe(value => {
+      if (value == 'active') {
+        this.markDisable();
+      }
+      else {
+        this.markDisable(false);
+      }
+    });
+    if (this.accountForm.get('acc_status').value == 'active') {
+      this.markDisable();
+
+    }
+  }
+
+  markDisable(val: boolean = true) {
+    if (val) {
+      this.accountForm.get('reason_id').disable();
+      this.accountForm.get('comment').disable();
+    } else {
+      this.accountForm.get('reason_id').enable();
+      this.accountForm.get('comment').enable();
+    }
   }
 
   get acc_name() { return this.accountForm.get('acc_name'); }
@@ -168,8 +230,10 @@ export class AddAccountComponent implements OnInit {
   get click() { return this.accountForm.get('click'); }
   get account_director() { return this.accountForm.get('account_director'); }
   get account_manager() { return this.accountForm.get('account_manager'); }
+  get rating() { return this.accountForm.get('rating'); }
 
   submit() {
+    console.log(this.accountForm.controls)
     if (!this.accountForm.invalid) {
       this.loading = true;
       if (!this.currentAccount.id) {
@@ -186,7 +250,7 @@ export class AddAccountComponent implements OnInit {
       } else {
         this.api.updateAccounts(this.accountForm.value).subscribe(res => {
           this.errorMessage = '';
-          this.successMessage = 'Account has been added.'
+          this.successMessage = 'Account has been updated.'
           this.loading = false;
           this.currentAccount = res.data;
           this.initForm();
@@ -203,4 +267,12 @@ export class AddAccountComponent implements OnInit {
       this.errorMessage = "please fill all required fields correctly";
     }
   }
+
+  setRating(ev) {
+    // console.log(ev);
+    this.accountForm.get('rating').setValue(ev)
+    // this.accountForm.controls['rating'].setValue(ev);
+  }
+
+
 }

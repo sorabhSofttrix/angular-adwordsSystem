@@ -42,7 +42,8 @@ import { CategoryPipe } from './api-services/api-service/category.pipe';
 import { AccSpecificComponent } from './pages/users/acc-specific/acc-specific.component';
 import { DatePipe } from '@angular/common';
 import { DeleteComponent } from './pages/delete/delete.component';
-
+import { NgxStarsModule } from 'ngx-stars';
+import { RatingComponent } from './pages/rating/rating.component'
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { DeleteComponent } from './pages/delete/delete.component';
     ResolveComponent,
     AccSpecificComponent,
     DeleteComponent,
+   
 
 
 
@@ -83,7 +85,8 @@ import { DeleteComponent } from './pages/delete/delete.component';
     MatDatepickerModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTreeModule
+    MatTreeModule,
+    NgxStarsModule
 
   ],
   providers: [

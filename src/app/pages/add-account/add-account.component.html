@@ -121,6 +121,9 @@
                 </select>
               </div>
             </div>
+          </div>
+
+          <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label>Status</label>
@@ -129,7 +132,47 @@
                 </select>
               </div>
             </div>
+
+            <div class="col-md-6" *ngIf="accountForm.value.acc_status != 'active'">
+              <div class="form-group"
+                [ngClass]="{'has-error': accountForm.get('reason_id').invalid && accountForm.get('reason_id').dirty}">
+                <label>Select reason</label>
+                <select class="form-control" formControlName="reason_id" placeholder="Reason">
+                  <option value="">Select reason</option>
+                  <option *ngFor="let rs of reasons" [value]="rs.id">{{rs.title}}</option>
+                </select>
+              </div>
+            </div>
           </div>
+
+          <div class="row">
+            <div class="col-md-6" *ngIf="accountForm.value.acc_status != 'active'">
+              <div class="form-group"
+                [ngClass]="{'has-error': accountForm.get('comment').invalid && accountForm.get('comment').dirty}">
+                <label>Comment</label>
+                <textarea class="form-control textarea" formControlName="comment" placeholder="Comment"></textarea>
+              </div>
+            </div>
+            <div class="col-md-6"
+              *ngIf="accountForm.value.acc_status != 'active'  &&  accountForm.value.acc_status != 'paused'">
+              <div class="form-group">
+                <label>Upwork comment</label>
+                <textarea class="form-control textarea" formControlName="up_comments"
+                  placeholder="Upwork comment"></textarea>
+              </div>
+            </div>
+
+          </div>
+          <div class="row"
+            *ngIf="accountForm.value.acc_status != 'active' &&  accountForm.value.acc_status != 'paused'">
+            <div class="col-md-12">
+              <div class="form-group start-align">
+                <label>Upwork rating</label>
+                <app-rating [initialStars]='rating.value' (ratingOutput)="setRating($event)"></app-rating>
+              </div>
+            </div>
+          </div>
+
           <div class="row">
             <div class="col-md-12">
               <div class="alert alert-danger" *ngIf="errorMessage">

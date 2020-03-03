@@ -35,6 +35,8 @@ import {
 } from '@angular/material';
 import { CategoryPipe } from 'app/api-services/api-service/category.pipe';
 import { ReasonComponent } from 'app/pages/reason/reason.component';
+import { NgxStarsModule } from 'ngx-stars';
+import { RatingComponent } from 'app/pages/rating/rating.component';
 
 
 @NgModule({
@@ -56,6 +58,7 @@ import { ReasonComponent } from 'app/pages/reason/reason.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatTreeModule,
+    NgxStarsModule
     // DebounceDirective
 
   ],
@@ -70,7 +73,8 @@ import { ReasonComponent } from 'app/pages/reason/reason.component';
     SyncComponent,
     AccountAlertComponent,
     CategoryPipe,
-    ReasonComponent
+    ReasonComponent,
+    RatingComponent
 
 
 

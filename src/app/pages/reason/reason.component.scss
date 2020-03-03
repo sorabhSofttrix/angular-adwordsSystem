@@ -9,3 +9,12 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
+
+table.table {
+    font-size: 12px;
+}
+
+table.table tr td {
+    padding: 5px 7px;
+
+}
