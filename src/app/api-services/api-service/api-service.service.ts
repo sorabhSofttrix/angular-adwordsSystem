@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { observable, Observable, BehaviorSubject } from 'rxjs';
 import { InterceptorSkipHeader } from '../interceptor/httpconfig.interceptor';
-
-import { timer, of } from 'rxjs';
-import { switchMap, catchError } from 'rxjs/operators';
+import { environment } from '../../../environments/environment'
 
 
 
@@ -12,9 +10,9 @@ import { switchMap, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ApiServiceService {
-  // baseUrl: string = 'https://6a4db3b3.ngrok.io/';
-  baseUrl: string = 'http://eb3dc973.ngrok.io/';
 
+  baseUrl: string = environment.url;
+  // baseUrl: string = 'http://eb3dc973.ngrok.io/';
 
   constructor(private http: HttpClient) { }
   /*    user'a apis        */
@@ -116,9 +114,8 @@ export class ApiServiceService {
   }
 
 
-
   deleteReason(id): Observable<any> {
-    return this.http.get(this.baseUrl + 'api/auth/delete-reason?id=' +  id)
+    return this.http.get(this.baseUrl + 'api/auth/delete-reason?id=' + id)
   }
   // checkData() {
   //   return timer(0, 10000)
