@@ -37,6 +37,8 @@ import { CategoryPipe } from 'app/api-services/api-service/category.pipe';
 import { ReasonComponent } from 'app/pages/reason/reason.component';
 import { NgxStarsModule } from 'ngx-stars';
 import { RatingComponent } from 'app/pages/rating/rating.component';
+import { ProfilesListingComponent } from 'app/pages/profiles-listing/profiles-listing.component';
+import { ClientListingComponent } from 'app/pages/client-listing/client-listing.component';
 
 
 @NgModule({
@@ -74,7 +76,10 @@ import { RatingComponent } from 'app/pages/rating/rating.component';
     AccountAlertComponent,
     CategoryPipe,
     ReasonComponent,
-    RatingComponent
+    RatingComponent,
+    ProfilesListingComponent,
+    ClientListingComponent,
+
 
 
 

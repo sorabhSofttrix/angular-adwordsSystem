@@ -13,14 +13,63 @@ import { Helpers } from 'app/helpers';
 export class DeleteComponent implements OnInit {
 
   @Input() id: any;
+  type: string;
+  message: string;
+  loading: boolean = false;
   @Input() listener: OnResolveResponseListener;
-  constructor(private api: ApiServiceService, public activeModal: NgbActiveModal, private toast: ToastrService,
+  constructor(private api: ApiServiceService, public activeModal: NgbActiveModal,
+    private toast: ToastrService,
   ) { }
 
   ngOnInit() {
     // console.log(this.id)
   }
-  delete() {
+
+  ngAfterViewInit(): void {
+    const text = 'Are you sure you want to delete this';
+    switch (this.type) {
+      case 'Profile':
+        this.message = text + ' Profile?';
+        break;
+      case 'Reason':
+        this.message = text + ' Reason?';
+        break;
+      case 'Client':
+        this.message = text + ' Client?';
+    }
+    this.loading = true;
+
+  }
+
+
+  confirm() {
+    switch (this.type) {
+      case 'Profile':
+        this.deleteProfile();
+        break;
+      case 'Reason':
+        this.deleteReason();
+        break;
+      case 'Client':
+        this.deleteClient();
+        break;
+
+    }
+  }
+
+  deleteClient() {
+    Helpers.setLoading(true)
+    this.api.deleteClient(this.id).subscribe((res) => {
+      if (res['status']) {
+        Helpers.setLoading(false)
+        this.activeModal.dismiss();
+        this.toast.error('Cleint deleted successfully')
+        this.listener.onApiResolve()
+      }
+    })
+  }
+
+  deleteReason() {
     Helpers.setLoading(true)
     this.api.deleteReason(this.id).subscribe((res) => {
       if (res['status']) {
@@ -30,7 +79,18 @@ export class DeleteComponent implements OnInit {
         this.listener.onApiResolve()
       }
     })
+  }
 
+  deleteProfile() {
+    Helpers.setLoading(true)
+    this.api.deleteProfile(this.id).subscribe((res) => {
+      if (res['status']) {
+        Helpers.setLoading(false)
+        this.activeModal.dismiss();
+        this.toast.error('Profile deleted successfully')
+        this.listener.onApiResolve()
+      }
+    })
   }
 
 

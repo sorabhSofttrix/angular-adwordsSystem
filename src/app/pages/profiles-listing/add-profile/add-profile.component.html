@@ -1,0 +1,51 @@
+<div class="card" *ngIf="profileForm">
+
+    <div class="card-header">
+        <b>Add profile</b>
+        <i class="fa fa-times float-right" (click)="activeModal.dismiss('Cross click')" title="Close"
+            aria-hidden="true"></i>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="profileForm" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group" [ngClass]="{'has-error': profile_name.invalid && profile_name.dirty}">
+                        <label>Profile Name</label>
+                        <input type="text" formControlName="profile_name" class="form-control"
+                            placeholder="Profile name">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>User name</label>
+                        <input type="text" formControlName="username" class="form-control" placeholder="User name" />
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <!-- <div class="form-group">
+                    <label>Sort order</label>
+                    <input type="number" formControlName="sortOrder" class="form-control" placeholder="Sort order"
+                        onKeyPress="if(this.value.length==2) return false;" />
+
+                </div> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 update ml-auto mr-auto">
+                    <button type="submit" (click)="save()" class="btn btn-primary btn-round pull-right">{{btnTxt}}</button>
+                </div>
+                <div class="col-md-12">
+                    <div class="alert alert-success" *ngIf="successMessage">
+                        <span><b> hurray!</b> {{successMessage}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+            </div>
+        </form>
+    </div>
+</div>

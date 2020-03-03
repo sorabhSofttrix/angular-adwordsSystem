@@ -15,10 +15,12 @@ export interface RouteInfo {
 
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Dashboard', icon: 'nc-bank', class: '' },
+    { path: '/profile', title: 'Profiles', icon: 'nc-single-02', class: '' },
+    { path: '/client', title: 'Clients', icon: 'nc-ruler-pencil', class: '' },
     { path: '/sync', title: 'Unassigned account', icon: 'nc-cart-simple', class: '' },
     { path: '/user', title: 'User Profile', icon: 'nc-single-02', class: '', nottoShowInMenu: true },
     { path: '/register-user', title: 'Add Member', icon: 'nc-simple-add', class: '', nottoShowInMenu: true },
-    { path: '/accounts', title: 'Assigned Accounts', icon: 'nc-single-02', class: '' },
+    { path: '/accounts', title: 'Assigned Accounts', icon: 'nc-simple-add', class: '' },
     { path: '/ad-account', title: 'Add Ad-Account', icon: 'nc-simple-add', class: '', nottoShowInMenu: true },
     { path: '/account-info', title: 'Ad-Account Details', icon: 'nc-simple-add', class: '', nottoShowInMenu: true },
     { path: '/users', title: 'Users', icon: 'nc-single-02', class: '' },

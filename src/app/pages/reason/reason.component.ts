@@ -44,10 +44,6 @@ export class ReasonComponent implements OnInit, OnResolveResponseListener {
   get title() { return this.reasonForm.get('title'); }
 
   submit() {
-
-
-
-
     this.reasonForm.get('title').markAsDirty();
     if (this.reasonForm.invalid) {
       return;
@@ -101,6 +97,7 @@ export class ReasonComponent implements OnInit, OnResolveResponseListener {
       windowClass: 'windowsize'
     });
     modalRef.componentInstance.id = id;
+    modalRef.componentInstance.type = 'Reason';
     modalRef.componentInstance.listener = this;
   }
 

@@ -125,4 +125,56 @@ export class ApiServiceService {
   //     );
   // }
 
+
+  //Start Profile********
+  createProfile(profileData): Observable<any> {
+    return this.http.post(this.baseUrl + 'api/auth/add-profile', profileData)
+  }
+
+
+  getAllProfiles(): Observable<any> {
+    return this.http.get(this.baseUrl + 'api/auth/get-profiles')
+  }
+
+  getProfileById(id): Observable<any> {
+    return this.http.get(this.baseUrl + '/api/auth/get-profiles?id=' + id)
+  }
+
+  updateProfile(id, upDateData): Observable<any> {
+    return this.http.post(this.baseUrl + '/api/auth/update-profile?id=' + id, upDateData)
+  }
+
+  deleteProfile(id): Observable<any> {
+    return this.http.get(this.baseUrl + 'api/auth/delete-profile?id=' + id)
+  }
+
+  // End Profile********
+
+
+
+  //Start Client********
+  createClient(clientData): Observable<any> {
+    return this.http.post(this.baseUrl + 'api/auth/add-client', clientData)
+  }
+
+
+  getAllClient(): Observable<any> {
+    return this.http.get(this.baseUrl + 'api/auth/get-clients')
+  }
+
+  getClientById(id): Observable<any> {
+    return this.http.get(this.baseUrl + '/api/auth/get-clients?id=' + id)
+  }
+
+  updateClient(id, upDateData): Observable<any> {
+    return this.http.post(this.baseUrl + '/api/auth/update-client?id=' + id, upDateData)
+  }
+
+  deleteClient(id): Observable<any> {
+    return this.http.get(this.baseUrl + 'api/auth/delete-client?id=' + id)
+  }
+
+  // End client********
+
+
 }

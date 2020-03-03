@@ -41,8 +41,10 @@ import { AccSpecificComponent } from './pages/users/acc-specific/acc-specific.co
 import { DatePipe } from '@angular/common';
 import { DeleteComponent } from './pages/delete/delete.component';
 import { NgxStarsModule } from 'ngx-stars';
+import { AddProfileComponent } from './pages/profiles-listing/add-profile/add-profile.component';
+import { AddClientComponent } from './pages/client-listing/add-client/add-client.component';
 
- 
+
 
 @NgModule({
   declarations: [
@@ -52,8 +54,8 @@ import { NgxStarsModule } from 'ngx-stars';
     ResolveComponent,
     AccSpecificComponent,
     DeleteComponent,
-
-
+    AddProfileComponent,
+    AddClientComponent
 
 
 
@@ -92,8 +94,8 @@ import { NgxStarsModule } from 'ngx-stars';
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     CategoryPipe, DatePipe
   ],
-  entryComponents: [ResolveComponent, AccSpecificComponent, DeleteComponent],
-  exports: [ResolveComponent, AccSpecificComponent, DeleteComponent],
+  entryComponents: [ResolveComponent, AccSpecificComponent, DeleteComponent, AddProfileComponent, AddClientComponent],
+  exports: [ResolveComponent, AccSpecificComponent, DeleteComponent, AddProfileComponent, AddClientComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

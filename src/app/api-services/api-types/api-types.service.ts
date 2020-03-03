@@ -150,3 +150,19 @@ export interface Reasons {
   rank: number;
   sortOrder: number;
 }
+
+export interface Profile {
+  id?: number
+  profile_name: string,
+  profile_id?: number,
+  username?: string,
+  password: string
+}
+
+export interface Client {
+  id?: number
+  client_name?: string,
+  email?: string,
+  skype?: string,
+  phone?: number
+}

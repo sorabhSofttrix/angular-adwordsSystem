@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card card-user">
+            <div class="card-header">
+                <div class="card-title">
+                    <div class="float-left"> <b>Profile</b></div>
+                    <div class="update ml-auto mr-auto">
+                        <button type="submit" (click)="addProfile()" class="btn btn-primary btn-round pull-right">Add
+                            Profile</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                            <th>Profile name</th>
+                            <th>User name</th>
+                            <th>Action</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let pf of profiles">
+                                <td>{{pf.profile_name}}</td>
+                                <td>{{pf.username }}</td>
+                                <td>
+                                    <button (click)="addProfile(pf.id)"
+                                        class="btn btn-sm btn-outline-info btn-round btn-icon m-0">
+                                        <i class="fa fa-pencil"></i>
+                                    </button>
+                                    <button (click)="delete(pf.id)"
+                                        class="ml-2 btn btn-sm btn-outline-danger btn-round btn-icon m-0">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

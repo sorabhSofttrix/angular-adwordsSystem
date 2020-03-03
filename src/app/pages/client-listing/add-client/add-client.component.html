@@ -1,0 +1,58 @@
+<div class="card" *ngIf="clientForm">
+
+    <div class="card-header">
+        <b>{{btnTxt}} client</b>
+        <i class="fa fa-times float-right" (click)="activeModal.dismiss('Cross click')" title="Close"
+            aria-hidden="true"></i>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="clientForm" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group" [ngClass]="{'has-error': client_name.invalid && client_name.dirty}">
+                        <label>Client Name</label>
+                        <input type="text" formControlName="client_name" class="form-control" placeholder="Client name">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group" [ngClass]="{'has-error': email.invalid && email.dirty}">
+                        <label>Email address</label>
+                        <input type="email"  formControlName="email" class="form-control" placeholder="Email">
+                      </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Number</label>
+                        <input type="number" formControlName="phone" class="form-control" placeholder="Phone number"
+                            onKeyPress="if(this.value.length==10) return false;" />
+
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" formControlName="skype" class="form-control" placeholder="Skype" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 update ml-auto mr-auto">
+                    <button type="submit" (click)="save()"
+                        class="btn btn-primary btn-round pull-right">{{btnTxt}}</button>
+                </div>
+                <div class="col-md-12">
+                    <div class="alert alert-success" *ngIf="successMessage">
+                        <span><b> hurray!</b> {{successMessage}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+            </div>
+        </form>
+    </div>
+</div>
