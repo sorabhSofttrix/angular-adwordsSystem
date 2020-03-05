@@ -34,8 +34,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 update ml-auto mr-auto">
-                    <button type="submit" (click)="save()" class="btn btn-primary btn-round pull-right">{{btnTxt}}</button>
+                <div class="col-md-12 update ml-auto mr-auto text-right">
+                    <button type="submit" (click)="activeModal.dismiss('Cross click')"
+                        class="btn  btn-round  ">Close</button>
+                    <button type="submit" (click)="save()" class="btn btn-primary btn-round  ">{{btnTxt}}</button>
                 </div>
                 <div class="col-md-12">
                     <div class="alert alert-success" *ngIf="successMessage">

@@ -43,6 +43,8 @@ import { DeleteComponent } from './pages/delete/delete.component';
 import { NgxStarsModule } from 'ngx-stars';
 import { AddProfileComponent } from './pages/profiles-listing/add-profile/add-profile.component';
 import { AddClientComponent } from './pages/client-listing/add-client/add-client.component';
+import { AddProjectComponent } from './pages/project-listing/add-project/add-project.component';
+import { TwoDigitDecimaNumberDirective } from './api-services/api-service/twodigit-decimal numbber';
 
 
 
@@ -55,7 +57,9 @@ import { AddClientComponent } from './pages/client-listing/add-client/add-client
     AccSpecificComponent,
     DeleteComponent,
     AddProfileComponent,
-    AddClientComponent
+    AddClientComponent,
+    AddProjectComponent,
+    TwoDigitDecimaNumberDirective
 
 
 
@@ -92,10 +96,13 @@ import { AddClientComponent } from './pages/client-listing/add-client/add-client
   providers: [
     HttpClientModule,
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
-    CategoryPipe, DatePipe
+    CategoryPipe, DatePipe,
+    
   ],
-  entryComponents: [ResolveComponent, AccSpecificComponent, DeleteComponent, AddProfileComponent, AddClientComponent],
-  exports: [ResolveComponent, AccSpecificComponent, DeleteComponent, AddProfileComponent, AddClientComponent],
+  entryComponents: [ResolveComponent, AccSpecificComponent, DeleteComponent, AddProfileComponent,
+    AddClientComponent, AddProjectComponent],
+  exports: [ResolveComponent, AccSpecificComponent, DeleteComponent, AddProfileComponent,
+    AddClientComponent, AddProjectComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

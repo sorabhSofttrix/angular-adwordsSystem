@@ -3,10 +3,10 @@
         <div class="card card-user">
             <div class="card-header">
                 <div class="card-title">
-                    <div class="float-left"> <b>Clients</b></div>
+                    <div class="float-left"> <b>Project</b></div>
                     <div class="update ml-auto mr-auto">
-                        <button type="submit" (click)="addClient()" class="btn btn-primary btn-round pull-right">Add
-                            client</button>
+                        <button type="submit" (click)="addProject()" class="btn btn-primary btn-round pull-right">Add
+                            Project</button>
                     </div>
                 </div>
             </div>
@@ -15,24 +15,25 @@
                 <div class="table-responsive">
                     <table class="table">
                         <thead class=" text-primary">
-                            <th>Client name</th>
-                            <th>Email</th>
-                            <th>Skype</th>
-                            <th>Phone no.</th>
+                            <th>Project name</th>
+                            <th>Contract date</th>
+                            <th>Weekly limit</th>
+                            <th>Hour rate</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let cl of client">
-                                <td>{{cl.client_name}}</td>
-                                <td>{{cl.email }}</td>
-                                <td>{{cl.skype }}</td>
-                                <td>{{cl.phone }}</td>
+                            <tr *ngFor="let pr of project">
+                                <td>{{pr.project_name}}</td>
+                                <td>{{pr.contract_start_date | date:'medium'}}</td>
+                                <td>{{pr.weekly_limit}}</td>
+                                <td>{{pr.hourly_rate}}</td>
+
                                 <td>
-                                    <button (click)="addClient(cl.id)"
+                                    <button (click)="addProject(pr.id)"
                                         class="btn btn-sm btn-outline-info btn-round btn-icon m-0">
                                         <i class="fa fa-pencil"></i>
                                     </button>
-                                    <button (click)="delete(cl.id)"
+                                    <button (click)="delete(pr.id)"
                                         class="ml-2 btn btn-sm btn-outline-danger btn-round btn-icon m-0">
                                         <i class="fa fa-times"></i>
                                     </button>

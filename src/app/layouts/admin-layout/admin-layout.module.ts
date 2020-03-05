@@ -39,6 +39,7 @@ import { NgxStarsModule } from 'ngx-stars';
 import { RatingComponent } from 'app/pages/rating/rating.component';
 import { ProfilesListingComponent } from 'app/pages/profiles-listing/profiles-listing.component';
 import { ClientListingComponent } from 'app/pages/client-listing/client-listing.component';
+import { ProjectListingComponent } from 'app/pages/project-listing/project-listing.component';
 
 
 @NgModule({
@@ -79,6 +80,7 @@ import { ClientListingComponent } from 'app/pages/client-listing/client-listing.
     RatingComponent,
     ProfilesListingComponent,
     ClientListingComponent,
+    ProjectListingComponent
 
 
 

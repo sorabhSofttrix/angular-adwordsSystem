@@ -1,7 +1,9 @@
+.input-group.has-error .form-control,
 .form-group.has-error .form-control {
     border-color: red;
 }
 
+.input-group input[type=file],
 .form-group input[type=file] {
     opacity : unset !important;
     position: unset !important;
@@ -91,4 +93,18 @@ table.table {
 table.table tr td {
     padding: 5px 7px;
 
+}
+
+.card label {
+    /* font-size    : 0.8571em; */
+    margin-bottom   : 5px;
+    /* color        : #212529 !important; */
+    color           : cadetblue !important;
+
+    font-size  : small !important;
+    font-weight: 800 !important;
+}
+
+i.fa.fa-times.float-right {
+    cursor: pointer;
 }

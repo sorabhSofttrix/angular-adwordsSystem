@@ -12,6 +12,8 @@ import { environment } from '../../../environments/environment'
 export class ApiServiceService {
 
   baseUrl: string = environment.url;
+
+  skipHeaders = new HttpHeaders().set(InterceptorSkipHeader, '');
   // baseUrl: string = 'http://eb3dc973.ngrok.io/';
 
   constructor(private http: HttpClient) { }
@@ -38,13 +40,11 @@ export class ApiServiceService {
     return this.http.post(this.baseUrl + 'api/auth/update-alert', data)
   }
   updateUserProfile(data: any): Observable<any> {
-    const headers = new HttpHeaders().set(InterceptorSkipHeader, '');
-    return this.http.post(`${this.baseUrl}api/auth/update-user`, data, { headers: headers });
+    return this.http.post(`${this.baseUrl}api/auth/update-user`, data, { headers: this.skipHeaders });
   }
 
   registerUser(data: any): Observable<any> {
-    const headers = new HttpHeaders().set(InterceptorSkipHeader, '');
-    return this.http.post(`${this.baseUrl}api/auth/register`, data, { headers: headers });
+    return this.http.post(`${this.baseUrl}api/auth/register`, data, { headers: this.skipHeaders });
   }
 
   getUsersTeam(userId: number): Observable<any> {
@@ -56,6 +56,8 @@ export class ApiServiceService {
   }
 
   /* databases adwords'a apis   */
+
+  //Start Accounts API call********
 
   getAccounts(id?: number, userid?: number): Observable<any> {
     const param = id ? `?id=${id}` : userid ? `?userid=${userid}` : '';
@@ -78,6 +80,11 @@ export class ApiServiceService {
   }
 
 
+  //Start Accounts API call********
+
+
+  //Start Alert API call********
+
   getALlAlerts(): Observable<any> {
     return this.http.get(`${this.baseUrl}api/auth/get-dashboard-alerts`)
   }
@@ -94,7 +101,10 @@ export class ApiServiceService {
   getDteWiseData(reqBody): Observable<any> {
     return this.http.post(this.baseUrl + 'api/auth/account-dated-status', reqBody)
   }
+  //End Alert API call********
 
+
+  //Start Reason API call********
 
 
   createReason(reasonBody): Observable<any> {
@@ -117,6 +127,8 @@ export class ApiServiceService {
   deleteReason(id): Observable<any> {
     return this.http.get(this.baseUrl + 'api/auth/delete-reason?id=' + id)
   }
+  //End Reason API call********
+
   // checkData() {
   //   return timer(0, 10000)
   //     .pipe(
@@ -126,7 +138,7 @@ export class ApiServiceService {
   // }
 
 
-  //Start Profile********
+  //Start Profile API call********
   createProfile(profileData): Observable<any> {
     return this.http.post(this.baseUrl + 'api/auth/add-profile', profileData)
   }
@@ -148,11 +160,11 @@ export class ApiServiceService {
     return this.http.get(this.baseUrl + 'api/auth/delete-profile?id=' + id)
   }
 
-  // End Profile********
+  // End Profile API call********
 
 
 
-  //Start Client********
+  //Start Client API call********
   createClient(clientData): Observable<any> {
     return this.http.post(this.baseUrl + 'api/auth/add-client', clientData)
   }
@@ -174,7 +186,31 @@ export class ApiServiceService {
     return this.http.get(this.baseUrl + 'api/auth/delete-client?id=' + id)
   }
 
-  // End client********
+  // End client API call********
 
+
+  //Start Project API call********
+  createProject(projectData): Observable<any> {
+    return this.http.post(this.baseUrl + 'api/auth/add-project', projectData, { headers: this.skipHeaders })
+  }
+
+
+  getAllProject(): Observable<any> {
+    return this.http.get(this.baseUrl + 'api/auth/get-projects')
+  }
+
+  getProjectById(id): Observable<any> {
+    return this.http.get(this.baseUrl + '/api/auth/get-projects?id=' + id)
+  }
+
+  updateProject(updateData): Observable<any> {
+    return this.http.post(this.baseUrl + '/api/auth/update-project', updateData, { headers: this.skipHeaders })
+  }
+
+  deleteProject(id): Observable<any> {
+    return this.http.get(this.baseUrl + 'api/auth/delete-project?id=' + id)
+  }
+
+  // End Project API call********
 
 }

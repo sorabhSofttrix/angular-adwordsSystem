@@ -160,9 +160,28 @@ export interface Profile {
 }
 
 export interface Client {
-  id?: number
+  id?: number,
   client_name?: string,
   email?: string,
   skype?: string,
   phone?: number
+}
+
+export interface Project {
+  id?: number,
+  project_name: string,
+  contract_start_date: any,
+  hourly_rate: string,
+  weekly_limit: string,
+  questionnaire: any,
+  sales_person: number,
+  profile: number,
+  client: number,
+  client_name?: string,
+  email?: string,
+  skype?: string,
+  phone?: number,
+  comment?: string,
+
+
 }
