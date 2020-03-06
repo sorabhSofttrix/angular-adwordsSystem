@@ -49,7 +49,6 @@ export class AccountInfoComponent implements OnInit {
         });
       }
       this.loading = false;
-      console.log(this.account);
     })
   }
 

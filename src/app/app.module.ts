@@ -45,9 +45,7 @@ import { AddProfileComponent } from './pages/profiles-listing/add-profile/add-pr
 import { AddClientComponent } from './pages/client-listing/add-client/add-client.component';
 import { AddProjectComponent } from './pages/project-listing/add-project/add-project.component';
 import { TwoDigitDecimaNumberDirective } from './api-services/api-service/twodigit-decimal numbber';
-
-
-
+  
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +57,8 @@ import { TwoDigitDecimaNumberDirective } from './api-services/api-service/twodig
     AddProfileComponent,
     AddClientComponent,
     AddProjectComponent,
-    TwoDigitDecimaNumberDirective
+    TwoDigitDecimaNumberDirective,
+    
 
 
 

@@ -40,6 +40,7 @@ import { RatingComponent } from 'app/pages/rating/rating.component';
 import { ProfilesListingComponent } from 'app/pages/profiles-listing/profiles-listing.component';
 import { ClientListingComponent } from 'app/pages/client-listing/client-listing.component';
 import { ProjectListingComponent } from 'app/pages/project-listing/project-listing.component';
+import { ProjectInfoComponent } from 'app/pages/project-listing/project-info/project-info.component';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import { ProjectListingComponent } from 'app/pages/project-listing/project-listi
     RatingComponent,
     ProfilesListingComponent,
     ClientListingComponent,
-    ProjectListingComponent
+    ProjectListingComponent,
+    ProjectInfoComponent
 
 
 

@@ -1,0 +1,137 @@
+<div class="row" *ngIf="project">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"> Project Details
+                </h4>
+            </div>
+            <div class="card-body">
+                <div>
+                    <p class="pull-left"><b>{{project.project_name}}</b></p>
+                    <p class="pull-right">Created on - <b>{{project.created_at | date :'medium'}}</b></p>
+                </div>
+                <br>
+                <hr>
+                <div class="text-center">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <h6>{{project.client_name}}<br><small>Client name</small></h6>
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <h6>{{project.profile_name}}<br><small>Profile name</small></h6>
+                        </div>
+                        <!-- <div class="col-md-2 col-sm-4 col-xs-6">
+                            <h6>{{project.add_by_name}}<br><small>Added by</small></h6>
+                        </div> -->
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <h6>{{project.sales_person_name}}<br><small>Sales person</small></h6>
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <h6>{{project.weekly_limit}}<br><small>Weekly limit</small></h6>
+                        </div>
+                        <div class="col-md-2 col-sm-4 col-xs-6">
+                            <h6>{{project.hourly_rate}}<br><small>Hourly rate</small></h6>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"> Google accounts
+                </h4>
+            </div>
+            <div class="card-body">
+                <ng-container *ngFor="let gp of project.google_accounts">
+                    <div class="col-md-12 btn btn-dark btn-collape collapsed" data-toggle="collapse"
+                        [attr.data-target]="'#demo' + gp.id">
+                        <div class="float-left">{{gp.acc_name}}</div>
+                        <div class="float-right">{{gp.g_acc_id}}</div>
+                    </div>
+                    <!-- [id]="'demo' + gp.id"  -->
+                    <div class="collapse">
+                        <div class="text-left">
+                            <!-- <div class="card" *ngFor="let al of alert.alerts">
+                                <div class="card-header">
+                                    <h4 class="card-title"> {{al.title}}
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2 col-sm-4 col-xs-6">
+                                            <h6>{{al.new_value}}<br><small>New Value</small></h6>
+                                        </div>
+                                        <div class="col-md-2 col-sm-4 col-xs-6">
+                                            <h6>{{al.old_value}}<br><small>Old Value</small></h6>
+                                        </div>
+                                        <div class="col-md-2 col-sm-4 col-xs-6">
+                                            <h6>{{al.difference}}<br><small>Difference</small></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <hr>
+                            <!-- <div class="mt-2">
+                                <p class="float-left" *ngIf="alert.comments">Comments <strong> -
+                                        {{alert.comments}}</strong></p>
+                                <a routerLink="/users/{{alert.resolved_by}}" *ngIf="alert.resolver_name"><span
+                                        class="float-right">-
+                                        {{alert.resolver_name}}</span></a>
+                            </div> -->
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"> Comments
+                </h4>
+            </div>
+            <div class="card-body">
+                <ng-container *ngFor="let cm of project.comments">
+                    <div class="col-md-12 btn btn-dark btn-collape collapsed" data-toggle="collapse"
+                        [attr.data-target]="'#demo' + cm.id">
+                        <div class="float-left">{{cm.comment}}</div>
+                        <div class="float-right">{{cm.created_at | date : 'medium'}}</div>
+                    </div>
+                    <!-- [id]="'demo' + gp.id"  -->
+                    <div class="collapse">
+                        <div class="text-left">
+                            <!-- <div class="card" *ngFor="let al of alert.alerts">
+                                <div class="card-header">
+                                    <h4 class="card-title"> {{al.title}}
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-2 col-sm-4 col-xs-6">
+                                            <h6>{{al.new_value}}<br><small>New Value</small></h6>
+                                        </div>
+                                        <div class="col-md-2 col-sm-4 col-xs-6">
+                                            <h6>{{al.old_value}}<br><small>Old Value</small></h6>
+                                        </div>
+                                        <div class="col-md-2 col-sm-4 col-xs-6">
+                                            <h6>{{al.difference}}<br><small>Difference</small></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <hr>
+                            <!-- <div class="mt-2">
+                                <p class="float-left" *ngIf="alert.comments">Comments <strong> -
+                                        {{alert.comments}}</strong></p>
+                                <a routerLink="/users/{{alert.resolved_by}}" *ngIf="alert.resolver_name"><span
+                                        class="float-right">-
+                                        {{alert.resolver_name}}</span></a>
+                            </div> -->
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+    </div>
+</div>

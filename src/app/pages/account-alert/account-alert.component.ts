@@ -27,7 +27,6 @@ export class AccountAlertComponent implements OnInit, OnResolveResponseListener 
 
     this.modelChanged.pipe(debounceTime(500))
       .subscribe(model => {
-        // this.page.pageNumber = 0;
         this.searchFilter();
       });
   }

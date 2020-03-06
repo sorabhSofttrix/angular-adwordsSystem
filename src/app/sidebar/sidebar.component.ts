@@ -21,7 +21,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/sync', title: 'Unassigned account', icon: 'nc-cart-simple', class: '' },
     { path: '/user', title: 'User Profile', icon: 'nc-single-02', class: '', nottoShowInMenu: true },
     { path: '/register-user', title: 'Add Member', icon: 'nc-simple-add', class: '', nottoShowInMenu: true },
-    { path: '/accounts', title: 'Assigned Accounts', icon: 'nc-simple-add', class: '' },
+    { path: '/accounts', title: 'Setup Accounts', icon: 'nc-simple-add', class: '' },
     { path: '/ad-account', title: 'Add Ad-Account', icon: 'nc-simple-add', class: '', nottoShowInMenu: true },
     { path: '/account-info', title: 'Ad-Account Details', icon: 'nc-simple-add', class: '', nottoShowInMenu: true },
     { path: '/users', title: 'Users', icon: 'nc-single-02', class: '' },

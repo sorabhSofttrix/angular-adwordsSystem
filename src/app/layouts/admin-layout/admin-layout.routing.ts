@@ -14,6 +14,7 @@ import { ReasonComponent } from 'app/pages/reason/reason.component';
 import { ProfilesListingComponent } from 'app/pages/profiles-listing/profiles-listing.component';
 import { ClientListingComponent } from 'app/pages/client-listing/client-listing.component';
 import { ProjectListingComponent } from 'app/pages/project-listing/project-listing.component';
+import { ProjectInfoComponent } from 'app/pages/project-listing/project-info/project-info.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
@@ -69,6 +70,10 @@ export const AdminLayoutRoutes: Routes = [
             {
                 path: 'project',
                 component: ProjectListingComponent
+            },
+            {
+                path: 'project-info/:id',
+                component: ProjectInfoComponent
             }
         ]
     }

@@ -1,4 +1,4 @@
-<div class="card" *ngIf="projectForm">
+<div class="card card_div" *ngIf="projectForm">
 
     <div class="card-header">
         <b>{{btnTxt}} Project</b>
@@ -8,11 +8,11 @@
     <div class="card-body">
         <form [formGroup]="projectForm" enctype="multipart/form-data">
             <div class="row">
-                <div class="col-6">
+                <div class="col-6" *ngIf="projectForm.value.id">
                     <div class="form-group">
                         <label>Project id</label>
-                        <input type="text" formControlName="project_name" class="form-control"
-                            placeholder="Project id">
+                        <input type="text" [readonly]="projectForm.value.id" formControlName="project_name"
+                            class="form-control" placeholder="Project id">
                     </div>
                 </div>
 
@@ -21,8 +21,9 @@
                     <label>Contract Start date</label>
                     <div class="input-group"
                         [ngClass]="{'has-error': contract_start_date.invalid && contract_start_date.dirty}">
-                        <input class="form-control" placeholder="yyyy-mm-dd" name="contract_start_date"
-                            formControlName="contract_start_date" ngbDatepicker #sd="ngbDatepicker">
+                        <input class="form-control" placeholder="yyyy-mm-dd" [readonly]="true"
+                            name="contract_start_date" formControlName="contract_start_date" ngbDatepicker
+                            #sd="ngbDatepicker">
                         <div class="input-group-append">
                             <button class="btn btn-outline-secondary calendar" (click)="sd.toggle()" type="button">
                                 <i class="fa fa-calendar" aria-hidden="true"></i>
@@ -102,7 +103,7 @@
                 </div>
                 <div class="col-6">
                     <div class="form-group">
-                        <label>Email</label>
+                        <label>Skype</label>
                         <input type="text" formControlName="skype" [readonly]="projectForm.value.client != '' && !id"
                             class="form-control" placeholder="Skype" />
                     </div>
@@ -118,11 +119,49 @@
                     <div class="alert alert-danger" *ngIf="errorMessage">
                         <span><b> Oops!</b> {{errorMessage}}</span>
                     </div>
+                    <!-- <div class="row">
+                        <div class="col-md-4" style=" padding: 1px 2px; " *ngFor="let im of project.additional_files">
+                            <div class="card">
+                                <img class="card-img-top" src="{{ im.file_url }}" alt="Card image cap">
+                                <div class="card-body">
+                                    <div class="card-title">{{im.name}}</div>
+                                </div>
+                            </div>
+                            <div cl></div>
+                        </div>
+                    </div> -->
                 </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Additional files</label>
+                        <input #additionalfiles multiple type="file" class="form-control"
+                            (change)="additionalFileChangeEvent($event)" />
+                    </div>
+                    <div class="alert alert-danger" *ngIf="errorMessage">
+                        <span><b> Oops!</b> {{errorMessage}}</span>
+                    </div>
+                    <br>
+                    <div class="row" *ngIf="project">
+                        <div class="col-md-4" style=" padding: 1px 2px; " *ngFor="let im of project.additional_files;let i = index">
+                            <div class="card">
+                                <i class="fa fa-times cus" (click)="delteImg(im.id)" title="Close" aria-hidden="true"></i>
+                                <img class="card-img-top" class=" " src="{{ im.file_url }}" alt={{im.file_name}}>
+                                <div class="card-body">
+                                    <div class="card-title">{{im.name}}</div>
+                                </div>
+                            </div>
+                            <div cl></div>
+                            <!-- <img src="{{ im.file_url }}" /> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-6" *ngIf="!id">
                     <div class="form-group">
                         <label>Comments</label>
-                        <textarea formControlName="comment"  name="comment" id="comment" class="form-control"
+                        <textarea formControlName="comment" name="comment" id="comment" class="form-control"
                             placeholder="Comments">
                         </textarea>
                     </div>
@@ -130,12 +169,67 @@
             </div>
 
             <div class="row">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>Google accounts</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label>Google name</label>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <ng-container *ngIf="project">
+                <div class="row" *ngFor="let google_account of project.google_accounts">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <b>{{google_account.g_acc_id}}</b>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <b>{{google_account.acc_name}}</b>
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>
+            </ng-container>
+
+            <div class="row" formArrayName="google_accounts"
+                *ngFor="let item of projectForm.get('google_accounts').controls; let  i = index; last as j">
+                <div class="col-md-5" [formGroupName]="i">
+                    <div class="form-group">
+                        <input type="text" formControlName="g_acc_id" (keyup)="search($event.target.value)"
+                            class="form-control" placeholder="Google account id" />
+                    </div>
+                </div>
+                <div class="col-md-5" [formGroupName]="i">
+                    <div class="form-group">
+                        <input type="text" formControlName="acc_name" class="form-control" placeholder="Google name" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group plus-field">
+                        <button (click)="deleteItem(item,i)"
+                            class="ml-2 btn btn-sm btn-outline-danger minus btn-round btn-icon m-0">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button *ngIf="j" (click)="addItem()"
+                            class="ml-2 btn btn-sm btn-outline-danger btn-round btn-icon m-0">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
                 <div class="col-md-12 update ml-auto mr-auto text-right">
                     <button type="submit" (click)="activeModal.dismiss('Cross click')"
                         class="btn  btn-round  ">Close</button>
                     <button type="submit" (click)="save()" class="btn btn-primary btn-round ">{{btnTxt}}</button>
-
-
                 </div>
                 <div class="col-md-12">
                     <div class="alert alert-success" *ngIf="successMessage">

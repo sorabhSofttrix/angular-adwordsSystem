@@ -15,6 +15,8 @@ export class DeleteComponent implements OnInit {
   @Input() id: any;
   type: string;
   message: string;
+  project_id: number
+  index: number
   loading: boolean = false;
   @Input() listener: OnResolveResponseListener;
   deleteValue: string;
@@ -40,6 +42,8 @@ export class DeleteComponent implements OnInit {
       case 'Project':
         this.message = text + ' Project?';
         break;
+      case 'File':
+        this.message = text + ' File'
     }
     this.loading = true;
 
@@ -64,9 +68,21 @@ export class DeleteComponent implements OnInit {
       case 'Project':
         this.deleteProject();
         break;
+      case 'File':
+        this.deleteImg();
 
 
     }
+  }
+
+
+  deleteImg() {
+    this.api.deleteProjectImg(this.id, this.project_id).subscribe((res) => {
+      if (res['status']) {
+        this.deleteValue = 'File'
+        this.completeModal(this.deleteValue, this.index)
+      }
+    })
   }
 
   deleteProject() {
@@ -110,11 +126,11 @@ export class DeleteComponent implements OnInit {
   }
 
 
-  completeModal(val) {
+  completeModal(val, id?: number) {
     Helpers.setLoading(false)
     this.activeModal.dismiss();
-    this.toast.error(val, ' deleted successfully')
-    this.listener.onApiResolve()
+    this.toast.error(val + ' deleted successfully')
+    this.listener.onApiResolve(id)
   }
 
 }

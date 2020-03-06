@@ -1,4 +1,4 @@
 export interface OnResolveResponseListener {
-    onApiResolve(): void;
+    onApiResolve(id? :Number): void;
   }
   

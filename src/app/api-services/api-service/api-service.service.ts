@@ -211,6 +211,17 @@ export class ApiServiceService {
     return this.http.get(this.baseUrl + 'api/auth/delete-project?id=' + id)
   }
 
+  deleteProjectImg(id, projectId): Observable<any> {
+    return this.http.get(this.baseUrl + 'api/auth/delete-additional-file?id=' + id + '&project_id=' + projectId)
+  }
   // End Project API call********
+
+
+  //check google id exits
+
+  checkGoogleId(id): Observable<any> {
+    return this.http.get(this.baseUrl + 'api/auth/check-adwords-account?g_acc_id=' + id)
+  }
+
 
 }

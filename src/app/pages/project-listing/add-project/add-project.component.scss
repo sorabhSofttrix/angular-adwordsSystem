@@ -4,3 +4,47 @@
     color           : #FFFFFF !important;
     padding         : 0px 8px !important;
 }
+
+.plus-field {
+    margin-top: 8px;
+}
+
+.btn-outline-danger {
+    background: transparent;
+    border    : 2px solid #34b5b8 !important;
+    color     : #34b5b8;
+    opacity   : 1;
+    filter    : alpha(opacity=100);
+}
+
+
+.btn-outline-danger:hover {
+    background: #34b5b8 !important;
+
+}
+
+.minus {
+    background: transparent;
+    border    : 2px solid #d25959 !important;
+    color     : #d25959;
+    opacity   : 1;
+    filter    : alpha(opacity=100);
+}
+
+
+.minus:hover {
+    background: red !important;
+
+}
+
+.cus {
+    position: absolute !important;
+    left    : 102px !important;
+    top     : -7px !important;
+    cursor  : pointer !important;
+}
+
+.card_div {
+    overflow: auto !important;
+    height  : 89vh !important;
+}

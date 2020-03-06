@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Input, ViewChild, NgModuleRef } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormArray, NgModel } from '@angular/forms';
 import { Project, Profile, Client } from 'app/api-services/api-types/api-types.service';
 import { OnResolveResponseListener } from 'app/api-services/api-service/on-resolve-resolve.listner';
 import { ApiServiceService } from 'app/api-services/api-service/api-service.service';
@@ -7,28 +7,40 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Helpers } from 'app/helpers';
 import { validateFile, toFormData, covertStringDateToObject, covertDateObjectToString } from 'app/utils/utils';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/internal/operators';
+import { DeleteComponent } from 'app/pages/delete/delete.component';
 
 @Component({
   selector: 'app-add-project',
   templateUrl: './add-project.component.html',
   styleUrls: ['./add-project.component.scss']
 })
-export class AddProjectComponent implements OnInit {
+export class AddProjectComponent implements OnInit, OnResolveResponseListener {
   projectForm: FormGroup;
   project: Project;
 
   profile: Profile[] = []
   client: Client[] = []
   id: number
-
-  dt: any;
   @Input() listener: OnResolveResponseListener
 
   btnTxt: string = 'Save'
   @ViewChild('questionnaire', { static: false }) questionnaire: any;
   errorMessage: string
+  google_accounts: any;
+  additional_files: any;
+  modelChanged: Subject<string> = new Subject<string>();
+
+
   constructor(private formBuilder: FormBuilder, private api: ApiServiceService, private modalService: NgbModal,
-    private toastr: ToastrService, public activeModal: NgbActiveModal) { }
+    private toastr: ToastrService, public activeModal: NgbActiveModal) {
+    this.modelChanged.pipe(debounceTime(500))
+      .subscribe(model => {
+        this.veryfyId(model);
+      });
+  }
+
 
   ngOnInit() {
 
@@ -60,7 +72,6 @@ export class AddProjectComponent implements OnInit {
     })
   }
 
-
   getProfile() {
     this.api.getAllProfiles().subscribe((res) => {
       if (res['status']) {
@@ -70,9 +81,8 @@ export class AddProjectComponent implements OnInit {
   }
 
   initForm() {
-
     this.projectForm = this.formBuilder.group({
-      id: [ this.project ? this.project.id : null],
+      id: [this.project ? this.project.id : null],
       project_name: [this.project ? this.project.project_name : '',],
       client_name: [this.project ? this.project.client_name : '', Validators.compose([Validators.required])],
       client: [this.project ? this.project.client : ''],
@@ -85,15 +95,38 @@ export class AddProjectComponent implements OnInit {
       // contract_start_date: [this.project ? this.project.contract_start_date : ''],
       contract_start_date: [this.project ? this.project.contract_start_date : '', Validators.required],
       questionnaire: [''],
+      // googelAccountIds: new FormArray([]),
+      google_accounts: this.formBuilder.array([this.createItem()]),
       email: [this.project ? this.project.email : '', Validators.compose([Validators.required, Validators.email])],
-
-
-      // sortOrder: [this.reason ? this.reason.sortOrder : ''],
+      additional_files: [''],
     });
-    console.log(this.projectForm.value)
   }
 
-  // get project_name() { return this.projectForm.get('project_name'); }
+
+  addItem(): void {
+    this.google_accounts = this.projectForm.get('google_accounts') as FormArray;
+    this.google_accounts.push(this.createItem());
+    console.log(this.google_accounts.value)
+  }
+
+  deleteItem(obj, idx) {
+    this.google_accounts = this.projectForm.get('google_accounts') as FormArray;
+    // this.items.value.splice(idx, 1)
+    if (this.google_accounts.length > 1) {
+      this.google_accounts.removeAt(idx);;
+    }
+    else {
+      this.toastr.error('Can not be deleted');
+    }
+    console.log(this.google_accounts.value)
+  }
+
+  createItem(): FormGroup {
+    return this.formBuilder.group({
+      acc_name: '',
+      g_acc_id: '',
+    });
+  }
   get contract_start_date() { return this.projectForm.get('contract_start_date'); }
   get client_name() { return this.projectForm.get('client_name'); }
   get email() { return this.projectForm.get('email'); }
@@ -106,7 +139,6 @@ export class AddProjectComponent implements OnInit {
       this.projectForm.get('email').setValue(a.email);
       this.projectForm.get('phone').setValue(a.phone);
       this.projectForm.get('skype').setValue(a.skype);
-      // console.log(a)}
     } else {
       this.projectForm.get('client_name').setValue('');
       this.projectForm.get('email').setValue('');
@@ -115,28 +147,48 @@ export class AddProjectComponent implements OnInit {
     }
   }
 
+
+
+  search(val) {
+    this.modelChanged.next(val)
+
+  }
+
+  veryfyId(val) {
+    this.api.checkGoogleId(val).subscribe((res) => {
+      if (res['status']) {
+        let google_accounts = this.projectForm.get('google_accounts') as FormArray;
+        google_accounts.controls.map(
+          item => {
+            (item.value.g_acc_id == val) ? item.setValue({ acc_name: item.value.acc_name, g_acc_id: '' }) : '';
+          }
+        );
+
+        this.toastr.error(res['data'])
+      }
+    })
+  }
+
   save() {
-    // this.projectForm.get('project_name').markAsDirty();
     this.projectForm.get('contract_start_date').markAsDirty();
     this.projectForm.get('client_name').markAsDirty();
-
-    // for (const field in this.projectForm.controls) {
-    //   this.projectForm.get(field).markAsDirty();
-    // }
+    this.projectForm.get('email').markAsDirty();
+    // console.log(this.projectForm.value)
     if (this.projectForm.invalid) {
       return;
     }
-    this.projectForm.value.contract_start_date = covertDateObjectToString(this.projectForm.value.contract_start_date)
-    console.log(this.projectForm.value)
+    if (typeof this.projectForm.value.contract_start_date !== 'string')
+      this.projectForm.value.contract_start_date = covertDateObjectToString(this.projectForm.value.contract_start_date)
+    let submitForm = this.projectForm.value;
+    submitForm.google_accounts = JSON.stringify(submitForm.google_accounts);
+    // submitForm['additional_files[]'] = submitForm.additional_files;
+    const form = toFormData(submitForm);
     Helpers.setLoading(true);
     if (this.id > 0) {
-      let submitForm = this.projectForm.value;
-      const form = toFormData(submitForm);
-      console.log(form)
+      console.log(submitForm);
       this.api.updateProject(form).subscribe(res => {
         if (res['status']) {
           this.errorMessage = '';
-          // this.initForm();
           this.questionnaire.nativeElement.value = "";
           this.activeModal.dismiss();
           this.toastr.success('Project updated successfully')
@@ -151,13 +203,9 @@ export class AddProjectComponent implements OnInit {
       })
     }
     else {
-      let submitForm = this.projectForm.value;
-      const form = toFormData(submitForm);
-      // console.log(form)
       this.api.createProject(form).subscribe(res => {
         if (res['status']) {
           this.errorMessage = '';
-          // this.initForm();
           this.questionnaire.nativeElement.value = ""
           this.activeModal.dismiss();
           this.toastr.success('Project added successfully')
@@ -184,4 +232,44 @@ export class AddProjectComponent implements OnInit {
       }
     }
   }
+
+
+
+  additionalFileChangeEvent(event) {
+    if (event && event.target && event.target.files.length) {
+      this.projectForm.get('additional_files').setValue(event.target.files);
+      console.log(this.additional_files)
+    }
+  }
+
+
+  delteImg(id, index) {
+
+
+    const modalRef = this.modalService.open(DeleteComponent, {
+      size: 'lg',
+      backdrop: 'static',
+      keyboard: false,
+      windowClass: 'windowsize'
+    });
+    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.type = 'File';
+    modalRef.componentInstance.index = index
+    modalRef.componentInstance.project_id = this.project.id;
+    modalRef.componentInstance.listener = this;
+    // console.log(id)
+    // this.api.deleteProjectImg(id, this.project.id).subscribe((res) => {
+    //   if (res['status']) {
+    //     this.project['additional_files'].splice(index,1)
+    //         // this.listOfLanguagues.splice(index, 1);
+    //     this.toastr.error('file deleted successfully');
+    //   }
+    // })
+  }
+
+  onApiResolve(id) {
+    this.project['additional_files'].splice(id, 1)
+    //         // this.listOfLanguagues.splice(index, 1);
+  }
+
 }

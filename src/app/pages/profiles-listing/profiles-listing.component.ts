@@ -5,6 +5,7 @@ import { OnResolveResponseListener } from 'app/api-services/api-service/on-resol
 import { ApiServiceService } from 'app/api-services/api-service/api-service.service';
 import { Profile } from 'app/api-services/api-types/api-types.service';
 import { DeleteComponent } from '../delete/delete.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profiles-listing',
@@ -15,7 +16,7 @@ export class ProfilesListingComponent implements OnInit, OnResolveResponseListen
 
   profiles: Profile[] = []
 
-  constructor(private modalService: NgbModal, private api: ApiServiceService, ) { }
+  constructor(private modalService: NgbModal, private api: ApiServiceService, private router: Router) { }
 
   ngOnInit() {
 
@@ -50,8 +51,11 @@ export class ProfilesListingComponent implements OnInit, OnResolveResponseListen
     modalRef.componentInstance.listener = this;
   }
 
+ 
   onApiResolve() {
     this.ngOnInit();
   }
+
+
 
 }

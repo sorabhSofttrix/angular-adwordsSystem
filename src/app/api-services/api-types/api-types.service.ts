@@ -182,6 +182,12 @@ export interface Project {
   skype?: string,
   phone?: number,
   comment?: string,
+  items?: Items[]
 
 
+}
+
+export interface Items {
+  acc_name: string,
+  g_acc_id: string,
 }
