@@ -15,6 +15,8 @@ import { ProfilesListingComponent } from 'app/pages/profiles-listing/profiles-li
 import { ClientListingComponent } from 'app/pages/client-listing/client-listing.component';
 import { ProjectListingComponent } from 'app/pages/project-listing/project-listing.component';
 import { ProjectInfoComponent } from 'app/pages/project-listing/project-info/project-info.component';
+import { SetupaccInfoComponent } from 'app/pages/setup-accounts-listing/setupacc-info/setupacc-info.component';
+import { SetupAccountsListingComponent } from 'app/pages/setup-accounts-listing/setup-accounts-listing.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
@@ -74,6 +76,20 @@ export const AdminLayoutRoutes: Routes = [
             {
                 path: 'project-info/:id',
                 component: ProjectInfoComponent
+            }
+        ]
+    },
+    {
+        path: '',
+        canActivate: [AuthGuardService],
+        children: [
+            {
+                path: 'setup-accounts',
+                component: SetupAccountsListingComponent
+            },
+            {
+                path: 'setup-accounts/:id',
+                component: SetupaccInfoComponent
             }
         ]
     }

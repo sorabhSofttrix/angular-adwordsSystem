@@ -12,14 +12,13 @@ export class ProjectInfoComponent implements OnInit {
   productId: any;
   project: Project;
 
-  
+
   constructor(private activatedRoutes: ActivatedRoute, private api: ApiServiceService) {
     this.activatedRoutes.params.subscribe(params => {
       this.productId = params.id
 
     })
   }
-
   ngOnInit() {
     if (this.productId > 0) {
       this.api.getProjectById(this.productId).subscribe(res => {

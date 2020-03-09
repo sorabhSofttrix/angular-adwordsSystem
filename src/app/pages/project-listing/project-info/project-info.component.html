@@ -45,7 +45,7 @@
             </div>
             <div class="card-body">
                 <ng-container *ngFor="let gp of project.google_accounts">
-                    <div class="col-md-12 btn btn-dark btn-collape collapsed" data-toggle="collapse"
+                    <div class="col-md-12 btn btn-primary btn-collape collapsed" data-toggle="collapse"
                         [attr.data-target]="'#demo' + gp.id">
                         <div class="float-left">{{gp.acc_name}}</div>
                         <div class="float-right">{{gp.g_acc_id}}</div>
@@ -92,10 +92,22 @@
             </div>
             <div class="card-body">
                 <ng-container *ngFor="let cm of project.comments">
-                    <div class="col-md-12 btn btn-dark btn-collape collapsed" data-toggle="collapse"
+                    <!-- <div class="col-md-12 btn btn-dark btn-collape collapsed" data-toggle="collapse"
                         [attr.data-target]="'#demo' + cm.id">
                         <div class="float-left">{{cm.comment}}</div>
                         <div class="float-right">{{cm.created_at | date : 'medium'}}</div>
+                    </div> -->
+
+                    <div class="col-md-12">
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <label for="">Comment: </label>
+                                <b> {{cm.comment}}</b>
+                            </div>
+                            <div class="col-md-4"><b>{{cm.created_at | date : 'medium'}}</b></div>
+                            <div class="col-md-4">Added by - <b>{{cm.added_by_name}}</b></div>
+                        </div>
                     </div>
                     <!-- [id]="'demo' + gp.id"  -->
                     <div class="collapse">

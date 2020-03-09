@@ -25,12 +25,12 @@ import {
   MatTooltipModule,
   MatSelectModule,
   MatIconModule,
-  MatButtonToggleGroup,
-  MatButtonToggle,
   MatButtonToggleModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatTreeModule
+  MatTreeModule,
+  MatStepperModule,
+  MatCheckboxModule
 
 } from '@angular/material';
 import { CategoryPipe } from 'app/api-services/api-service/category.pipe';
@@ -41,6 +41,8 @@ import { ProfilesListingComponent } from 'app/pages/profiles-listing/profiles-li
 import { ClientListingComponent } from 'app/pages/client-listing/client-listing.component';
 import { ProjectListingComponent } from 'app/pages/project-listing/project-listing.component';
 import { ProjectInfoComponent } from 'app/pages/project-listing/project-info/project-info.component';
+import { SetupaccInfoComponent } from 'app/pages/setup-accounts-listing/setupacc-info/setupacc-info.component';
+import { SetupAccountsListingComponent } from 'app/pages/setup-accounts-listing/setup-accounts-listing.component';
 
 
 @NgModule({
@@ -62,7 +64,9 @@ import { ProjectInfoComponent } from 'app/pages/project-listing/project-info/pro
     MatDatepickerModule,
     MatNativeDateModule,
     MatTreeModule,
-    NgxStarsModule
+    NgxStarsModule,
+    MatStepperModule,
+    MatCheckboxModule
     // DebounceDirective
 
   ],
@@ -82,7 +86,9 @@ import { ProjectInfoComponent } from 'app/pages/project-listing/project-info/pro
     ProfilesListingComponent,
     ClientListingComponent,
     ProjectListingComponent,
-    ProjectInfoComponent
+    ProjectInfoComponent,
+    SetupaccInfoComponent,
+    SetupAccountsListingComponent
 
 
 

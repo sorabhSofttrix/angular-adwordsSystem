@@ -1,0 +1,133 @@
+<!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+  </button> -->
+<mat-vertical-stepper #stepper>
+  <mat-step [stepControl]="keywordsForm">
+    <form [formGroup]="keywordsForm">
+      <ng-template matStepLabel>keywords</ng-template>
+      <mat-form-field>
+        <mat-label>Keyword File Url</mat-label>
+        <input matInput placeholder="Keyword URL" formControlName="keywords_url" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext (click)="save('keyword_url')">Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="adcopiesForm">
+    <form [formGroup]="adcopiesForm">
+      <ng-template matStepLabel>Ad. copies</ng-template>
+      <mat-form-field>
+        <mat-label>Adcopies Url</mat-label>
+        <input matInput formControlName="adcopies_url" placeholder="addcopies url" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="peerReviewForm">
+    <form [formGroup]="peerReviewForm">
+      <ng-template matStepLabel>Peer review</ng-template>
+      <mat-form-field>
+        <mat-label>Keyword score</mat-label>
+        <input matInput formControlName="peer_review" placeholder="Peer review" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Ad. copy score</mat-label>
+        <input matInput formControlName="adcopies_score" placeholder="Ad. copies score" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Ad. copy score</mat-label>
+        <input matInput formControlName="comment" placeholder="Comment" required>
+      </mat-form-field>
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="clientKeyAdReviewForm">
+    <form [formGroup]="clientKeyAdReviewForm">
+      <ng-template matStepLabel>Client key ad. form</ng-template>
+      <mat-form-field>
+        <mat-label>Client key ad.</mat-label>
+        <input matInput formControlName="client_keyad_review" placeholder="Client key ad. review" required>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Comment</mat-label>
+        <input matInput formControlName="comment" placeholder="Comment" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="campaignSetupForm">
+    <form [formGroup]="campaignSetupForm">
+      <ng-template matStepLabel>Campaign setup</ng-template>
+      <mat-checkbox formControlName="campaign_setup">Check me!</mat-checkbox>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="clientReviewForm">
+    <form [formGroup]="clientReviewForm">
+      <ng-template matStepLabel>Client review</ng-template>
+      <mat-checkbox formControlName="client_review">Check me!</mat-checkbox>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="conversionTrackingForm">
+    <form [formGroup]="conversionTrackingForm">
+      <ng-template matStepLabel>Conversion tracking</ng-template>
+      <mat-checkbox formControlName="conversion_tracking">Check me!</mat-checkbox>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="googleAnalyticsForm">
+    <form [formGroup]="googleAnalyticsForm">
+      <ng-template matStepLabel>Google analytics</ng-template>
+      <mat-checkbox formControlName="google_analytics">Check me!</mat-checkbox>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="gtmForm">
+    <form [formGroup]="gtmForm">
+      <ng-template matStepLabel>GTM</ng-template>
+      <mat-checkbox formControlName="gtm">Check me!</mat-checkbox>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-vertical-stepper>

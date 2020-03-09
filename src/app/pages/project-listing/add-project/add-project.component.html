@@ -143,10 +143,13 @@
                     </div>
                     <br>
                     <div class="row" *ngIf="project">
-                        <div class="col-md-4" style=" padding: 1px 2px; " *ngFor="let im of project.additional_files;let i = index">
+                        <div class="col-md-4" style=" padding: 1px 2px; "
+                            *ngFor="let im of project.additional_files;let i = index">
                             <div class="card">
-                                <i class="fa fa-times cus" (click)="delteImg(im.id)" title="Close" aria-hidden="true"></i>
-                                <img class="card-img-top" class=" " src="{{ im.file_url }}" alt={{im.file_name}}>
+                                <i class="fa fa-times cus" (click)="delteImg(im.id)" title="Close"
+                                    aria-hidden="true"></i>
+                                <img class="card-img-top" style="object-fit: contain; " src="{{ im.file_url }}"
+                                    alt={{im.file_name}}>
                                 <div class="card-body">
                                     <div class="card-title">{{im.name}}</div>
                                 </div>

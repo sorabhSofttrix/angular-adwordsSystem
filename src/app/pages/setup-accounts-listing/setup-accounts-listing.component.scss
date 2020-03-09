@@ -1,0 +1,47 @@
+table.table {
+    font-size: 12px;
+}
+
+.pagination>li>a {
+    border-radius: 50% !important;
+    margin       : 0 5px;
+}
+
+.pagination li a {
+    cursor: pointer;
+}
+
+.pagination>li>a,
+.pagination>li>span {
+    position        : relative;
+    float           : left;
+    padding         : 6px 12px;
+    margin-left     : -1px;
+    line-height     : 1.42857143;
+    color           : #337ab7;
+    text-decoration : none;
+    background-color: #fff;
+    border          : 1px solid #ddd;
+}
+
+.pagination li.active a {
+    background-color: #51cbce !important;
+    color           : white !important;
+}
+
+table.table {
+    font-size: 12px;
+}
+
+.pagitaion-count {
+    color : black !important;
+    border: none !important;
+}
+
+
+.input-group-append .btn {
+    margin          : 0px !important;
+    background-color: #66615bad !important;
+    color           : #FFFFFF !important;
+    padding         : 0px 8px !important;
+}

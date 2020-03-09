@@ -1,0 +1,156 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title"> Adword Accounts
+                    <div class="col-md-3 pull-right">
+                        <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="search()"
+                            placeholder="Search" />
+                    </div>
+                </h4>
+
+                <div class="row">
+                    <div class="col-3">
+                        <div class="">
+                            <label>Select status</label>
+                            <select class="form-control" (change)="search()" [(ngModel)]="status_filter"
+                                id="status_filter" name="status_filter">
+                                <!-- <option [ngValue]="st" selected>Select</option> -->
+                                <option *ngFor="let st of accStatus" [ngValue]="st">{{st}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- datetimepicker startDate -->
+                    <div class="col-md-3">
+                        <label>Start date</label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="startDate"
+                                ngbDatepicker #sd="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary calendar" (click)="sd.toggle()" type="button">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                            <!-- <pre>startDate: {{ startDate | json}}</pre> -->
+                        </div>
+                    </div>
+                    <!-- datetimepicker endDate-->
+                    <div class="col-md-3">
+                        <label>End date</label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="endDate"
+                                ngbDatepicker #ed="ngbDatepicker">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary calendar" (click)="ed.toggle()" type="button">
+                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <br>
+                        <button type="submit" (click)="getData()" class="btn btn-primary btn-round"
+                            [disabled]="btnDisable">go</button>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="card-body">
+                <div class="text-center">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(1)">
+                                <i class="fa fa-angle-left"></i>
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="setPage(page)">{{page}}
+                            </a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.totalPages)">
+                                <i class="fa fa-angle-right"></i>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                        <li><span class="pagitaion-count">{{count}} of {{toList.length}}</span></li>
+
+                    </ul>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class=" text-primary">
+                            <th> Acc. name</th>
+                            <th> Google acc. id</th>
+                            <th> Director</th>
+                            <th> Manager</th>
+                            <th>Stages</th>
+                            <!--                 <th>CPC</th>
+                <th>Clicks</th>
+                <th>Cost</th>
+                <th>Impression</th>
+                <th>Conversion</th> -->
+                            <th>Active status</th>
+                            <th> Actions</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let setup of pagedItems">
+                                <td>{{setup.acc_name}}</td>
+                                <td>{{setup.g_acc_id}}</td>
+                                <td>{{setup.director_name}}</td>
+                                <td>{{setup.manager_name}}</td>
+                                <td>{{setup.current_stage}}</td>
+                                <!-- <td>{{account.cpc }}</td>
+                  <td>{{account.click }}</td>
+                  <td>{{account.cost }}</td>
+                  <td>{{account.impressions }}</td>
+                  <td>{{account.conversion }}</td> -->
+                                <td>{{setup.acc_status }}</td>
+                                <td>
+                                    <!-- <button *ngIf="authService.token.user.role_id != 1" (click)="addCount(account.id)"
+                                        class="btn btn-sm btn-outline-info btn-round btn-icon m-0">
+                                        <i class="fa fa-pencil"></i>
+                                    </button> -->
+                                    <button (click)="infoAccount(setup.id)"
+                                        class="ml-2 btn btn-sm btn-outline-info btn-round btn-icon m-0">
+                                        <i class="fa fa-info"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(1)">
+                                <i class="fa fa-angle-left"></i>
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="setPage(page)">{{page}}
+                                <!-- <span class="sr-only">(current)</span> -->
+                            </a>
+                        </li>
+                        <!-- <li>
+                <a href="#">2</a>
+              </li>
+              <li>
+                <a href="#">3</a>
+              </li> -->
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.totalPages)">
+                                <i class="fa fa-angle-right"></i>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

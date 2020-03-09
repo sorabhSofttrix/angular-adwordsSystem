@@ -106,7 +106,7 @@ export class AddProjectComponent implements OnInit, OnResolveResponseListener {
   addItem(): void {
     this.google_accounts = this.projectForm.get('google_accounts') as FormArray;
     this.google_accounts.push(this.createItem());
-    console.log(this.google_accounts.value)
+    // console.log(this.google_accounts.value)
   }
 
   deleteItem(obj, idx) {
@@ -118,7 +118,7 @@ export class AddProjectComponent implements OnInit, OnResolveResponseListener {
     else {
       this.toastr.error('Can not be deleted');
     }
-    console.log(this.google_accounts.value)
+    // console.log(this.google_accounts.value)
   }
 
   createItem(): FormGroup {
@@ -173,7 +173,6 @@ export class AddProjectComponent implements OnInit, OnResolveResponseListener {
     this.projectForm.get('contract_start_date').markAsDirty();
     this.projectForm.get('client_name').markAsDirty();
     this.projectForm.get('email').markAsDirty();
-    // console.log(this.projectForm.value)
     if (this.projectForm.invalid) {
       return;
     }
@@ -185,7 +184,6 @@ export class AddProjectComponent implements OnInit, OnResolveResponseListener {
     const form = toFormData(submitForm);
     Helpers.setLoading(true);
     if (this.id > 0) {
-      console.log(submitForm);
       this.api.updateProject(form).subscribe(res => {
         if (res['status']) {
           this.errorMessage = '';
@@ -238,7 +236,6 @@ export class AddProjectComponent implements OnInit, OnResolveResponseListener {
   additionalFileChangeEvent(event) {
     if (event && event.target && event.target.files.length) {
       this.projectForm.get('additional_files').setValue(event.target.files);
-      console.log(this.additional_files)
     }
   }
 
@@ -257,19 +254,11 @@ export class AddProjectComponent implements OnInit, OnResolveResponseListener {
     modalRef.componentInstance.index = index
     modalRef.componentInstance.project_id = this.project.id;
     modalRef.componentInstance.listener = this;
-    // console.log(id)
-    // this.api.deleteProjectImg(id, this.project.id).subscribe((res) => {
-    //   if (res['status']) {
-    //     this.project['additional_files'].splice(index,1)
-    //         // this.listOfLanguagues.splice(index, 1);
-    //     this.toastr.error('file deleted successfully');
-    //   }
-    // })
+   
   }
 
   onApiResolve(id) {
     this.project['additional_files'].splice(id, 1)
-    //         // this.listOfLanguagues.splice(index, 1);
   }
 
 }
