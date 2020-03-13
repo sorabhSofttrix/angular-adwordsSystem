@@ -246,3 +246,16 @@ export interface Stages {
   comment?: string
   acc_id?: number
 }
+
+export enum SetupStages {
+  'keywords' = 1,
+  'adcopies' = 2,
+  'peer_review' = 3,
+  'client_keyad_review' = 4,
+  'campaign_setup' = 5,
+  'client_review' = 6,
+  'conversion_tracking' = 7,
+  'google_analytics' = 8,
+  'gtm' = 9,
+  'campaign_live' = 10,
+}

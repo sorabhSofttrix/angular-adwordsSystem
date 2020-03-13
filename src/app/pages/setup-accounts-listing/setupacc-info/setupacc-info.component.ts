@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormGroup, FormBuilder, Validators, Form } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiServiceService } from 'app/api-services/api-service/api-service.service';
 import { Stages } from 'app/api-services/api-types/api-types.service';
 import { ToastrService } from 'ngx-toastr';
@@ -17,29 +17,42 @@ export class SetupaccInfoComponent implements OnInit {
   peerReviewForm: FormGroup;
   clientKeyAdReviewForm: FormGroup;
 
-  campaignSetupForm: FormGroup
-  clientReviewForm: FormGroup
-  conversionTrackingForm: FormGroup
-  googleAnalyticsForm: FormGroup
-  gtmForm: FormGroup
-
+  campaignSetupForm: FormGroup;
+  clientReviewForm: FormGroup;
+  conversionTrackingForm: FormGroup;
+  googleAnalyticsForm: FormGroup;
+  gtmForm: FormGroup;
+  detailForm: FormGroup;
 
   acc_id: any;
   setUpaccount: Stages;
+  btnTxt: string = 'Save'
+  btnDisabled = true;
 
-  constructor(private _formBuilder: FormBuilder, private activateddRoute: ActivatedRoute,
+  stages: any = [
+    {id:1,'stage':'keywords'}
+  ]
+
+
+  constructor(private _formBuilder: FormBuilder, private activateddRoute: ActivatedRoute, private router: Router,
     private api: ApiServiceService, private toastr: ToastrService) {
     this.activateddRoute.params.subscribe((param) => {
       this.acc_id = param.id
     })
     if (this.acc_id) {
-      this.api.getSetUpAccountById(this.acc_id).subscribe((res) => {
-        if (res['status']) {
-          this.setUpaccount = res['data'];
-          this.initForm();
-        }
-      })
+      this.getDetails();
     }
+  }
+
+  getDetails() {
+    this.api.getSetUpAccountById(this.acc_id).subscribe((res) => {
+      if (res['status']) {
+        this.setUpaccount = res['data'];
+        if (!this.setUpaccount.g_acc_id)
+          this.btnDisabled = false
+        this.initForm();
+      }
+    })
   }
 
   ngOnInit() {
@@ -47,6 +60,14 @@ export class SetupaccInfoComponent implements OnInit {
   }
 
   initForm() {
+
+    this.detailForm = this._formBuilder.group({
+      id: [this.setUpaccount.acc_id],
+      g_acc_id: [this.setUpaccount ? this.setUpaccount.g_acc_id : ''],
+      acc_name: [this.setUpaccount ? this.setUpaccount.acc_name : '']
+    });
+    (this.setUpaccount.g_acc_id) ? this.detailForm.disable() : '';
+
     this.keywordsForm = this._formBuilder.group({
       keywords_url: [this.setUpaccount ? this.setUpaccount.keywords_url : '', Validators.required]
     });
@@ -59,11 +80,12 @@ export class SetupaccInfoComponent implements OnInit {
 
     this.peerReviewForm = this._formBuilder.group({
       peer_review: [this.setUpaccount ? this.setUpaccount.peer_review : '',], //checkbox
-      keywords_score: [this.setUpaccount ? this.setUpaccount.keywords_score : '', Validators.max(10)],//number
+      keywords_score: [this.setUpaccount ? this.setUpaccount.keywords_score : '',],//number
       adcopies_score: [this.setUpaccount ? this.setUpaccount.adcopies_score : '',],
       comment: [''],
       sub_type: ['peer_review'],
     });
+
     (this.setUpaccount.peer_review) ? this.peerReviewForm.disable() : '';
 
     this.clientKeyAdReviewForm = this._formBuilder.group({
@@ -73,9 +95,14 @@ export class SetupaccInfoComponent implements OnInit {
     });
     (this.setUpaccount.client_keyad_review) ? this.clientKeyAdReviewForm.disable() : '';
 
+    if (this.setUpaccount.client_keyad_review) {
+      this.detailForm.get('g_acc_id').setValidators(Validators.required);
+    }
+
     this.campaignSetupForm = this._formBuilder.group({
       campaign_setup: [this.setUpaccount ? this.setUpaccount.campaign_setup : ''], //checkbox
     });
+
     (this.setUpaccount.campaign_setup) ? this.campaignSetupForm.disable() : '';
 
     this.clientReviewForm = this._formBuilder.group({
@@ -91,15 +118,44 @@ export class SetupaccInfoComponent implements OnInit {
     (this.setUpaccount.conversion_tracking) ? this.conversionTrackingForm.disable() : '';
 
     this.googleAnalyticsForm = this._formBuilder.group({
-      google_analytics: [this.setUpaccount ? this.setUpaccount.campaign_setup : ''], //checkbox
+      google_analytics: [this.setUpaccount ? this.setUpaccount.google_analytics : ''], //checkbox
     });
     (this.setUpaccount.google_analytics) ? this.googleAnalyticsForm.disable() : '';
 
     this.gtmForm = this._formBuilder.group({
-      gtm: [this.setUpaccount ? this.setUpaccount.campaign_setup : ''], //checkbox
+      gtm: [this.setUpaccount ? this.setUpaccount.gtm : ''], //checkbox
     });
     (this.setUpaccount.gtm) ? this.gtmForm.disable() : '';
 
+  }
+
+  enableValidator() {
+    let keyword = this.peerReviewForm.get('keywords_score');
+    let adcopies = this.peerReviewForm.get('adcopies_score');
+    if (this.peerReviewForm.get('peer_review').value) {
+      keyword.setValidators(Validators.required);
+      adcopies.setValidators(Validators.required);
+      keyword.markAsDirty();
+      adcopies.markAsDirty();
+    }
+    else {
+      keyword.clearValidators();
+      adcopies.clearValidators();
+    }
+
+  }
+
+  checkAcc_id() {
+    if (this.detailForm.invalid) {
+      this.detailForm.get('g_acc_id').markAsDirty();
+      window.scroll({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      });
+      this.campaignSetupForm.get('campaign_setup').setValue('')
+      return;
+    }
   }
 
   save(formvVal) {
@@ -121,6 +177,7 @@ export class SetupaccInfoComponent implements OnInit {
     }
     if (formvVal == 'campaign_setup' && this.setUpaccount.campaign_setup != this.campaignSetupForm.get('campaign_setup').value) {
       data = this.campaignSetupForm.value;
+
     }
     if (formvVal == 'client_review' && this.setUpaccount.client_review != this.clientReviewForm.get('client_review').value) {
       data = this.clientReviewForm.value;
@@ -151,7 +208,7 @@ export class SetupaccInfoComponent implements OnInit {
 
   digitKeyOnly(e, target) {
     let val = e.target.value;
-    if(isNaN(val) || parseInt(val) > 10 || parseInt(val) < 0) {
+    if (isNaN(val) || parseInt(val) > 10 || parseInt(val) < 0) {
       this.peerReviewForm.get(target).setValue(1);
     } else {
       this.peerReviewForm.get(target).setValue(val.trim());
@@ -166,13 +223,32 @@ export class SetupaccInfoComponent implements OnInit {
         Helpers.setLoading(false)
         this.toastr.success('Saved successfully');
         this.setUpaccount = res.data;
+        if (res.data['acc_status'] == 'active') {
+          this.toastr.success('Account moved to management stage');
+          this.router.navigate(['/accounts']);
+        }
         this.initForm()
       }
+
     }, (err) => {
       this.toastr.error(err.error.error);
       Helpers.setLoading(false)
 
     })
+  }
+
+  savGdetails() {
+    this.detailForm.get('g_acc_id').markAsDirty();
+    if (this.detailForm.invalid) return
+    this.api.updateAccounts(this.detailForm.value).subscribe((res => {
+      if (res['status']) {
+        this.toastr.success('Account details updated');
+        this.btnDisabled = true;
+        this.detailForm.disable();
+        this.getDetails();
+      }
+    }))
+
   }
 
 }

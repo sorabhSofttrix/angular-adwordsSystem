@@ -108,3 +108,7 @@ table.table tr td {
 i.fa.fa-times.float-right {
     cursor: pointer;
 }
+
+app-setupacc-info .mat-step-header .mat-step-label {
+    width: -webkit-fill-available;
+}

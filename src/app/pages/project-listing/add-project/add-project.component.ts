@@ -241,8 +241,6 @@ export class AddProjectComponent implements OnInit, OnResolveResponseListener {
 
 
   delteImg(id, index) {
-
-
     const modalRef = this.modalService.open(DeleteComponent, {
       size: 'lg',
       backdrop: 'static',

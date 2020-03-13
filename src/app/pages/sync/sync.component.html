@@ -82,12 +82,15 @@
                             class="btn btn-primary btn-round">Save</button>
                     </div>
                 </div>
-                <div class="table-responsive">
+                <div class="table-responsive" *ngIf="unAssignedAcc.length>0">
                     <table class="table">
                         <thead class=" text-primary">
                             <th><input type="checkbox" [(ngModel)]="selectedAll" (change)="selectAll();" /></th>
                             <th>Acc. id</th>
+                            <th>Profile</th>
                             <th>Acc. name</th>
+                            <th>Project name</th>
+                            <th>Client name</th>
                             <th>Status</th>
                             <!-- <th>Total conversion</th> -->
 
@@ -99,7 +102,10 @@
                                         [(ngModel)]="acc.selected" (click)="checkIfAllSelected($event);">
                                 </td>
                                 <td>{{acc.g_acc_id}}</td>
+                                <td>{{acc.profile_name}}</td>
                                 <td>{{acc.acc_name ? acc.acc_name : acc.g_acc_id}}</td>
+                                <td>{{acc.project_name}}</td>
+                                <td>{{acc.client_name}}</td>
                                 <td>{{acc.acc_status }}</td>
                                 <!-- <td>{{acc.totalConversion }}</td> -->
 

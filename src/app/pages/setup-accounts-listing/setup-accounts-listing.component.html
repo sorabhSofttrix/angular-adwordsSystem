@@ -83,16 +83,19 @@
                 <div class="table-responsive">
                     <table class="table">
                         <thead class=" text-primary">
-                            <th> Acc. name</th>
-                            <th> Google acc. id</th>
-                            <th> Director</th>
-                            <th> Manager</th>
+                            <th>Acc. name</th>
+                            <th>Google acc. id</th>
+                            <!-- <th> Director</th> -->
+                            <th>Manager</th>
+                            <th>Project name</th>
+                            <th>Client name</th>
+                            <th>Upwork name</th>
                             <th>Stages</th>
-                            <!--                 <th>CPC</th>
-                <th>Clicks</th>
-                <th>Cost</th>
-                <th>Impression</th>
-                <th>Conversion</th> -->
+                            <!-- <th>CPC</th>
+                                <th>Clicks</th>
+                                <th>Cost</th>
+                                <th>Impression</th>
+                                <th>Conversion</th> -->
                             <th>Active status</th>
                             <th> Actions</th>
                         </thead>
@@ -100,9 +103,12 @@
                             <tr *ngFor="let setup of pagedItems">
                                 <td>{{setup.acc_name}}</td>
                                 <td>{{setup.g_acc_id}}</td>
-                                <td>{{setup.director_name}}</td>
+                                <!-- <td>{{setup.director_name}}</td> -->
                                 <td>{{setup.manager_name}}</td>
-                                <td>{{setup.current_stage}}</td>
+                                <td>{{setup.project_name}}</td>
+                                <td>{{setup.client_name}}</td>
+                                <td>{{setup.profile_name}}</td>
+                                <td>{{getStageNumber(setup.current_stage)}}</td>
                                 <!-- <td>{{account.cpc }}</td>
                                 <td>{{account.click }}</td>
                                 <td>{{account.cost }}</td>
@@ -137,11 +143,11 @@
                             </a>
                         </li>
                         <!-- <li>
-                <a href="#">2</a>
-              </li>
-              <li>
-                <a href="#">3</a>
-              </li> -->
+                            <a href="#">2</a>
+                        </li>
+                        <li>
+                            <a href="#">3</a>
+                        </li> -->
                         <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
                             <a (click)="setPage(pager.totalPages)">
                                 <i class="fa fa-angle-right"></i>

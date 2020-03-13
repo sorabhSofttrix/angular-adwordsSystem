@@ -2,16 +2,57 @@
     {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
   </button> -->
 
-<div class="card">
+<div class="card" *ngIf="setUpaccount">
+
+  <div class="card-header">
+    <form [formGroup]="detailForm">
+      <div class="row">
+        <div class="col-5">
+          <div class="form-group"
+            [ngClass]="{'has-error': detailForm.get('g_acc_id').invalid && detailForm.get('g_acc_id').dirty}">
+            <label>Google acc. id</label>
+            <input type="text" formControlName="g_acc_id" class="form-control"
+              onKeyPress="if(this.value.length==10) return false;" placeholder="Google acc. id" />
+          </div>
+        </div>
+
+        <div class="col-5">
+          <div class="form-group">
+            <label>Account name</label>
+            <input type="text" formControlName="acc_name" class="form-control" placeholder="Account name" />
+          </div>
+        </div>
+
+        <div class="col-2">
+          <br>
+          <button type="submit" [disabled]="btnDisabled" (click)="savGdetails()"
+            class="btn btn-primary btn-round ">{{btnTxt}}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
   <div class="card-body">
-    <mat-vertical-stepper #stepper *ngIf="setUpaccount">
+    <mat-vertical-stepper [linear]="'Enable linear mode'" #stepper>
       <mat-step [stepControl]="keywordsForm">
         <form [formGroup]="keywordsForm">
-          <ng-template matStepLabel>keywords</ng-template>
-          <mat-form-field>
-            <mat-label>Keyword File Url</mat-label>
-            <input matInput placeholder="Keyword URL" formControlName="keywords_url" required>
-          </mat-form-field>
+          <ng-template matStepLabel style="width: 100%;">
+            <div style="width: 50%;float: left;line-height: 3;">keywords</div>
+            <div style=" float: right;text-align: right;font-size: 11px;">
+              {{setUpaccount.keywords_user_name}}
+              <br>
+              {{setUpaccount.keywords_on | date : meduim}}
+            </div>
+          </ng-template>
+          <div class="row">
+            <div class="col-md-12">
+              <mat-form-field>
+                <mat-label>Keyword File Url</mat-label>
+                <input matInput placeholder="Keyword URL" formControlName="keywords_url" required>
+              </mat-form-field>
+            </div>
+          </div>
+
           <div>
             <button mat-button matStepperNext (click)="save('keyword_url')">Next</button>
 
@@ -20,7 +61,14 @@
       </mat-step>
       <mat-step [stepControl]="adcopiesForm">
         <form [formGroup]="adcopiesForm">
-          <ng-template matStepLabel>Ad. copies</ng-template>
+          <ng-template matStepLabel style="width: 100%;">
+            <div style="width: 50%;float: left;line-height: 3;">Ad. copies</div>
+            <div style=" float: right;text-align: right;font-size: 11px;">
+              {{setUpaccount.adcopies_user_name}}
+              <br>
+              {{setUpaccount.adcopies_on | date : meduim}}
+            </div>
+          </ng-template>
           <mat-form-field>
             <mat-label>Adcopies Url</mat-label>
             <input matInput formControlName="adcopies_url" placeholder="addcopies url" required>
@@ -33,25 +81,32 @@
       </mat-step>
       <mat-step [stepControl]="peerReviewForm">
         <form [formGroup]="peerReviewForm">
-          <ng-template matStepLabel>Peer review</ng-template>
-          <mat-checkbox formControlName="peer_review">Peer review </mat-checkbox>
+          <ng-template matStepLabel style="width: 100%;">
+            <div style="width: 50%;float: left;line-height: 3;">Peer review</div>
+            <div style=" float: right;text-align: right;font-size: 11px;">
+              {{setUpaccount.peer_review_user_name}}
+              <br>
+              {{setUpaccount.peer_review_on | date : meduim}}
+            </div>
+          </ng-template>
+          <mat-checkbox formControlName="peer_review" (change)="enableValidator()">Peer review </mat-checkbox>
           <br>
           <mat-form-field>
             <mat-label>keywords score</mat-label>
             <input matInput formControlName="keywords_score" placeholder="Keyword score" size="2" maxlength="2"
-              (keyup)="digitKeyOnly($event,'keywords_score')" required />
+              (keyup)="digitKeyOnly($event,'keywords_score')" />
           </mat-form-field>
           <br>
           <mat-form-field>
             <mat-label>Ad. copy score</mat-label>
             <input matInput formControlName="adcopies_score" size="2" maxlength="2"
-              (keyup)="digitKeyOnly($event,'adcopies_score')" placeholder="Ad. copies score" required>
+              (keyup)="digitKeyOnly($event,'adcopies_score')" placeholder="Ad. copies score">
           </mat-form-field>
           <br>
 
           <mat-form-field>
             <mat-label>Comment</mat-label>
-            <input matInput formControlName="comment" placeholder="Comment" required>
+            <input matInput formControlName="comment" placeholder="Comment">
           </mat-form-field>
 
           <div>
@@ -62,6 +117,14 @@
       </mat-step>
       <mat-step [stepControl]="clientKeyAdReviewForm">
         <form [formGroup]="clientKeyAdReviewForm">
+          <ng-template matStepLabel style="width: 100%;">
+            <div style="width: 50%;float: left;line-height: 3;">Client key ad. form</div>
+            <div style=" float: right;text-align: right;font-size: 11px;">
+              {{setUpaccount.client_keyad_user_name}}
+              <br>
+              {{setUpaccount.client_keyad_review_on | date : meduim}}
+            </div>
+          </ng-template>
           <ng-template matStepLabel>Client key ad. form</ng-template>
           <mat-checkbox formControlName="client_keyad_review">Client review</mat-checkbox>
           <br>
@@ -78,19 +141,35 @@
 
       <mat-step [stepControl]="campaignSetupForm">
         <form [formGroup]="campaignSetupForm">
-          <ng-template matStepLabel>Campaign setup</ng-template>
-          <mat-checkbox formControlName="campaign_setup">Campaign setup </mat-checkbox>
+          <ng-template matStepLabel style="width: 100%;">
+            <div style="width: 50%;float: left;line-height: 3;">Campaign setup</div>
+            <div style=" float: right;text-align: right;font-size: 11px;">
+              {{setUpaccount.campaign_setup_user_name}}
+              <br>
+              {{setUpaccount.campaign_setup_on | date : meduim}}
+            </div>
+          </ng-template>
+          <mat-checkbox formControlName="campaign_setup" (change)="checkAcc_id()">Campaign setup </mat-checkbox>
           <br>
           <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext (click)="save('campaign_setup')">Next</button>
+            <button mat-button matStepperNext *ngIf="campaignSetupForm.get('campaign_setup').value"
+              (click)="save('campaign_setup')">Next</button>
+            <!-- <button mat-button matStepperNext >Save</button> -->
           </div>
         </form>
       </mat-step>
 
       <mat-step [stepControl]="clientReviewForm">
         <form [formGroup]="clientReviewForm">
-          <ng-template matStepLabel>Client review</ng-template>
+          <ng-template matStepLabel style="width: 100%;">
+            <div style="width: 50%;float: left;line-height: 3;">Client review</div>
+            <div style=" float: right;text-align: right;font-size: 11px;">
+              {{setUpaccount.client_review_user_name}}
+              <br>
+              {{setUpaccount.client_review_confirmed_on | date : meduim}}
+            </div>
+          </ng-template>
           <mat-checkbox formControlName="client_review">Client review</mat-checkbox>
           <br>
           <div>
@@ -102,7 +181,14 @@
 
       <mat-step [stepControl]="conversionTrackingForm">
         <form [formGroup]="conversionTrackingForm">
-          <ng-template matStepLabel>Conversion tracking</ng-template>
+          <ng-template matStepLabel style="width: 100%;">
+            <div style="width: 50%;float: left;line-height: 3;">Conversion tracking</div>
+            <div style=" float: right;text-align: right;font-size: 11px;">
+              {{setUpaccount.conversion_tracking_user_name}}
+              <br>
+              {{setUpaccount.conversion_tracking_on | date : meduim}}
+            </div>
+          </ng-template>
           <mat-checkbox formControlName="conversion_tracking">Conversion tracking</mat-checkbox>
           <br>
           <div>
@@ -114,7 +200,14 @@
 
       <mat-step [stepControl]="googleAnalyticsForm">
         <form [formGroup]="googleAnalyticsForm">
-          <ng-template matStepLabel>Google analytics</ng-template>
+          <ng-template matStepLabel style="width: 100%;">
+            <div style="width: 50%;float: left;line-height: 3;">Google analytics</div>
+            <div style=" float: right;text-align: right;font-size: 11px;">
+              {{setUpaccount.google_analytics_user_name}}
+              <br>
+              {{setUpaccount.google_analytics_on | date : meduim}}
+            </div>
+          </ng-template>
           <mat-checkbox formControlName="google_analytics">Google analytics</mat-checkbox>
           <br>
           <div>
@@ -126,6 +219,14 @@
 
       <mat-step [stepControl]="gtmForm">
         <form [formGroup]="gtmForm">
+          <ng-template matStepLabel style="width: 100%;">
+            <div style="width: 50%;float: left;line-height: 3;">GTM</div>
+            <div style=" float: right;text-align: right;font-size: 11px;">
+              {{setUpaccount.gtm_user_name}}
+              <br>
+              {{setUpaccount.gtm_on | date : meduim}}
+            </div>
+          </ng-template>
           <ng-template matStepLabel>GTM</ng-template>
           <mat-checkbox formControlName="gtm">GTM </mat-checkbox>
           <br>

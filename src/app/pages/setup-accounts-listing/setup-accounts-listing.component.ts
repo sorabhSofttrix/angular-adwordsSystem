@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AdAccount, AccountStatus } from 'app/api-services/api-types/api-types.service';
+import { AdAccount, AccountStatus, SetupStages } from 'app/api-services/api-types/api-types.service';
 import { Subject } from 'rxjs';
 import { SharedService } from 'app/api-services/shared.service';
 import { ApiServiceService } from 'app/api-services/api-service/api-service.service';
@@ -19,6 +19,7 @@ export class SetupAccountsListingComponent {
 
   loading: boolean = true;
   allAccounts: AdAccount[];
+
 
   pager: any = {};
   pagedItems: any[];
@@ -61,15 +62,15 @@ export class SetupAccountsListingComponent {
       });
   }
   getCurrentSatge(item: any) {
-    if(!item.keywords) { return 'Keywords';}
-    if(!item.adcopies) { return 'Addcopies';}
-    if(!item.peer_review) { return 'Peer review';}
-    if(!item.client_keyad_review) { return 'Client keyword review';}
-    if(!item.campaign_setup) { return 'Campaign setup';}
-    if(!item.client_review) { return 'Client review';}
-    if(!item.conversion_tracking) { return 'Conversion tracking';}
-    if(!item.google_analytics) { return 'Google analytics';}
-    if(!item.gtm) { return 'Gtm';}
+    if (!item.keywords) { return 'Keywords'; }
+    if (!item.adcopies) { return 'Addcopies'; }
+    if (!item.peer_review) { return 'Peer review'; }
+    if (!item.client_keyad_review) { return 'Client keyword review'; }
+    if (!item.campaign_setup) { return 'Campaign setup'; }
+    if (!item.client_review) { return 'Client review'; }
+    if (!item.conversion_tracking) { return 'Conversion tracking'; }
+    if (!item.google_analytics) { return 'Google analytics'; }
+    if (!item.gtm) { return 'Gtm'; }
 
   }
   addCount(id?: number) {
@@ -193,4 +194,8 @@ export class SetupAccountsListingComponent {
     this.pagedItems = filteredItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 
+  getStageNumber(stage) {
+    let val = stage.toLowerCase().replace(/\s/g, '_');
+    return `${SetupStages[val]}/10 ${val}`;
+  }
 }
