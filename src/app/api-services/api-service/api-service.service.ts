@@ -232,8 +232,8 @@ export class ApiServiceService {
     return this.http.get(this.baseUrl + 'api/auth/get-setup-accounts?id=' + id)
   }
 
-  updateStages(id, stageBody): Observable<any> {
-    return this.http.post(this.baseUrl + 'api/auth/update-stage', id, stageBody)
+  updateStages(stageBody): Observable<any> {
+    return this.http.post(this.baseUrl + 'api/auth/update-stage', stageBody)
   }
 
   //setupaccounts API call

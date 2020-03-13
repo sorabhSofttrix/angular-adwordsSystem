@@ -244,4 +244,5 @@ export interface Stages {
   google_analytics_user_name?: string,
   gtm_user_name?: string,
   comment?: string
+  acc_id?: number
 }

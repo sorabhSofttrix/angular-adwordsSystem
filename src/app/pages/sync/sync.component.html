@@ -88,32 +88,20 @@
                             <th><input type="checkbox" [(ngModel)]="selectedAll" (change)="selectAll();" /></th>
                             <th>Acc. id</th>
                             <th>Acc. name</th>
-                            <th>CPA</th>
-                            <th>CPC</th>
-                            <th>Clicks</th>
-                            <th>Cost</th>
-                            <th>Impression</th>
-                            <th>Conversion</th>
                             <th>Status</th>
-                            <th>Total conversion</th>
+                            <!-- <th>Total conversion</th> -->
 
                         </thead>
                         <tbody>
                             <tr *ngFor="let acc of pagedItems">
                                 <td>
-                                    <input type="checkbox" class="checkbox workwit" id="{{acc.id}}" [(ngModel)]="acc.selected"
-                                        (click)="checkIfAllSelected($event);">
+                                    <input type="checkbox" class="checkbox workwit" id="{{acc.id}}"
+                                        [(ngModel)]="acc.selected" (click)="checkIfAllSelected($event);">
                                 </td>
                                 <td>{{acc.g_acc_id}}</td>
                                 <td>{{acc.acc_name ? acc.acc_name : acc.g_acc_id}}</td>
-                                <td>{{acc.cpa}}</td>
-                                <td>{{acc.cpc }}</td>
-                                <td>{{acc.click }}</td>
-                                <td>{{acc.cost }}</td>
-                                <td>{{acc.impressions }}</td>
-                                <td>{{acc.conversion }}</td>
                                 <td>{{acc.acc_status }}</td>
-                                <td>{{acc.totalConversion }}</td>
+                                <!-- <td>{{acc.totalConversion }}</td> -->
 
                             </tr>
                         </tbody>
