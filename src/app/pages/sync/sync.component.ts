@@ -90,12 +90,12 @@ export class SyncComponent implements OnInit {
       if (res['status']) {
         // this.ngxLoader.stopLoader('loader-01');
         this.unAssignedAcc = res['data'];
+        this.setPage(1);
         if (!this.unAssignedAcc.length) {
           this.errorMessage = 'There is no account to assign.';
           this.btnDisable = true
           return true
         }
-        this.setPage(1);
       }
     })
 

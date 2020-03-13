@@ -229,7 +229,8 @@ export class ApiServiceService {
   }
 
   getSetUpAccountById(id): Observable<any> {
-    return this.http.get(this.baseUrl + 'api/auth/get-setup-accounts?id=' + id)
+    let data = { 'acc_id': id };
+    return this.http.post(this.baseUrl + 'api/auth/update-stage', data)
   }
 
   updateStages(stageBody): Observable<any> {

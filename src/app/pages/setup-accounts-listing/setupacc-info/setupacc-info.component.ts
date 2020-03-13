@@ -35,7 +35,7 @@ export class SetupaccInfoComponent implements OnInit {
     if (this.acc_id) {
       this.api.getSetUpAccountById(this.acc_id).subscribe((res) => {
         if (res['status']) {
-          this.setUpaccount = res['data'][0];
+          this.setUpaccount = res['data'];
           this.initForm();
         }
       })
@@ -51,7 +51,7 @@ export class SetupaccInfoComponent implements OnInit {
       keywords_url: [this.setUpaccount ? this.setUpaccount.keywords_url : '', Validators.required]
     });
     (this.setUpaccount.keywords) ? this.keywordsForm.get('keywords_url').disable() : '';
-    
+
     this.adcopiesForm = this._formBuilder.group({
       adcopies_url: [this.setUpaccount ? this.setUpaccount.adcopies_url : '', Validators.required]
     });
@@ -59,7 +59,7 @@ export class SetupaccInfoComponent implements OnInit {
 
     this.peerReviewForm = this._formBuilder.group({
       peer_review: [this.setUpaccount ? this.setUpaccount.peer_review : '',], //checkbox
-      keywords_score: [this.setUpaccount ? this.setUpaccount.keywords_score : '',],
+      keywords_score: [this.setUpaccount ? this.setUpaccount.keywords_score : '', Validators.max(10)],//number
       adcopies_score: [this.setUpaccount ? this.setUpaccount.adcopies_score : '',],
       comment: [''],
       sub_type: ['peer_review'],
@@ -140,13 +140,24 @@ export class SetupaccInfoComponent implements OnInit {
 
 
     if (data) {
-      data.acc_id = (this.setUpaccount.acc_id) ? this.setUpaccount.acc_id : this.setUpaccount.id;
+      data.acc_id = (this.setUpaccount.acc_id) ? this.setUpaccount.acc_id : '';
+      data.stage_id = this.setUpaccount.id ? this.setUpaccount.id : '';
       // data.acc_id = this.setUpaccount.id;
       console.log(data)
       this.saveForm(data);
     }
   }
 
+
+  digitKeyOnly(e, target) {
+    let val = e.target.value;
+    if(isNaN(val) || parseInt(val) > 10 || parseInt(val) < 0) {
+      this.peerReviewForm.get(target).setValue(1);
+    } else {
+      this.peerReviewForm.get(target).setValue(val.trim());
+    }
+    return false;
+  }
   saveForm(form) {
     Helpers.setLoading(true)
     console.log(form)
