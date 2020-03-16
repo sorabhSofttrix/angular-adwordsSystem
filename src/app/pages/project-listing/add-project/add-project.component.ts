@@ -174,6 +174,7 @@ export class AddProjectComponent implements OnInit, OnResolveResponseListener {
     this.projectForm.get('client_name').markAsDirty();
     this.projectForm.get('email').markAsDirty();
     if (this.projectForm.invalid) {
+      this.toastr.error('please fill the required fields')
       return;
     }
     if (typeof this.projectForm.value.contract_start_date !== 'string')
@@ -252,7 +253,7 @@ export class AddProjectComponent implements OnInit, OnResolveResponseListener {
     modalRef.componentInstance.index = index
     modalRef.componentInstance.project_id = this.project.id;
     modalRef.componentInstance.listener = this;
-   
+
   }
 
   onApiResolve(id) {

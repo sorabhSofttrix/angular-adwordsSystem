@@ -93,7 +93,7 @@
           <br>
           <mat-form-field>
             <mat-label>keywords score</mat-label>
-            <input matInput formControlName="keywords_score" placeholder="Keyword score" size="2" maxlength="2"
+            <input matInput formControlName="keywords_score" placeholder="Keyword score"
               (keyup)="digitKeyOnly($event,'keywords_score')" />
           </mat-form-field>
           <br>
@@ -232,7 +232,27 @@
           <br>
           <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext (click)="save('gtm')">Complete</button>
+            <button mat-button matStepperNext (click)="save('gtm')">Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="compaignLiveForm">
+        <form [formGroup]="compaignLiveForm">
+          <ng-template matStepLabel style="width: 100%;">
+            <div style="width: 50%;float: left;line-height: 3;">Campaign live</div>
+            <div style=" float: right;text-align: right;font-size: 11px;">
+              {{setUpaccount.campaign_live_user_name}}
+              <br>
+              {{setUpaccount.campaign_live_on | date : meduim}}
+            </div>
+          </ng-template>
+          <ng-template matStepLabel>GTM</ng-template>
+          <mat-checkbox formControlName="campaign_live">Campaign live </mat-checkbox>
+          <br>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext (click)="save('campaign_live')">Complete</button>
           </div>
         </form>
       </mat-step>

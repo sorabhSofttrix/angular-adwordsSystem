@@ -71,6 +71,7 @@ export class SetupAccountsListingComponent {
     if (!item.conversion_tracking) { return 'Conversion tracking'; }
     if (!item.google_analytics) { return 'Google analytics'; }
     if (!item.gtm) { return 'Gtm'; }
+    if (!item.campaign_live) { return 'campaign live'; }
 
   }
   addCount(id?: number) {
@@ -104,12 +105,14 @@ export class SetupAccountsListingComponent {
           }
 
           if (this.searchText && this.status_filter == 'All') {
-            return (!item.acc_name) ? false :
-              (item.acc_name.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1
-                || item.g_acc_id.indexOf(this.searchText) > -1
-                || item.director_name.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1
-                || item.manager_name.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1
-              )
+            return (item.acc_name.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1
+              || item.g_acc_id.indexOf(this.searchText) > -1
+              || item.director_name.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1
+              || item.project_name.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1
+              || item.client_name.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1
+              || item.profile_name.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1
+              || item.manager_name.toLowerCase().indexOf(this.searchText.toLowerCase()) > -1
+            )
           }
         }
       );

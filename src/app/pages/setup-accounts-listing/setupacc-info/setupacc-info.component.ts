@@ -23,16 +23,12 @@ export class SetupaccInfoComponent implements OnInit {
   googleAnalyticsForm: FormGroup;
   gtmForm: FormGroup;
   detailForm: FormGroup;
+  compaignLiveForm: FormGroup;
 
   acc_id: any;
   setUpaccount: Stages;
   btnTxt: string = 'Save'
   btnDisabled = true;
-
-  stages: any = [
-    {id:1,'stage':'keywords'}
-  ]
-
 
   constructor(private _formBuilder: FormBuilder, private activateddRoute: ActivatedRoute, private router: Router,
     private api: ApiServiceService, private toastr: ToastrService) {
@@ -127,6 +123,11 @@ export class SetupaccInfoComponent implements OnInit {
     });
     (this.setUpaccount.gtm) ? this.gtmForm.disable() : '';
 
+    this.compaignLiveForm = this._formBuilder.group({
+      campaign_live: [this.setUpaccount ? this.setUpaccount.campaign_live : ''], //checkbox
+    });
+    (this.setUpaccount.campaign_live) ? this.gtmForm.disable() : '';
+
   }
 
   enableValidator() {
@@ -168,7 +169,6 @@ export class SetupaccInfoComponent implements OnInit {
       data = this.adcopiesForm.value;
     }
 
-
     if (formvVal == 'peer_review' && this.setUpaccount.peer_review != this.peerReviewForm.get('peer_review').value) {
       data = this.peerReviewForm.value;
     }
@@ -193,6 +193,9 @@ export class SetupaccInfoComponent implements OnInit {
 
     if (formvVal == 'gtm' && this.setUpaccount.gtm != this.gtmForm.get('gtm').value) {
       data = this.gtmForm.value;
+    }
+    if (formvVal == 'campaign_live' && this.setUpaccount.campaign_live != this.compaignLiveForm.get('campaign_live').value) {
+      data = this.compaignLiveForm.value;
     }
 
 

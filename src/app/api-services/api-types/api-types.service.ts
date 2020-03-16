@@ -94,6 +94,9 @@ export interface AdAccount {
   up_comments?: string,
   rating?: number,
   ascs_id?: number,
+  project_name?: string;
+  client_name?: string;
+  profile_name?: string
 }
 
 export interface AccountHistory {
@@ -244,7 +247,8 @@ export interface Stages {
   google_analytics_user_name?: string,
   gtm_user_name?: string,
   comment?: string
-  acc_id?: number
+  acc_id?: number,
+  campaign_live?: boolean
 }
 
 export enum SetupStages {
