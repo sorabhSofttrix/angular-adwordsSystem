@@ -34,6 +34,10 @@
 
   <div class="card-body">
     <mat-vertical-stepper [linear]="'Enable linear mode'" #stepper>
+      <!-- change default 'edit' icon -->
+      <!-- <ng-template matStepperIcon="number">
+        <mat-icon>done</mat-icon>
+      </ng-template> -->
       <mat-step [stepControl]="keywordsForm">
         <form [formGroup]="keywordsForm">
           <ng-template matStepLabel style="width: 100%;">
