@@ -45,51 +45,61 @@ export class DashboardComponent implements OnInit {
       this.closed = this.currentUser.dashboard.accounts.closed
   }
 
+  getFilteredValue(value, month) {
+    let getMonth = (new Date()).getMonth() + 1;
+    return (month > getMonth) ? null : (value) ? value : 0;
+  }
+
+
   getAccSummary() {
     this.api.getAccountSummary().subscribe((res) => {
       if (res['status']) {
         this.acc_status = res['data'];
-        this.sourceActive = [0,
-          this.acc_status['02']['active'],
-          this.acc_status['03']['active'],
-          this.acc_status['04']['active'],
-          this.acc_status['05']['active'],
-          this.acc_status['06']['active'],
-          this.acc_status['07']['active'],
-          this.acc_status['08']['active'],
-          this.acc_status['09']['active'],
-          this.acc_status['10']['active'],
-          this.acc_status['11']['active'],
-          this.acc_status['12']['active'],
+        this.sourceActive = [
+          this.getFilteredValue(this.acc_status['01']['active'], 1),
+          this.getFilteredValue(this.acc_status['02']['active'], 2),
+          this.getFilteredValue(this.acc_status['03']['active'], 3),
+          this.getFilteredValue(this.acc_status['04']['active'], 4),
+          this.getFilteredValue(this.acc_status['05']['active'], 5),
+          this.getFilteredValue(this.acc_status['06']['active'], 6),
+          this.getFilteredValue(this.acc_status['07']['active'], 7),
+          this.getFilteredValue(this.acc_status['08']['active'], 8),
+          this.getFilteredValue(this.acc_status['09']['active'], 9),
+          this.getFilteredValue(this.acc_status['10']['active'], 10),
+          this.getFilteredValue(this.acc_status['11']['active'], 11),
+          this.getFilteredValue(this.acc_status['12']['active'], 12)
         ]
 
-        this.sourcePaused = [0,
-          this.acc_status['02']['paused'],
-          this.acc_status['03']['paused'],
-          this.acc_status['04']['paused'],
-          this.acc_status['05']['paused'],
-          this.acc_status['06']['paused'],
-          this.acc_status['07']['paused'],
-          this.acc_status['08']['paused'],
-          this.acc_status['09']['paused'],
-          this.acc_status['10']['paused'],
-          this.acc_status['11']['paused'],
-          this.acc_status['12']['paused'],
+        this.sourcePaused = [
+          this.getFilteredValue(this.acc_status['01']['paused'], 1),
+          this.getFilteredValue(this.acc_status['02']['paused'], 2),
+          this.getFilteredValue(this.acc_status['03']['paused'], 3),
+          this.getFilteredValue(this.acc_status['04']['paused'], 4),
+          this.getFilteredValue(this.acc_status['05']['paused'], 5),
+          this.getFilteredValue(this.acc_status['06']['paused'], 6),
+          this.getFilteredValue(this.acc_status['07']['paused'], 7),
+          this.getFilteredValue(this.acc_status['08']['paused'], 8),
+          this.getFilteredValue(this.acc_status['09']['paused'], 9),
+          this.getFilteredValue(this.acc_status['10']['paused'], 10),
+          this.getFilteredValue(this.acc_status['11']['paused'], 11),
+          this.getFilteredValue(this.acc_status['12']['paused'], 12),
         ]
 
-        this.sourceClosed = [0,
-          this.acc_status['02']['closed'],
-          this.acc_status['03']['closed'],
-          this.acc_status['04']['closed'],
-          this.acc_status['05']['closed'],
-          this.acc_status['06']['closed'],
-          this.acc_status['07']['closed'],
-          this.acc_status['08']['closed'],
-          this.acc_status['09']['closed'],
-          this.acc_status['10']['closed'],
-          this.acc_status['11']['closed'],
-          this.acc_status['12']['closed'],
+        this.sourceClosed = [
+          this.getFilteredValue(this.acc_status['01']['closed'], 1),
+          this.getFilteredValue(this.acc_status['02']['closed'], 2),
+          this.getFilteredValue(this.acc_status['03']['closed'], 3),
+          this.getFilteredValue(this.acc_status['04']['closed'], 4),
+          this.getFilteredValue(this.acc_status['05']['closed'], 5),
+          this.getFilteredValue(this.acc_status['06']['closed'], 6),
+          this.getFilteredValue(this.acc_status['07']['closed'], 7),
+          this.getFilteredValue(this.acc_status['08']['closed'], 8),
+          this.getFilteredValue(this.acc_status['09']['closed'], 9),
+          this.getFilteredValue(this.acc_status['10']['closed'], 10),
+          this.getFilteredValue(this.acc_status['11']['closed'], 11),
+          this.getFilteredValue(this.acc_status['12']['closed'], 12),
         ]
+
 
         this.dashboardGraphFunction();
       }

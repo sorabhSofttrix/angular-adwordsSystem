@@ -31,7 +31,7 @@ export class AddProjectComponent implements OnInit, OnResolveResponseListener {
   google_accounts: any;
   additional_files: any;
   modelChanged: Subject<string> = new Subject<string>();
-
+  btnDisable: boolean = false
 
   constructor(private formBuilder: FormBuilder, private api: ApiServiceService, private modalService: NgbModal,
     private toastr: ToastrService, public activeModal: NgbActiveModal) {
@@ -150,6 +150,7 @@ export class AddProjectComponent implements OnInit, OnResolveResponseListener {
 
 
   search(val) {
+    this.btnDisable = true
     this.modelChanged.next(val)
 
   }
@@ -165,7 +166,11 @@ export class AddProjectComponent implements OnInit, OnResolveResponseListener {
         );
 
         this.toastr.error(res['data'])
+        this.btnDisable = false;
       }
+    }, (err) => {
+      this.btnDisable = false;
+
     })
   }
 

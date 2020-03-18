@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
       Helpers.setLoading(true)
       this.api.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(res => {
         if (res.status) {
-          Helpers.setLoading(false)
+          // Helpers.setLoading(false)
           this.authService.login(res.data);
           this.router.navigate(['dashboard']);
           this.initForm();
