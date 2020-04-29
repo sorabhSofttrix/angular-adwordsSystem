@@ -6,6 +6,6 @@
 export const environment = {
   production: false,
   // url: 'http://744d0a44.ngrok.io/'
-  url: 'http://localhost:8000/'
+  url: 'http://backendadwords.softtrixhub.com/'
 
 };

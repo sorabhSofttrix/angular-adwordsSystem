@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { AuthServiceService } from '../../auth-service/auth-service.service';
 import { catchError } from 'rxjs/internal/operators';
 import { Router } from '@angular/router';
+import { Helpers } from 'app/helpers';
+import { throwError } from 'rxjs/index';
 
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
@@ -25,18 +27,18 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     }
     request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
     // console.log('check->>>>', request);
-    return next.handle(request).pipe(
-      catchError((err, caught) => {
-        if (err.status === 400) {
-          this.authService.logout();
-          this.router.navigate(['login']);
-          // this.router.navigate(['/login'], {
-          //   // queryParams: { redirectUrl: this.router.routerState.snapshot.url }
-          // });
-        }
-
-        return new Observable<HttpEvent<any>>();
-      })
+    // return next.handle(request);
+    return next.handle(request).pipe(catchError((err, caught) => {
+      if (err.status === 400) {
+        this.authService.logout();
+        this.router.navigate(['login']);
+        // this.router.navigate(['/login'], {
+        //   // queryParams: { redirectUrl: this.router.routerState.snapshot.url }
+        // });
+      }
+      Helpers.setLoading(false)
+      return throwError(err);
+    })
     );
   }
 }
