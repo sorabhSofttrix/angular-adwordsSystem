@@ -73,7 +73,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(AppRoutes, {
-      useHash: false
+      useHash: true
     }),
     SidebarModule,
     NavbarModule,
@@ -109,5 +109,6 @@ import { MatStepperModule } from '@angular/material/stepper';
   exports: [ResolveComponent, AccSpecificComponent, DeleteComponent, AddProfileComponent,
     AddClientComponent, AddProjectComponent],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }
