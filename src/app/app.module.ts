@@ -61,11 +61,6 @@ import { MatStepperModule } from '@angular/material/stepper';
     AddProjectComponent,
     TwoDigitDecimaNumberDirective,
 
-
-
-
-
-
   ],
   imports: [
     BrowserAnimationsModule,

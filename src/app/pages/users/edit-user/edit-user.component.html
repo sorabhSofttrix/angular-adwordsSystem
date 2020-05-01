@@ -1,0 +1,158 @@
+<div class="row" *ngIf="currentUser">
+    <div class="col-md-4">
+        <div class="card card-user">
+            <div class="image">
+                <img src="assets/img/damir-bosnjak.jpg" alt="...">
+            </div>
+            <div class="card-body">
+                <div class="author">
+                    <a href="javascript:void(0)">
+                        <img class="avatar border-gray"
+                            [src]="currentUser.avatar ? currentUser.avatar: 'assets/img/default-avatar.png'" alt="...">
+                        <h5 class="title">{{currentUser.name}}</h5>
+                    </a>
+                    <p class="description">
+                        {{currentUser.tag_line}}
+                    </p>
+                </div>
+                <p class="description text-center">
+                    {{currentUser.about}}
+                </p>
+                <hr>
+                <div class="text-center">
+                    <div class="row">
+
+                        <div class="col-md-3 col-sm-4 col-xs-6">
+                            <strong>{{currentUser.dashboard.accounts.all}}</strong><br><small>All</small>
+                        </div>
+                        <div class="col-md-3 col-sm-4 col-xs-6">
+                            <strong>{{currentUser.dashboard.accounts.closed}}</strong><br><small>Closed</small>
+                        </div>
+                        <div class="col-md-3 col-sm-4 col-xs-6">
+                            <strong>{{currentUser.dashboard.accounts.active}}</strong><br><small>Active</small>
+                        </div>
+                        <div class="col-md-3 col-sm-4 col-xs-6">
+                            <strong> {{currentUser.dashboard.accounts.paused}}</strong><br><small>Paused</small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card card-user">
+            <div class="card-header">
+                <h5 class="card-title">Edit User</h5>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="userForm" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group" [ngClass]="{'has-error': userRole.invalid && userRole.dirty}">
+                                <label>Role</label>
+                                <select class="form-control" formControlName="role">
+                                    <option value="">Select Role</option>
+                                    <option *ngFor="let roleItem of allRole" [value]="roleItem.key">{{roleItem.value}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6" *ngIf="false">
+                            <div class="form-group"
+                                [ngClass]="{'has-error': parentId.invalid && parentId.dirty && !selectedAdmin.value}">
+                                <label>Account Admin</label>
+                                <select class="form-control" formControlName="selected_admin">
+                                    <option value="">Select Admin</option>
+                                    <option *ngFor="let admin of accountAdmin.items" [value]="admin.id">{{admin.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6" *ngIf="false">
+                            <div class="form-group"
+                                [ngClass]="{'has-error': parentId.invalid && parentId.dirty && !selectedDirector.value}">
+                                <label>Account Director</label>
+                                <select class="form-control" formControlName="selected_director">
+                                    <option value="">Select Director</option>
+                                    <option *ngFor="let director of accountDirectors.items" [value]="director.id">
+                                        {{director.name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group" [ngClass]="{'has-error': name.invalid && name.dirty}">
+                                <label>Full name</label>
+                                <input type="text" formControlName="name" class="form-control" placeholder="Full Name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="form-group" [ngClass]="{'has-error': email.invalid && email.dirty}">
+                                <label>Email address</label>
+                                <input type="email" formControlName="email" class="form-control" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group" [ngClass]="{'has-error': password.invalid && password.dirty}">
+                                <label>Password</label>
+                                <input type="password" formControlName="password" class="form-control"
+                                    placeholder="Password">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Tag line</label>
+                                <input type="text" formControlName="tag_line" class="form-control"
+                                    placeholder="Tag Line">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Profile Image</label>
+                                <input #userPhoto type="file" accept="image/*" class="form-control"
+                                    (change)="fileChangeEvent($event)" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>About Me</label>
+                                <textarea class="form-control textarea" formControlName="about"
+                                    placeholder="About me"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert alert-danger" *ngIf="errorMessage">
+                                <span><b> Oops!</b> {{errorMessage}}</span>
+                            </div>
+                            <div class="alert alert-success" *ngIf="successMessage">
+                                <span>{{successMessage}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="update ml-auto mr-auto">
+                            <button type="submit" [disabled]="loading" (click)="submit()"
+                                class="btn btn-primary btn-round">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

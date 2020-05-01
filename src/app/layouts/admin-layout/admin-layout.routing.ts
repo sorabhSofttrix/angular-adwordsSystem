@@ -17,6 +17,7 @@ import { ProjectListingComponent } from 'app/pages/project-listing/project-listi
 import { ProjectInfoComponent } from 'app/pages/project-listing/project-info/project-info.component';
 import { SetupaccInfoComponent } from 'app/pages/setup-accounts-listing/setupacc-info/setupacc-info.component';
 import { SetupAccountsListingComponent } from 'app/pages/setup-accounts-listing/setup-accounts-listing.component';
+import { EditUserComponent } from 'app/pages/users/edit-user/edit-user.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
@@ -28,6 +29,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'account-info/:id', component: AccountInfoComponent, canActivate: [AuthGuardService] },
     { path: 'users', component: UsersComponent, canActivate: [AuthGuardService] },
     { path: 'users/:id', component: UsersComponent, canActivate: [AuthGuardService] },
+    { path: 'edit-users/:id', component: EditUserComponent, canActivate: [AuthGuardService] },
     { path: 'sync', component: SyncComponent, canActivate: [AuthGuardService] },
     { path: 'accAlerts', component: AccountAlertComponent, canActivate: [AuthGuardService] },
     {

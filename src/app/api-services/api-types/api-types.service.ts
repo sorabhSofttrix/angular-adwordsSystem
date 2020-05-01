@@ -32,6 +32,7 @@ export interface User {
   parent?: User;
   members?: Members;
   dashboard?: DashboardData;
+  avatar: string
 }
 
 export interface DashboardData {

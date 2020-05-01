@@ -10,6 +10,7 @@ import { validateFile, toFormData, covertStringDateToObject, covertDateObjectToS
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/internal/operators';
 import { DeleteComponent } from 'app/pages/delete/delete.component';
+import { AuthServiceService } from 'app/auth-service/auth-service.service';
 
 @Component({
   selector: 'app-add-project',
@@ -28,13 +29,18 @@ export class AddProjectComponent implements OnInit, OnResolveResponseListener {
   btnTxt: string = 'Save'
   @ViewChild('questionnaire', { static: false }) questionnaire: any;
   errorMessage: string
+  errorMessageimg: string
   google_accounts: any;
   additional_files: any;
   modelChanged: Subject<string> = new Subject<string>();
   btnDisable: boolean = false
 
   constructor(private formBuilder: FormBuilder, private api: ApiServiceService, private modalService: NgbModal,
-    private toastr: ToastrService, public activeModal: NgbActiveModal) {
+    private toastr: ToastrService, public activeModal: NgbActiveModal,
+    private authServive: AuthServiceService) {
+    this.authServive.tokenExpireCloselModals.subscribe(res => { //for close the modals after token get expiry
+      this.activeModal.dismiss();
+    })
     this.modelChanged.pipe(debounceTime(500))
       .subscribe(model => {
         this.veryfyId(model);
@@ -148,7 +154,6 @@ export class AddProjectComponent implements OnInit, OnResolveResponseListener {
   }
 
 
-
   search(val) {
     this.btnDisable = true
     this.modelChanged.next(val)
@@ -232,7 +237,7 @@ export class AddProjectComponent implements OnInit, OnResolveResponseListener {
       } else {
         this.projectForm.get('questionnaire').setValue('');
         this.questionnaire.nativeElement.value = ""
-        this.errorMessage = validateFileMsg;
+        this.errorMessageimg = validateFileMsg;
       }
     }
   }

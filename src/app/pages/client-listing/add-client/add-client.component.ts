@@ -41,7 +41,7 @@ export class AddClientComponent implements OnInit {
   initForm() {
     this.clientForm = this.formBuilder.group({
       client_name: [this.client ? this.client.client_name : '', Validators.compose([Validators.required])],
-      email: [this.client ? this.client.email : '', Validators.compose([Validators.required, Validators.email])],
+      email: [this.client ? this.client.email : ''],
       skype: [this.client ? this.client.skype : ''],
       phone: [this.client ? this.client.phone : ''],
       // sortOrder: [this.reason ? this.reason.sortOrder : ''],
@@ -49,7 +49,6 @@ export class AddClientComponent implements OnInit {
   }
 
   get client_name() { return this.clientForm.get('client_name'); }
-  get email() { return this.clientForm.get('email'); }
 
 
   save() {

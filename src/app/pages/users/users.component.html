@@ -11,6 +11,10 @@
               [src]="currentUser.avatar ? currentUser.avatar: 'assets/img/default-avatar.png'" alt="...">
             <h5 class="title">{{currentUser.name}}</h5>
           </a>
+          <img *ngIf="!hideEditOption" src="assets/img/edit.png" style="cursor: pointer; width: 21px; "
+            routerLink="/edit-users/{{currentUser.id}}" title="Edit profile" alt="">
+          <!-- <i *ngIf="!hideEditOption" class="nc-icon nc-key-25" style="cursor: pointer;font-weight: 800;"
+            routerLink="/edit-users/{{currentUser.id}}" title="Edit profile"></i> -->
           <p class="description">
             {{currentUser.tag_line}}
           </p>

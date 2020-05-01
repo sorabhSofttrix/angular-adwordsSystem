@@ -43,6 +43,7 @@ import { ProjectListingComponent } from 'app/pages/project-listing/project-listi
 import { ProjectInfoComponent } from 'app/pages/project-listing/project-info/project-info.component';
 import { SetupaccInfoComponent } from 'app/pages/setup-accounts-listing/setupacc-info/setupacc-info.component';
 import { SetupAccountsListingComponent } from 'app/pages/setup-accounts-listing/setup-accounts-listing.component';
+import { EditUserComponent } from 'app/pages/users/edit-user/edit-user.component';
 
 
 @NgModule({
@@ -78,6 +79,7 @@ import { SetupAccountsListingComponent } from 'app/pages/setup-accounts-listing/
     AddAccountComponent,
     AccountInfoComponent,
     UsersComponent,
+    EditUserComponent,
     SyncComponent,
     AccountAlertComponent,
     CategoryPipe,

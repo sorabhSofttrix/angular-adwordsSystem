@@ -9,6 +9,8 @@ const TOKEN_KEY = 'auth-token';
 })
 export class AuthServiceService {
 
+  tokenExpireCloselModals: BehaviorSubject<any> = new BehaviorSubject('');
+
   authenticationState = new BehaviorSubject(false);
   token: TokenResponse;
   constructor(private router: Router, ) {

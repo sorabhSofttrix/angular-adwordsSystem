@@ -6,12 +6,15 @@ import { catchError } from 'rxjs/internal/operators';
 import { Router } from '@angular/router';
 import { Helpers } from 'app/helpers';
 import { throwError } from 'rxjs/index';
+import { ApiServiceService } from '../api-service/api-service.service';
 
 export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 
 @Injectable()
 export class HttpConfigInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthServiceService, private router: Router) {
+  constructor(
+    private authService: AuthServiceService, private router: Router
+  ) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -29,12 +32,10 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     // console.log('check->>>>', request);
     // return next.handle(request);
     return next.handle(request).pipe(catchError((err, caught) => {
-      if (err.status === 400) {
+      if (err.status === 401 && err.error.error.includes('Token')) {
         this.authService.logout();
+        this.authService.tokenExpireCloselModals.next('');
         this.router.navigate(['login']);
-        // this.router.navigate(['/login'], {
-        //   // queryParams: { redirectUrl: this.router.routerState.snapshot.url }
-        // });
       }
       Helpers.setLoading(false)
       return throwError(err);

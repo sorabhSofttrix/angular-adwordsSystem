@@ -116,8 +116,8 @@
                         <label>Questionnaire</label>
                         <input #questionnaire type="file" class="form-control" (change)="fileChangeEvent($event)" />
                     </div>
-                    <div class="alert alert-danger" *ngIf="errorMessage">
-                        <span><b> Oops!</b> {{errorMessage}}</span>
+                    <div class="alert alert-danger" *ngIf="errorMessageimg">
+                        <span><b> Oops!</b> {{errorMessageimg}}</span>
                     </div>
                     <!-- <div class="row">
                         <div class="col-md-4" style=" padding: 1px 2px; " *ngFor="let im of project.additional_files">
@@ -138,9 +138,9 @@
                         <input #additionalfiles multiple type="file" class="form-control"
                             (change)="additionalFileChangeEvent($event)" />
                     </div>
-                    <div class="alert alert-danger" *ngIf="errorMessage">
+                    <!-- <div class="alert alert-danger" *ngIf="errorMessage">
                         <span><b> Oops!</b> {{errorMessage}}</span>
-                    </div>
+                    </div> -->
                     <br>
                     <div class="row" *ngIf="project">
                         <div class="col-md-4" style=" padding: 1px 2px; "

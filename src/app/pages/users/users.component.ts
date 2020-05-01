@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'app/api-services/api-types/api-types.service';
+import { User, UserRoles } from 'app/api-services/api-types/api-types.service';
 import { AuthServiceService } from 'app/auth-service/auth-service.service';
 import { ApiServiceService } from 'app/api-services/api-service/api-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -47,6 +47,9 @@ export class UsersComponent implements OnInit {
   successMessage: string = '';
   loading: boolean = true;
   routeData: any;
+  getIdByRoute: any;
+  hideEditOption: boolean = true
+    ;
 
 
   constructor(private authService: AuthServiceService,
@@ -56,11 +59,20 @@ export class UsersComponent implements OnInit {
   ) {
     this.activatedRoute.params.subscribe(params => {
       this.routeData = params;
+      // this.getIdByRoute = (this.rout) this.routeData.id
+      if (this.routeData && this.routeData.id) {
+        this.hideEditOption = !(this.routeData.id == this.authService.token.user.id || this.authService.token.user.role_id == UserRoles["Super Admin"]);
+      } else {
+        this.hideEditOption = false;
+      }
+
       this.loadTeam();
     });
   }
 
   ngOnInit() {
+    this.currentUser = this.authService.token.user
+
   }
 
   loadTeam() {

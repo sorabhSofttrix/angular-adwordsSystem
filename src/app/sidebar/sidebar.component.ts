@@ -45,7 +45,7 @@ export class SidebarComponent implements OnInit {
 
     supeAdminMenus = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
     adminMenus = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
-    managerMenus = [1, 2, 5, 6, 8, 9, 10, 11];
+    managerMenus = [1, 2, 5, 6, 8, 9, 10, 11, 12];
 
     constructor(
         private authService: AuthServiceService,
