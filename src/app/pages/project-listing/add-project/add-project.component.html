@@ -148,8 +148,8 @@
                             <div class="card">
                                 <i class="fa fa-times cus" (click)="delteImg(im.id)" title="Close"
                                     aria-hidden="true"></i>
-                                <img class="card-img-top" style="object-fit: contain; " src="{{ im.file_url }}"
-                                    alt={{im.file_name}}>
+                                <img class="card-img-top" style="object-fit: contain;height: 84px; "
+                                    src="{{ im.file_url }}" alt={{im.file_name}}>
                                 <div class="card-body">
                                     <div class="card-title">{{im.name}}</div>
                                 </div>
@@ -204,7 +204,8 @@
                 *ngFor="let item of projectForm.get('google_accounts').controls; let  i = index; last as j">
                 <div class="col-md-5" [formGroupName]="i">
                     <div class="form-group">
-                        <input type="text" formControlName="g_acc_id" (keyup)="search($event.target.value)"
+                        <input type="number" formControlName="g_acc_id"
+                            onKeyPress="if(this.value.length==10) return false;" (keyup)="search($event.target.value)"
                             class="form-control" placeholder="Google account id" />
                     </div>
                 </div>
